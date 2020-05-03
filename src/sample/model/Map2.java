@@ -38,15 +38,7 @@ public class Map2 extends Pane {
         return Map2.instance;
     }
 
-    public void initWaves() {
-        int compt = 0;
-        while (compt < Settings.PNJ_NUMBER_FIRST_WAVE) {
-            PNJ pnj = new PNJ(20, 3);
-            pnjs.add(pnj);
-            this.addPnjToMap(pnj);
-            compt++;
-        }
-    }
+
 
     private void addPnjToMap(PNJ pnj) {
         this.getChildren().add(pnj.getImageView());

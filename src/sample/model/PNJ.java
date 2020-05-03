@@ -20,10 +20,14 @@ public class PNJ extends GameObject implements Movable, Runnable{
     private static int maxSleepTime;
 
 
-    public PNJ(int health, int speed){
+
+    public PNJ(int health, int speed, ImageView imageView){
         super();
         this.health = health;
         this.speed = speed;
+        this.imageView = imageView;
+        map.addPNJ(this);
+        map.addPnjToMap(this);
         //pathNumber = new Random().nextInt(map.getPaths().size()-1);
         //path = map.getPaths().get(pathNumber);
         path = map.getPaths().get(0);
@@ -31,9 +35,6 @@ public class PNJ extends GameObject implements Movable, Runnable{
         posY = new Random().nextInt(50) +75;
         sleeptime = 50;
         maxSleepTime = sleeptime;
-        imageView = LoadingImage.loadImage("pnj.png");
-        imageView.setX(posX);
-        imageView.setY(posY);
         t = new Thread(this);
         t.start();
 

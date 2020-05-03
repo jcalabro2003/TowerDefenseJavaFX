@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 
 public class StartButtonListener implements EventHandler<MouseEvent> {
     private Map pane;
+    private int iteration = 1;
 
     public StartButtonListener(Map pane){
         this.pane = pane;
@@ -14,6 +15,7 @@ public class StartButtonListener implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
-        pane.initWaves();
+        Wave wave = new Wave(iteration);
+        iteration++;
     }
 }

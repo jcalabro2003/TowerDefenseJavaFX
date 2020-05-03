@@ -52,6 +52,9 @@ public class Map extends Pane {
     public void addGameObject(GameObject g){
         gameObjects.add(g);
     }
+    public void addPNJ(PNJ pnj){
+        pnjs.add(pnj);
+    }
 
     public void setPaths(ArrayList<Path> paths) {
         this.paths = paths;
@@ -72,7 +75,7 @@ public class Map extends Pane {
         }
     }
 
-    private void addPnjToMap(PNJ pnj) {
+    public void addPnjToMap(PNJ pnj) {
         this.getChildren().add(pnj.getImageView());
     }
 }
