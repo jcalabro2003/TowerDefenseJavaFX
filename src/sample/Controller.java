@@ -1,7 +1,7 @@
 package sample;
 
 import sample.model.LoadingImage;
-import sample.model.Map2;
+import sample.model.Map;
 import sample.model.Settings;
 import sample.view.*;
 
@@ -20,7 +20,7 @@ public class Controller extends Application {
 
     private BorderPane mainPane;
     private BorderPane headerPane;
-    private Map2 bodyPane;
+    private Map bodyPane;
     private TilePane footerPane;
     private TilePane infoPane;
     private AnchorPane buttonsPane;
@@ -39,7 +39,7 @@ public class Controller extends Application {
 
     private void initMainPane() {
         headerPane = new BorderPane();
-        bodyPane = new Map2();
+        bodyPane = Map.getInstance();
         footerPane = new TilePane();
 
         footerPane.setStyle("-fx-background-color: red;");
@@ -62,9 +62,9 @@ public class Controller extends Application {
     }
 
     private void initInfoPane() {
-        ImageView imageViewHearth = LoadingImage.loadImage("images/hearth.png");
-        ImageView imageViewWave = LoadingImage.loadImage("images/wave.png");
-        ImageView imageViewMoney = LoadingImage.loadImage("images/money.png");
+        ImageView imageViewHearth = LoadingImage.loadImage("hearth.png");
+        ImageView imageViewWave = LoadingImage.loadImage("wave.png");
+        ImageView imageViewMoney = LoadingImage.loadImage("money.png");
 
         textHealthPoints = new Text();
         textHealthPoints.setText(Integer.toString(healthPoints));
@@ -96,6 +96,7 @@ public class Controller extends Application {
         startButton = new Button("Start");
 
         //listeners pour les boutons
+        speedButton.setOnMouseClicked(new SpeedButtonListener());
         startButton.setOnMouseClicked(new StartButtonListener(bodyPane));
 
         HBox hBoxButton= new HBox(Settings.SPACE_HBOX);

@@ -8,10 +8,10 @@ public class PNJFactory {
         PNJ res = null;
         switch (type){
             case ("basic"):
-                res = new PNJ(100, 5);
+                res = new PNJ(100, 3);
                 break;
             case ("tank"):
-                res = new PNJ(500, 3);
+                res = new PNJ(500, 1);
                 break;
             case ("fast"):
                 res = new PNJ(70, 10);

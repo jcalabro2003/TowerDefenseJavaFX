@@ -1,14 +1,14 @@
 package sample.view;
 
-import sample.model.Map2;
+import sample.model.*;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 public class StartButtonListener implements EventHandler<MouseEvent> {
-    private Map2 pane;
+    private Map pane;
 
-    public StartButtonListener(Map2 pane){
+    public StartButtonListener(Map pane){
         this.pane = pane;
     }
 

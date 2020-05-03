@@ -2,20 +2,20 @@ package sample.model;
 
 public class Point {
 
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
 
-    public Point(int x, int y){
+    public Point(double x, double y){
         this.x = x;
         this.y = y;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 }

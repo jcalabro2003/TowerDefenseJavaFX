@@ -18,8 +18,8 @@ public class Projectile extends GameObject implements Movable {
 
 
     @Override
-    public void move(int x, int y) {                                                // x et y sont les coordonées du PNJ target
-        double theta = Math.atan2(y - this.getPosY(), x - this.getPosX());          //calcul l'angle entre la droite qui relie le projectile et le pnj et l'axe des x
+    public void move(Point p) {                                                // x et y sont les coordonées du PNJ target
+        double theta = Math.atan2(p.getY() - this.getPosY(), p.getX() - this.getPosX());          //calcul l'angle entre la droite qui relie le projectile et le pnj et l'axe des x
         this.setPosX( (int) (this.posX + velocity * Math.cos(theta) ));             //déplacement du projectile vers le pnj
         this.setPosY( (int) (this.posY + velocity * Math.sin(theta) ));
 

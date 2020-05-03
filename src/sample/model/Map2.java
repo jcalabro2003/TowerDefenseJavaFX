@@ -10,17 +10,19 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class Map2 extends Pane {
-    ArrayList<PNJ2> pnjs;
+    ArrayList<PNJ> pnjs;
+    private static Map2 instance = null;
 
-    public Map2() {
+    private Map2() {
         super();
-        pnjs = new ArrayList<PNJ2>();
+        pnjs = new ArrayList<PNJ>();
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                for(PNJ2 w: pnjs) {
-                    w.update();
+                for(int i=0; i<pnjs.size(); i++) {
+                    pnjs.get(i).update();
+
                 }
 
             }
@@ -29,17 +31,24 @@ public class Map2 extends Pane {
         timer.play();
     }
 
+    public static Map2 getInstance(){
+        if (Map2.instance == null){
+            Map2.instance = new Map2();
+        }
+        return Map2.instance;
+    }
+
     public void initWaves() {
         int compt = 0;
         while (compt < Settings.PNJ_NUMBER_FIRST_WAVE) {
-            PNJ2 pnj = new PNJ2(this);
+            PNJ pnj = new PNJ(20, 3);
             pnjs.add(pnj);
             this.addPnjToMap(pnj);
             compt++;
         }
     }
 
-    private void addPnjToMap(PNJ2 pnj) {
+    private void addPnjToMap(PNJ pnj) {
         this.getChildren().add(pnj.getImageView());
     }
 }

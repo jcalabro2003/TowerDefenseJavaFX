@@ -2,5 +2,5 @@ package sample.model;
 
 public interface Movable {
 
-    void move(int x, int y);
+    void move(Point point);
 }
