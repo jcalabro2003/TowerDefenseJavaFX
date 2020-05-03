@@ -3,6 +3,8 @@ package sample;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import sample.model.PNJ;
+import sample.model.Preparation;
+import sample.model.Wave;
 
 public class SpeedButtonListener implements EventHandler<MouseEvent> {
     private int iteration = 1;
@@ -11,9 +13,13 @@ public class SpeedButtonListener implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
 
         if(iteration % 4 != 0){
-            PNJ.setSleeptime(PNJ.getSleeptime()/2);
+            PNJ.setSleepTime(PNJ.getSleepTime()/2);
+            Wave.setDuration(Wave.getDuration()/2);
+            Preparation.setDuration(Preparation.getDuration()/2);
         } else{
-            PNJ.setSleeptime(PNJ.getMaxSleepTime());
+            PNJ.setSleepTime(PNJ.getMaxSleepTime());
+            Wave.setDuration(Wave.getMaxDuration());
+            Preparation.setDuration(Preparation.getMaxDuration());
         }
         iteration++;
     }

@@ -16,7 +16,7 @@ public class PNJ extends GameObject implements Movable, Runnable{
     private ImageView imageView;
     private Thread t;
     private static final Object myKey = new Object();
-    private static int sleeptime;
+    private static int sleepTime;
     private static int maxSleepTime;
 
 
@@ -33,19 +33,19 @@ public class PNJ extends GameObject implements Movable, Runnable{
         path = map.getPaths().get(0);
         posX = new Random().nextInt(100) -50;
         posY = new Random().nextInt(50) +75;
-        sleeptime = 50;
-        maxSleepTime = sleeptime;
+        maxSleepTime = 50;
+        sleepTime = maxSleepTime;
         t = new Thread(this);
         t.start();
 
     }
 
-    public static void setSleeptime(int sleeptime) {
-        PNJ.sleeptime = sleeptime;
+    public static void setSleepTime(int sleepTime) {
+        PNJ.sleepTime = sleepTime;
     }
 
-    public static int getSleeptime() {
-        return sleeptime;
+    public static int getSleepTime() {
+        return sleepTime;
     }
 
     public static int getMaxSleepTime() {
@@ -91,7 +91,7 @@ public class PNJ extends GameObject implements Movable, Runnable{
             while (getDistance(p) > 20){
                 move(p);
                 try {
-                    Thread.sleep(sleeptime);
+                    Thread.sleep(sleepTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
