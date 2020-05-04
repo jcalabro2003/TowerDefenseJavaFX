@@ -4,6 +4,7 @@ import sample.model.Player;
 
 public class Game {
 
-
-    Player player = new Player();
+    public Game(){
+        Player player = new Player();
+    }
 }

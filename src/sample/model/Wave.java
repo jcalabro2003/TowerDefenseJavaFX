@@ -1,5 +1,7 @@
 package sample.model;
 
+import sample.InfoPane;
+
 import java.util.ArrayList;
 
 public class Wave implements Runnable{
@@ -11,7 +13,7 @@ public class Wave implements Runnable{
 
     public Wave(int waveNumber){
         Wave.waveNumber = waveNumber;
-        System.out.println(waveNumber);
+        InfoPane.updateWaveNumber();
         initWave();
         t = new Thread(this);
         t.start();
@@ -68,6 +70,10 @@ public class Wave implements Runnable{
 
     public static void setDuration(int duration) {
         Wave.duration = duration;
+    }
+
+    public static int getWaveNumber() {
+        return waveNumber;
     }
 
     @Override

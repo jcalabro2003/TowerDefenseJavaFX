@@ -11,6 +11,7 @@ public class  Preparation {
     private static int duration = 60000;
     private static int maxDuration = 60000;
     private static int preparationNumber = 0;
+    public int cycle = maxDuration/50;
 
     public Preparation() throws InterruptedException {
 
