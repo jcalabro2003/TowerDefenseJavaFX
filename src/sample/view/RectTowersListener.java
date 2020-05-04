@@ -22,7 +22,7 @@ public class RectTowersListener implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
 
-        Building building = BuildingsFactory.getInstance("classic tower", rec.getX(), rec.getY());
+        Building building = BuildingsFactory.getInstance("classic tower", rec.getX() + 12.5 , rec.getY() + 12.5);
 
         map.getChildren().add(building.getImageView());
     }
