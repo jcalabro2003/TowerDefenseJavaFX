@@ -26,7 +26,6 @@ public class Tower extends Building implements  Upgradable {
         imageView.setX(posX);
         imageView.setY(posY);
 
-
     }
 
     public void addPnjInRange(PNJ pnj){
