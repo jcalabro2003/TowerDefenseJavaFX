@@ -2,12 +2,11 @@ package sample.model;
 
 import sample.InfoPane;
 
-import java.util.ArrayList;
 
 public class Wave implements Runnable{
     private static int waveNumber;
-    private static int duration = 40000;
-    private static int maxDuration = 40000;
+    private static int duration = Settings.WAVE_MAX_DURATION;
+    private static int maxDuration = Settings.WAVE_MAX_DURATION;
     private Thread t;
     private static boolean ready = true;
 

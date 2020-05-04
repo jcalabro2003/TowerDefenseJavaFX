@@ -16,8 +16,9 @@ public class InfoPane extends TilePane implements StoppedObserver {
     private static int waveNumber;
     private int moneyAmount;
 
-    public InfoPane() {
-        PNJ.getObservers().add(this);
+    private static InfoPane instance = null;
+
+    private InfoPane() {
 
         ImageView imageViewHearth = LoadingImage.loadImage("hearth.png");
         ImageView imageViewWave = LoadingImage.loadImage("wave.png");
@@ -48,6 +49,13 @@ public class InfoPane extends TilePane implements StoppedObserver {
         hBoxMoney.setPadding(new Insets(5,5,5,5));
 
         getChildren().addAll(hBoxHealthPoints, hBoxWave, hBoxMoney);
+    }
+
+    public static InfoPane getInstance(){
+        if(InfoPane.instance == null){
+            InfoPane.instance = new InfoPane();
+        }
+        return InfoPane.instance;
     }
 
     @Override

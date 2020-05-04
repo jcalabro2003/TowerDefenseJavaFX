@@ -15,11 +15,11 @@ public class PNJFactory {
                 break;
             case ("tank"):
                 imageView = LoadingImage.loadImage("tank.png");
-                res = new PNJ(500, 1, imageView);
+                res = new PNJ(100, 1, imageView);
                 break;
             case ("fast"):
                 imageView = LoadingImage.loadImage("fastpnj.png");
-                res = new PNJ(70, 10, imageView);
+                res = new PNJ(10, 10, imageView);
                 break;
             default: break;
         }

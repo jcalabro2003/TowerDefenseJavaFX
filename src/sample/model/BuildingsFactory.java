@@ -10,7 +10,7 @@ public class BuildingsFactory {
         switch (type){
             case "classic tower":
                 imageView = LoadingImage.loadImage("pnj.png");
-                res = new Tower(5, 10, 2000, imageView, x, y);
+                res = new Tower(5, 300, 2000, imageView, x, y);
 
                 break;
             case "slow tower":

@@ -2,6 +2,7 @@ package sample.model;
 
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
+import sample.InfoPane;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,12 +18,19 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     private static final Object myKey = new Object();
     private static int sleepTime = 50;
     private static int maxSleepTime = 50;
-    private static ArrayList<StoppedObserver> observers = new ArrayList<>();
+    private ArrayList<StoppedObserver> observers = new ArrayList<>();
+    private Player player = Player.getInstance();
+    private InfoPane infoPane = InfoPane.getInstance();
+    private static final Object mykey2 = new Object();
 
 
 
     public PNJ(int health, int speed, ImageView imageView){
         super();
+        addObserver(map);
+        addObserver(player);
+        addObserver(infoPane);
+        addTowers();
         this.health = health;
         this.speed = speed;
         this.imageView = imageView;
@@ -54,16 +62,8 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
         return maxSleepTime;
     }
 
-    public void setHealth(int newHealth){
-        health = newHealth;
 
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public static ArrayList<StoppedObserver> getObservers() {
+    public  ArrayList<StoppedObserver> getObservers() {
         return observers;
     }
 
@@ -87,19 +87,34 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     @Override
     public void update() {
-        imageView.setY(posY);
-        imageView.setX(posX);
+        if(imageView != null){
+            imageView.setY(posY);
+            imageView.setX(posX);
+        }
     }
 
 
     @Override
     public void notifyObserver() {
-        for(StoppedObserver stoppedObserver : observers){
-            stoppedObserver.react(this);
+        synchronized (mykey2){
+            for(StoppedObserver stoppedObserver : observers){
+                stoppedObserver.react(this);
+            }
         }
+
     }
 
-
+    @Override
+    public void addObserver(StoppedObserver o) {
+        observers.add(o);
+    }
+    public void addTowers(){
+        for(GameObject go : map.getGameObjects()){
+            if(go instanceof Tower){
+                addObserver((Tower) go);
+            }
+        }
+    }
 
     public void receiveDamage(@NotNull Projectile p){
         health -= p.getDamage();

@@ -18,10 +18,10 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     private int reloading;
     private static ArrayList<PNJ> pnjs = new ArrayList<>();
     private int level;
+    private static final Object mykey = new Object();
 
     public Tower(int damage, int range, int reloading, @NotNull ImageView imageView, double x, double y) {
         super();
-        PNJ.getObservers().add(this);
         this.damage = damage;
         this.range = range;
         this.reloading = reloading;
@@ -32,11 +32,14 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         imageView.setX(posX);
         imageView.setY(posY);
 
+
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(reloading), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                shoot();
+                if (pnjs.size() > 0){
+                    shoot();
+                }
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -48,6 +51,13 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         pnjs.add(pnj);
     }
 
+    public boolean isInRange(PNJ pnj){
+        boolean res = false;
+        if (pnj.getDistance(this) < range){
+            res = true;
+        }
+        return res;
+    }
 
     public PNJ getNearest(){
         PNJ res = null;
@@ -63,13 +73,16 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
                 }
             }
         }
+        System.out.println(res);
         return res;
     }
 
     public void shoot(){
-        PNJ target = getNearest();
-        if (target != null){
-            ProjectileFactory.getInstance("basic", target, this);
+        synchronized (mykey){
+            PNJ target = getNearest();
+            if (target != null && isInRange(target)){
+                ProjectileFactory.getInstance("basic", target, this);
+            }
         }
     }
 
@@ -90,8 +103,6 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
 
     @Override
     public void react(GameObject o) {
-        System.out.println(pnjs.size());
         pnjs.remove(o);
-        System.out.println(pnjs.size());
     }
 }

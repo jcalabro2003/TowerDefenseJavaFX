@@ -5,6 +5,6 @@ import sample.model.Player;
 public class Game {
 
     public Game(){
-        Player player = new Player();
+        Player player = Player.getInstance();
     }
 }

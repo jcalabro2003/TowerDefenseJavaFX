@@ -12,13 +12,17 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
     private PNJ target;
     private int velocity = 5;
     private int damage;
-    private static ArrayList<StoppedObserver> observers = new ArrayList<>();
+    private ArrayList<StoppedObserver> observers = new ArrayList<>();
     private Thread t;
     private int sleeptime = 50;
+    private static final Object mykey = new Object();
+    private static final Object mykey2 = new Object();
 
 
     public Projectile(PNJ target, int damage, ImageView imageView, Tower tower){
         super();
+        System.out.println("nouveau projectile");
+        addObserver(map);
         this.target = target;
         this.damage = damage;
         posX = tower.getPosX();
@@ -30,23 +34,24 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
 
     }
 
-    public static ArrayList<StoppedObserver> getObservers() {
-        return observers;
-    }
 
 
     @Override
-    public void move(Point p) {                                                                                         // x et y sont les coordonées du PNJ target
-        double theta = Math.atan2(target.getPosY() - this.getPosY(), target.getPosX() - this.getPosX());                //calcul l'angle entre la droite qui relie le projectile et le pnj et l'axe des x
-        this.setPosX( (int) (this.posX + velocity * Math.cos(theta) ));                                                 //déplacement du projectile vers le pnj
-        this.setPosY( (int) (this.posY + velocity * Math.sin(theta) ));
+    public void move(Point p) {
+        synchronized (mykey) {
+            double theta = Math.atan2(target.getPosY() - this.getPosY(), target.getPosX() - this.getPosX());                //calcul l'angle entre la droite qui relie le projectile et le pnj et l'axe des x
+            this.setPosX( (int) (this.posX + velocity * Math.cos(theta) ));                                                 //déplacement du projectile vers le pnj
+            this.setPosY( (int) (this.posY + velocity * Math.sin(theta) ));
+        }
 
     }
 
     @Override
     public void update() {
-        imageView.setY(posY);
-        imageView.setX(posX);
+        if(imageView != null){
+            imageView.setY(posY);
+            imageView.setX(posX);
+        }
     }
 
 
@@ -55,6 +60,11 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
         for(StoppedObserver stoppedObserver : observers){
             stoppedObserver.react(this);
         }
+    }
+
+    @Override
+    public void addObserver(StoppedObserver o) {
+        observers.add(o);
     }
 
     public double getDistance(@NotNull GameObject object) {
@@ -67,7 +77,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
 
     @Override
     public void run(){
-        while (getDistance(target) > 10){
+        while (getDistance(target) > 10 && target.isAlive()){
             move(null);
             try {
                 Thread.sleep(sleeptime);
@@ -75,8 +85,12 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
                 e.printStackTrace();
             }
         }
-        notifyObserver();
-        target.receiveDamage(this);
+        synchronized (mykey2){
+            notifyObserver();
+            if(target.isAlive()){
+                target.receiveDamage(this);
+            }
+        }
     }
 
 }

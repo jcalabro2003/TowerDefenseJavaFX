@@ -46,7 +46,7 @@ public class Controller extends Application {
     private void initHeaderPane() {
         infoPane = new TilePane();
         buttonsPane = new AnchorPane();
-        infoPane = new InfoPane();
+        infoPane = InfoPane.getInstance();
 
         initButtonsPane();
 

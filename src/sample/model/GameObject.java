@@ -10,9 +10,12 @@ public abstract class GameObject {
     protected double posX;
     protected double posY;
     protected ImageView imageView;
+    private static int nb = 0;
 
     public GameObject(){
+        nb++;
         map.addGameObject(this);
+        System.out.println("objets créé " + nb);
 
     }
 

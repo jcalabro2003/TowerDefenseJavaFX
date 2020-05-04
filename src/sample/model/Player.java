@@ -3,14 +3,21 @@ package sample.model;
 import java.util.ArrayList;
 
 public class Player implements StoppedObserver{
+    private static Player instance = null;
     private static int healthPoints;
     private static int gold;
     private ArrayList<Building> buildings = new ArrayList<>();
+    private Map map = Map.getInstance();
 
-    public Player(){
+    private Player(){
         healthPoints = Settings.HEALTH_POINTS;
         gold = Settings.MONEY_AMOUNT;
-        PNJ.getObservers().add(this);
+    }
+    public static Player getInstance(){
+        if(Player.instance == null){
+            Player.instance = new Player();
+        }
+        return Player.instance;
     }
 
     //public void BuyBuilding(String type){
