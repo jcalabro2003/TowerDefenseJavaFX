@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
 
 public class Controller extends Application {
     private Scene mainScene;
@@ -108,7 +109,8 @@ public class Controller extends Application {
 
     private void initBodyPane() {
         for (int i=0; i < bodyPane.getRectTowers().size(); i++) {
-            bodyPane.getRectTowers().get(i).setOnMouseClicked(new RectTowersListener(footerPane));;
+            Rectangle rec = bodyPane.getRectTowers().get(i);
+            rec.setOnMouseClicked(new RectTowersListener(rec,bodyPane));
         }
     }
 

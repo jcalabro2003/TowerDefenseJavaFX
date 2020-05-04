@@ -8,14 +8,14 @@ public class Player implements StoppedObserver{
     private ArrayList<Building> buildings = new ArrayList<>();
 
 
-
+/*
     public void BuyBuilding(String type){
         Building newBuilding = BuildingsFactory.getInstance(type);
         if(this.gold >= newBuilding.price){
             this.buildings.add(newBuilding);
         }
     }
-
+*/
     @Override
     public void react(GameObject o) {
         healthPoints--;

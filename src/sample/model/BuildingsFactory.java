@@ -1,15 +1,21 @@
 package sample.model;
 
+import javafx.scene.image.ImageView;
+
 public class BuildingsFactory {
 
-    public static Building getInstance(String type){
+    public static Building getInstance(String type, double x, double y){
+        ImageView imageView;
         Building res = null;
         switch (type){
             case "classic tower":
-                res = new Tower(5, 10, 1000);
+                imageView = LoadingImage.loadImage("pnj.png");
+                res = new Tower(5, 10, 1000, imageView, x, y);
+
                 break;
             case "slow tower":
-                res = new Tower(0, 10, 1500);
+                imageView = LoadingImage.loadImage("pnj.png");
+                res = new Tower(0, 10, 1500, imageView, x , y);
 
             default:
                 break;

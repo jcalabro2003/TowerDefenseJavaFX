@@ -2,7 +2,10 @@ package sample.model;
 
 import java.util.ArrayList;
 
-public class Tower extends Building implements Runnable, Upgradable {
+import static sample.model.LoadingImage.loadImage;
+import javafx.scene.image.ImageView;
+
+public class Tower extends Building implements  Upgradable {
 
     private int damage;
     private int range;
@@ -11,13 +14,18 @@ public class Tower extends Building implements Runnable, Upgradable {
     private ArrayList<PNJ> pnjsInRange = new ArrayList<>();
     private int level;
 
-    public Tower(int damage, int range, int reloading){
+    public Tower(int damage, int range, int reloading, ImageView imageView,double x, double y) {
         super();
         this.damage = damage;
         this.range = range;
         this.reloading = reloading;
-        this.thread.start();
         this.level = 1;
+        this.imageView = imageView;
+        posX = x;
+        posY = y;
+        imageView.setX(posX);
+        imageView.setY(posY);
+
 
     }
 
@@ -44,16 +52,6 @@ public class Tower extends Building implements Runnable, Upgradable {
 
     public void shoot(PNJ pnj){
         Projectile newProjectile = new Projectile(pnj, damage);
-    }
-
-    @Override
-    public void run() {
-        try {
-            shoot(getNearest());
-            Thread.sleep(reloading);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
