@@ -9,19 +9,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+
 import java.util.ArrayList;
 
-public class Map extends Pane{
+public class Map extends Pane implements StoppedObserver {
 
     private static Map instance = null;
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
-    private ArrayList<PNJ> pnjs = new ArrayList<>();
     private ArrayList<Path> paths = new ArrayList<>();
     private ArrayList<Rectangle> rectPaths = new ArrayList<>();
     private ArrayList<Rectangle> rectTowers = new ArrayList<>();
 
     private Map() {
         super();
+        PNJ.getObservers().add(this);
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(225, 75));
         points.add(new Point(225, 175));
@@ -37,8 +38,10 @@ public class Map extends Pane{
 
             @Override
             public void handle(ActionEvent event) {
-                for(int i=0; i<pnjs.size(); i++) {
-                    pnjs.get(i).update();
+                for (GameObject o : gameObjects) {
+                    if (o instanceof Movable){
+                        ((Movable) o).update();
+                    }
                 }
 
             }
@@ -95,9 +98,6 @@ public class Map extends Pane{
     public void addGameObject(GameObject g){
         gameObjects.add(g);
     }
-    public void addPNJ(PNJ pnj){
-        pnjs.add(pnj);
-    }
 
     public void setPaths(ArrayList<Path> paths) {
         this.paths = paths;
@@ -115,17 +115,17 @@ public class Map extends Pane{
         return rectTowers;
     }
 
-    public void initWaves() {
-        int compt = 0;
-        while (compt < Settings.PNJ_NUMBER_FIRST_WAVE) {
-            PNJ pnj = PNJFactory.getInstance("basic");
-            pnjs.add(pnj);
-            this.addPnjToMap(pnj);
-            compt++;
-        }
+
+
+    public void addObjectToMap(GameObject gameObject) {
+        this.getChildren().add(gameObject.getImageView());
     }
 
-    public void addPnjToMap(PNJ pnj) {
-        this.getChildren().add(pnj.getImageView());
+    @Override
+    public void react(GameObject o) {
+        gameObjects.remove(o);
+        o.getImageView().setVisible(false);
     }
+
+
 }

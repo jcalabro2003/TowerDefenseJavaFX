@@ -2,7 +2,7 @@ package sample.model;
 
 import java.util.ArrayList;
 
-public class Tower extends Building implements Runnable, Updatable{
+public class Tower extends Building implements Runnable, Upgradable {
 
     private int damage;
     private int range;
@@ -57,12 +57,13 @@ public class Tower extends Building implements Runnable, Updatable{
     }
 
     @Override
-    public void update() {
+    public void upgrade() {
         if (level == 1){
             level++;
             damage += damage/3;
         }
         else if(level == 2){
+            level++;
             reloading -= reloading/3;
         }
         else {

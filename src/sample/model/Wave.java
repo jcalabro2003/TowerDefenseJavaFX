@@ -3,17 +3,15 @@ package sample.model;
 import java.util.ArrayList;
 
 public class Wave implements Runnable{
-    private ArrayList<PNJ> pnjs = new ArrayList<>();
     private static int waveNumber;
-    private static int duration;
-    private static int maxDuration;
+    private static int duration = 40000;
+    private static int maxDuration = 40000;
     private Thread t;
     private static boolean ready = true;
 
     public Wave(int waveNumber){
         Wave.waveNumber = waveNumber;
-        maxDuration = 15000;
-        duration = maxDuration;
+        System.out.println(waveNumber);
         initWave();
         t = new Thread(this);
         t.start();
@@ -24,9 +22,6 @@ public class Wave implements Runnable{
         return ready;
     }
 
-    public static void setReady(boolean ready) {
-        Wave.ready = ready;
-    }
 
     public static int getMaxDuration() {
         return maxDuration;
@@ -35,8 +30,7 @@ public class Wave implements Runnable{
 
     public void spawnPNJs(String type, int number){
         for (int i=0; i<number; i++){
-            PNJ newPNJ = PNJFactory.getInstance(type);
-            pnjs.add(newPNJ);
+            PNJFactory.getInstance(type);
         }
     }
 

@@ -7,14 +7,12 @@ import javafx.event.EventHandler;
 import javafx.util.Duration;
 import sample.view.StartButtonListener;
 
-public class Preparation {
-    private static int duration;
-    private static int maxDuration;
+public class  Preparation {
+    private static int duration = 60000;
+    private static int maxDuration = 60000;
     private static int preparationNumber = 0;
 
     public Preparation() throws InterruptedException {
-        maxDuration = 15000;
-        duration = maxDuration;
 
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(duration), new EventHandler<ActionEvent>() {
             @Override
@@ -24,7 +22,7 @@ public class Preparation {
                 StartButtonListener.setIteration(preparationNumber);
             }
         }));
-        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.setCycleCount(1);
         timer.play();
     }
     public static int getPreparationNumber() {

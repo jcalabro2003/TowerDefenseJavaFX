@@ -1,23 +1,23 @@
 package sample.model;
 
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-public class PNJ extends GameObject implements Movable, Runnable{
+public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     private int health;
     private int speed;
     private boolean alive = true;
     private Path path;
     private int pathNumber;
-    private ImageView imageView;
     private Thread t;
     private static final Object myKey = new Object();
-    private static int sleepTime;
-    private static int maxSleepTime;
+    private static int sleepTime = 50;
+    private static int maxSleepTime = 50;
+    private static ArrayList<StoppedObserver> observers = new ArrayList<>();
 
 
 
@@ -26,15 +26,12 @@ public class PNJ extends GameObject implements Movable, Runnable{
         this.health = health;
         this.speed = speed;
         this.imageView = imageView;
-        map.addPNJ(this);
-        map.addPnjToMap(this);
+        map.addObjectToMap(this);
         //pathNumber = new Random().nextInt(map.getPaths().size()-1);
         //path = map.getPaths().get(pathNumber);
         path = map.getPaths().get(0);
-        posX = new Random().nextInt(100) -50;
-        posY = new Random().nextInt(50) +75;
-        maxSleepTime = 50;
-        sleepTime = maxSleepTime;
+        posX = new Random().nextInt(400) -400;
+        posY = new Random().nextInt(50) +45;
         t = new Thread(this);
         t.start();
 
@@ -52,6 +49,10 @@ public class PNJ extends GameObject implements Movable, Runnable{
         return maxSleepTime;
     }
 
+    public static ArrayList<StoppedObserver> getObservers() {
+        return observers;
+    }
+
     public double getDistance(@NotNull GameObject object) {
         return Math.sqrt(Math.pow(object.getPosX() - this.posX, 2) + Math.pow(object.getPosY() - this.posY, 2));
     }
@@ -66,13 +67,25 @@ public class PNJ extends GameObject implements Movable, Runnable{
             double theta = Math.atan2(point.getY() - this.getPosY(), point.getX() - this.getPosX());
             this.setPosX( (this.posX + speed * Math.cos(theta)));
             this.setPosY( (this.posY + speed * Math.sin(theta)));
+
         }
     }
 
+    @Override
     public void update() {
         imageView.setY(posY);
         imageView.setX(posX);
     }
+
+
+    @Override
+    public void notifyObserver() {
+        for(StoppedObserver stoppedObserver : observers){
+            stoppedObserver.react(this);
+        }
+    }
+
+
 
     public void receiveDamage(@NotNull Projectile p){
         health =- p.getDamage();
@@ -81,14 +94,11 @@ public class PNJ extends GameObject implements Movable, Runnable{
         }
     }
 
-    public Node getImageView() {
-        return imageView;
-    }
 
     @Override
     public void run() {
         for(Point p : path.getPoints()) {
-            while (getDistance(p) > 20){
+            while (getDistance(p) > 5 && alive){
                 move(p);
                 try {
                     Thread.sleep(sleepTime);
@@ -97,5 +107,6 @@ public class PNJ extends GameObject implements Movable, Runnable{
                 }
             }
         }
+        notifyObserver();
     }
 }

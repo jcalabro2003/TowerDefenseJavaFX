@@ -1,6 +1,6 @@
 package sample.model;
 
-public class Projectile extends GameObject implements Movable {
+public class Projectile extends GameObject implements Movable, Stop {
 
     private Tower tower;
     private PNJ target;
@@ -24,6 +24,19 @@ public class Projectile extends GameObject implements Movable {
         this.setPosY( (int) (this.posY + velocity * Math.sin(theta) ));
 
     }
+
+    @Override
+    public void update() {
+        imageView.setY(posY);
+        imageView.setX(posX);
+    }
+
+
+    @Override
+    public void notifyObserver() {
+
+    }
+
 
     public int getDamage() {
         return damage;

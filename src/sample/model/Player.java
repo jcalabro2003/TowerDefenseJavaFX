@@ -2,9 +2,9 @@ package sample.model;
 
 import java.util.ArrayList;
 
-public class Player {
-    private int score = 10000;
-    private int gold = 100;
+public class Player implements StoppedObserver{
+    private int healthPoints = Settings.HEALTH_POINTS;
+    private int gold = Settings.MONEY_AMOUNT;
     private ArrayList<Building> buildings = new ArrayList<>();
 
 
@@ -16,4 +16,8 @@ public class Player {
         }
     }
 
+    @Override
+    public void react(GameObject o) {
+        healthPoints--;
+    }
 }
