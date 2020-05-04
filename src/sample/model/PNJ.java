@@ -32,9 +32,14 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
         path = map.getPaths().get(0);
         posX = new Random().nextInt(400) -400;
         posY = new Random().nextInt(50) +45;
+        Tower.addPnj(this);
         t = new Thread(this);
         t.start();
 
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
     public static void setSleepTime(int sleepTime) {
@@ -47,6 +52,15 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     public static int getMaxSleepTime() {
         return maxSleepTime;
+    }
+
+    public void setHealth(int newHealth){
+        health = newHealth;
+
+    }
+
+    public int getHealth() {
+        return health;
     }
 
     public static ArrayList<StoppedObserver> getObservers() {
@@ -88,10 +102,12 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
 
     public void receiveDamage(@NotNull Projectile p){
-        health =- p.getDamage();
+        health -= p.getDamage();
+        System.out.println("health: " + health);
         if (health <= 0){
             alive = false;
         }
+        System.out.println(alive);
     }
 
 

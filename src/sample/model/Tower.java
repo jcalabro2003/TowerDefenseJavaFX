@@ -2,20 +2,26 @@ package sample.model;
 
 import java.util.ArrayList;
 
-import static sample.model.LoadingImage.loadImage;
-import javafx.scene.image.ImageView;
 
-public class Tower extends Building implements  Upgradable {
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+import org.jetbrains.annotations.NotNull;
+
+public class Tower extends Building implements  Upgradable, StoppedObserver {
 
     private int damage;
     private int range;
     private int reloading;
-    private Thread thread;
-    private ArrayList<PNJ> pnjsInRange = new ArrayList<>();
+    private static ArrayList<PNJ> pnjs = new ArrayList<>();
     private int level;
 
-    public Tower(int damage, int range, int reloading, ImageView imageView,double x, double y) {
+    public Tower(int damage, int range, int reloading, @NotNull ImageView imageView, double x, double y) {
         super();
+        PNJ.getObservers().add(this);
         this.damage = damage;
         this.range = range;
         this.reloading = reloading;
@@ -26,31 +32,45 @@ public class Tower extends Building implements  Upgradable {
         imageView.setX(posX);
         imageView.setY(posY);
 
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(reloading), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                shoot();
+            }
+        }));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
+
     }
 
-    public void addPnjInRange(PNJ pnj){
-        pnjsInRange.add(pnj);
+    public static void addPnj(PNJ pnj){
+        pnjs.add(pnj);
     }
+
 
     public PNJ getNearest(){
         PNJ res = null;
         double distance = 0;
-        for(int i=0; i<pnjsInRange.size(); i++){
+        for(int i=0; i<pnjs.size(); i++){
             if (i == 0){
-                distance = pnjsInRange.get(i).getDistance(this);
-                res = pnjsInRange.get(i);
+                distance = pnjs.get(i).getDistance(this);
+                res = pnjs.get(i);
             } else {
-                if (distance > pnjsInRange.get(i).getDistance(this)){
-                    distance = pnjsInRange.get(i).getDistance(this);
-                    res = pnjsInRange.get(i);
+                if (distance > pnjs.get(i).getDistance(this)){
+                    distance = pnjs.get(i).getDistance(this);
+                    res = pnjs.get(i);
                 }
             }
         }
         return res;
     }
 
-    public void shoot(PNJ pnj){
-        Projectile newProjectile = new Projectile(pnj, damage);
+    public void shoot(){
+        PNJ target = getNearest();
+        if (target != null){
+            ProjectileFactory.getInstance("basic", target, this);
+        }
     }
 
     @Override
@@ -66,5 +86,12 @@ public class Tower extends Building implements  Upgradable {
         else {
             range += range/3;
         }
+    }
+
+    @Override
+    public void react(GameObject o) {
+        System.out.println(pnjs.size());
+        pnjs.remove(o);
+        System.out.println(pnjs.size());
     }
 }

@@ -30,6 +30,8 @@ public class Player implements StoppedObserver{
 
     @Override
     public void react(GameObject o) {
-        healthPoints--;
+        if (((PNJ) o).isAlive()){
+            healthPoints--;
+        }
     }
 }

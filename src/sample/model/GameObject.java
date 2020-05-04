@@ -13,6 +13,7 @@ public abstract class GameObject {
 
     public GameObject(){
         map.addGameObject(this);
+
     }
 
     public double getPosX() {

@@ -23,6 +23,7 @@ public class Map extends Pane implements StoppedObserver {
     private Map() {
         super();
         PNJ.getObservers().add(this);
+        Projectile.getObservers().add(this);
         ArrayList<Point> points = new ArrayList<>();
         points.add(new Point(225, 75));
         points.add(new Point(225, 175));
@@ -115,7 +116,20 @@ public class Map extends Pane implements StoppedObserver {
         return rectTowers;
     }
 
-
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+    public boolean isOccupied(double x, double y){
+        boolean res = false;
+        for (GameObject o: gameObjects){
+            if(o instanceof Building && x == o.getPosX() && y == o.getPosY()){
+                res = true;
+                System.out.println("occupé");
+                System.out.println(gameObjects.size());
+            }
+        }
+        return res;
+    }
 
     public void addObjectToMap(GameObject gameObject) {
         this.getChildren().add(gameObject.getImageView());
@@ -125,6 +139,7 @@ public class Map extends Pane implements StoppedObserver {
     public void react(GameObject o) {
         gameObjects.remove(o);
         o.getImageView().setVisible(false);
+        o = null;
     }
 
 

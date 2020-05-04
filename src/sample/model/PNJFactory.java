@@ -11,7 +11,7 @@ public class PNJFactory {
         switch (type){
             case ("basic"):
                 imageView = LoadingImage.loadImage("pnj.png");
-                res = new PNJ(100, 3, imageView);
+                res = new PNJ(30, 3, imageView);
                 break;
             case ("tank"):
                 imageView = LoadingImage.loadImage("tank.png");
