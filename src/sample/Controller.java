@@ -82,6 +82,7 @@ public class Controller extends Application {
         for (int i=0; i < bodyPane.getRectPaths().size(); i++) {
             Rectangle rec = bodyPane.getRectPaths().get(i);
             ImageView imageView = LoadingImage.loadImage("Rainbow.png",50,50);
+            imageView.setOpacity(0.8);
             imageView.setX(rec.getX());
             imageView.setY(rec.getY());
             bodyPane.getChildren().add(imageView);

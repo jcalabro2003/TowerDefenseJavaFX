@@ -9,7 +9,7 @@ public class BuildingsFactory {
         Building res = null;
         switch (type){
             case "classic tower":
-                imageView = LoadingImage.loadImage("Towers.png", 40 , 40);
+                imageView = LoadingImage.loadImage("towers.png", 40 , 40);
                 res = new Tower(10, 300, 2000, imageView, x, y);
 
                 break;
