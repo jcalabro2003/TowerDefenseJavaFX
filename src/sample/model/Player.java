@@ -39,6 +39,8 @@ public class Player implements StoppedObserver{
     public void react(GameObject o) {
         if (((PNJ) o).isAlive()){
             healthPoints--;
+        }else{
+            gold += 10;
         }
     }
 }

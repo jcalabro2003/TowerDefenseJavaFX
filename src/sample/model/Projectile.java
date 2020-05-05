@@ -15,35 +15,33 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
     private ArrayList<StoppedObserver> observers = new ArrayList<>();
     private Thread t;
     private int sleeptime = 50;
-    private static final Object mykey = new Object();
-    private static final Object mykey2 = new Object();
+    private static final Object myKey = new Object();
+    private double theta;
 
 
-    public Projectile(PNJ target, int damage, ImageView imageView, Tower tower){
+    public Projectile(PNJ target, ImageView imageView, Tower tower){
         super();
-        addObserver(map);
-        System.out.println("Ctrl Z");
-        this.target = target;
-        this.damage = damage;
-        posX = tower.getPosX();
-        posY = tower.getPosY();
-        this.imageView = imageView;
-        map.addObjectToMap(this);
-        t = new Thread(this);
-        t.start();
-
+        synchronized (myKey){
+            addObserver(map);
+            System.out.println("Ctrl Z");
+            this.target = target;
+            this.damage = tower.getDamage();
+            posX = tower.getPosX();
+            posY = tower.getPosY();
+            this.imageView = imageView;
+            map.addObjectToMap(this);
+            t = new Thread(this);
+            t.start();
+        }
     }
 
 
 
     @Override
     public void move(Point p) {
-        synchronized (mykey) {
-            double theta = Math.atan2(target.getPosY() - this.getPosY(), target.getPosX() - this.getPosX());                //calcul l'angle entre la droite qui relie le projectile et le pnj et l'axe des x
-            this.setPosX( (int) (this.posX + velocity * Math.cos(theta) ));                                                 //déplacement du projectile vers le pnj
-            this.setPosY( (int) (this.posY + velocity * Math.sin(theta) ));
-        }
-
+        theta = Math.atan2(target.getPosY() - this.getPosY(), target.getPosX() - this.getPosX());                       //calcul l'angle entre la droite qui relie le projectile et le pnj et l'axe des x
+        this.setPosX( (int) (this.posX + velocity * Math.cos(theta) ));                                                 //déplacement du projectile vers le pnj
+        this.setPosY( (int) (this.posY + velocity * Math.sin(theta) ));
     }
 
     @Override
@@ -51,6 +49,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
         if(imageView != null){
             imageView.setY(posY);
             imageView.setX(posX);
+            imageView.setRotate(Math.toDegrees(theta) + 180);
         }
     }
 
@@ -85,12 +84,9 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
                 e.printStackTrace();
             }
         }
-        synchronized (mykey2){
-            notifyObserver();
-            if(target.isAlive()){
-                target.receiveDamage(this);
-            }
+        notifyObserver();
+        if(target.isAlive()){
+            target.receiveDamage(this);
         }
     }
-
 }

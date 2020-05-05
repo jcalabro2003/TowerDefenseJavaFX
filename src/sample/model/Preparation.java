@@ -18,9 +18,11 @@ public class  Preparation {
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(duration), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Wave wave =  new Wave(preparationNumber);
-                preparationNumber++;
-                StartButtonListener.setIteration(preparationNumber);
+                if (Wave.isReady()){
+                    Wave wave =  new Wave(preparationNumber);
+                    preparationNumber++;
+                    StartButtonListener.setIteration(preparationNumber);
+                }
             }
         }));
         timer.setCycleCount(1);

@@ -81,7 +81,6 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         synchronized (mykey){
             PNJ target = getNearest();
             if (target != null && isInRange(target)){
-                System.out.println("Je suis rentré");
                 ProjectileFactory.getInstance("basic", target, this);
             }
         }
@@ -105,5 +104,9 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     @Override
     public void react(GameObject o) {
         pnjs.remove(o);
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }

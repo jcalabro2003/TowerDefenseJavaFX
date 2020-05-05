@@ -15,34 +15,35 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     private Path path;
     private int pathNumber;
     private Thread t;
-    private static final Object myKey = new Object();
     private static int sleepTime = 50;
     private static int maxSleepTime = 50;
     private ArrayList<StoppedObserver> observers = new ArrayList<>();
     private Player player = Player.getInstance();
     private InfoPane infoPane = InfoPane.getInstance();
-    private static final Object mykey2 = new Object();
-
+    private static final Object myKey = new Object();
 
 
     public PNJ(int health, int speed, ImageView imageView){
         super();
-        addObserver(map);
-        addObserver(player);
-        addObserver(infoPane);
-        addTowers();
-        this.health = health;
-        this.speed = speed;
-        this.imageView = imageView;
-        map.addObjectToMap(this);
-        //pathNumber = new Random().nextInt(map.getPaths().size()-1);
-        //path = map.getPaths().get(pathNumber);
-        path = map.getPaths().get(0);
-        posX = new Random().nextInt(400) -400;
-        posY = new Random().nextInt(50) +45;
-        Tower.addPnj(this);
-        t = new Thread(this);
-        t.start();
+        synchronized (myKey){
+            addObserver(map);
+            addObserver(player);
+            addObserver(infoPane);
+            addTowers();
+            this.health = health;
+            this.speed = speed;
+            this.imageView = imageView;
+            map.addObjectToMap(this);
+            //pathNumber = new Random().nextInt(map.getPaths().size()-1);
+            //path = map.getPaths().get(pathNumber);
+            path = map.getPaths().get(0);
+            posX = new Random().nextInt(400) -400;
+            posY = new Random().nextInt(50) +45;
+            Tower.addPnj(this);
+            t = new Thread(this);
+            t.start();
+        }
+
 
     }
 
@@ -77,12 +78,9 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     @Override
     public void move(Point point) {
-        synchronized (myKey) {
-            double theta = Math.atan2(point.getY() - this.getPosY(), point.getX() - this.getPosX());
-            this.setPosX( (this.posX + speed * Math.cos(theta)));
-            this.setPosY( (this.posY + speed * Math.sin(theta)));
-
-        }
+        double theta = Math.atan2(point.getY() - this.getPosY(), point.getX() - this.getPosX());
+        this.setPosX( (this.posX + speed * Math.cos(theta)));
+        this.setPosY( (this.posY + speed * Math.sin(theta)));
     }
 
     @Override
@@ -96,12 +94,9 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     @Override
     public void notifyObserver() {
-        synchronized (mykey2){
-            for(StoppedObserver stoppedObserver : observers){
-                stoppedObserver.react(this);
-            }
+        for(StoppedObserver stoppedObserver : observers){
+            stoppedObserver.react(this);
         }
-
     }
 
     @Override
