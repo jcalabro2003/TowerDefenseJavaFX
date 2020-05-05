@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.image.ImageView;
 
 public class Controller extends Application {
     private Scene mainScene;
@@ -69,6 +70,10 @@ public class Controller extends Application {
         HBox hBoxButton= new HBox(Settings.SPACE_HBOX);
         hBoxButton.getChildren().addAll(startButton, speedButton, pauseButton);
         hBoxButton.setPadding(new Insets(5,5,5,5));
+        ImageView imageview =  LoadingImage.loadImage("BackgroundRainobw.png",950,120);
+        hBoxButton.getChildren().add(imageview);
+        hBoxButton.setStyle("-fx-color: yellow");
+
 
         buttonsPane.getChildren().add(hBoxButton);
         buttonsPane.setRightAnchor(hBoxButton, 10.0);
