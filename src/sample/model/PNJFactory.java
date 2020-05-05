@@ -19,7 +19,7 @@ public class PNJFactory {
                 break;
             case ("fast"):
                 imageView = LoadingImage.loadImage("Toad.png",30,30);
-                res = new PNJ(10, 10, imageView);
+                res = new PNJ(10, 7, imageView);
                 break;
             default: break;
         }
