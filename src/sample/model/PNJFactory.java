@@ -10,7 +10,7 @@ public class PNJFactory {
         PNJ res = null;
         switch (type){
             case ("basic"):
-                imageView = LoadingImage.loadImage("Link.png",30,30);
+                imageView = LoadingImage.loadImage("Mario.png",30,30);
                 res = new PNJ(30, 3, imageView);
                 break;
             case ("tank"):

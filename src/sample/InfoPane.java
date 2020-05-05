@@ -62,6 +62,8 @@ public class InfoPane extends TilePane implements StoppedObserver {
     public void react(GameObject o) {
         healthPoints = Player.getHealthPoints();
         textHealthPoints.setText(Integer.toString(healthPoints));
+        moneyAmount = Player.getGold();
+        textMoneyAmount.setText(Integer.toString(moneyAmount));
     }
 
     public static void updateWaveNumber(){
@@ -69,8 +71,4 @@ public class InfoPane extends TilePane implements StoppedObserver {
         textWaveNumber.setText(Integer.toString(waveNumber));
     }
 
-    public  void  updateGold(){
-        moneyAmount = Player.getGold();
-        textMoneyAmount.setText(Integer.toString(moneyAmount));
-    }
 }
