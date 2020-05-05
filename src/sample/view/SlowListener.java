@@ -13,6 +13,7 @@ public class SlowListener implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
-
+    RectTowersListener.setSlowReady(true);
+    RectTowersListener.setClassicReady(false);
     }
 }

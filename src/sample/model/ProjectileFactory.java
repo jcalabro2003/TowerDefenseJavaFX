@@ -14,8 +14,9 @@ public class ProjectileFactory {
                 res = new Projectile(target, imageView, tower);
                 break;
             case "slow":
-                imageView = LoadingImage.loadImage("", 25, 25);
+                imageView = LoadingImage.loadImage("redshell.gif", 15, 15);
                 res = new Projectile(target, imageView, tower);
+                break;
             default: break;
         }
         return res;

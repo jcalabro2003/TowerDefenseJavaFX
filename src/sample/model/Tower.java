@@ -86,7 +86,7 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
                 if (type.equals("classic tower")) {
                     ProjectileFactory.getInstance("basic", target, this);
                 }else if(type.equals("slow tower")){
-                    //ProjectileFactory.getInstance("basic");
+                    ProjectileFactory.getInstance("slow", target, this);
                 }
             }
         }

@@ -9,11 +9,11 @@ public class ClassicListener implements EventHandler <MouseEvent> {
 
     public ClassicListener(Map map) {
         this.map = map;
-
     }
 
     @Override
     public void handle(MouseEvent event) {
-
+        RectTowersListener.setClassicReady(true);
+        RectTowersListener.setSlowReady(false);
     }
 }
