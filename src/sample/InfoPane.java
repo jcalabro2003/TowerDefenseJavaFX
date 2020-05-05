@@ -43,19 +43,19 @@ public class InfoPane extends TilePane implements StoppedObserver {
         HBox hBoxHealthPoints = new HBox(Settings.SPACE_HBOX);
         hBoxHealthPoints.getChildren().addAll(imageViewHearth, textHealthPoints);
         hBoxHealthPoints.setPadding(new Insets(5,5,5,5));
-        hBoxHealthPoints.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;");
+        hBoxHealthPoints.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;-fx-border-radius: 50px;");
         hBoxHealthPoints.setOpacity(0.7);
 
         HBox hBoxWave = new HBox(Settings.SPACE_HBOX);
         hBoxWave.getChildren().addAll(imageViewWave, textWaveNumber);
         hBoxWave.setPadding(new Insets(5,5,5,5));
-        hBoxWave.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;");
+        hBoxWave.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;-fx-border-radius: 50px;");
         hBoxWave.setOpacity(0.7);
 
         HBox hBoxMoney = new HBox(Settings.SPACE_HBOX);
         hBoxMoney.getChildren().addAll(imageViewMoney, textMoneyAmount);
         hBoxMoney.setPadding(new Insets(5,5,5,5));
-        hBoxMoney.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;");
+        hBoxMoney.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;-fx-border-radius: 50px;");
         hBoxMoney.setOpacity(0.7);
 
 
