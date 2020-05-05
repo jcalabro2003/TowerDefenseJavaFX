@@ -10,7 +10,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
 
     private Tower tower;
     private PNJ target;
-    private int velocity = 5;
+    private int velocity = 6;
     private int damage;
     private ArrayList<StoppedObserver> observers = new ArrayList<>();
     private Thread t;
