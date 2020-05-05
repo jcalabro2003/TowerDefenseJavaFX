@@ -10,8 +10,8 @@ public class ProjectileFactory {
         Projectile res = null;
         switch (type){
             case "basic":
-                imageView = LoadingImage.loadImage("billBalle.png");
-                res = new Projectile(target, 10, imageView, tower);
+                imageView = LoadingImage.loadImage("billBalle.png", 25, 25);
+                res = new Projectile(target, imageView, tower);
                 break;
             default: break;
         }

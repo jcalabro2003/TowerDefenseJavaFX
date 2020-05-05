@@ -16,15 +16,16 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
     private Thread t;
     private int sleeptime = 50;
     private static final Object myKey = new Object();
+    private double theta;
 
 
-    public Projectile(PNJ target, int damage, ImageView imageView, Tower tower){
+    public Projectile(PNJ target, ImageView imageView, Tower tower){
         super();
         synchronized (myKey){
             addObserver(map);
             System.out.println("Ctrl Z");
             this.target = target;
-            this.damage = damage;
+            this.damage = tower.getDamage();
             posX = tower.getPosX();
             posY = tower.getPosY();
             this.imageView = imageView;
@@ -38,7 +39,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
 
     @Override
     public void move(Point p) {
-        double theta = Math.atan2(target.getPosY() - this.getPosY(), target.getPosX() - this.getPosX());                //calcul l'angle entre la droite qui relie le projectile et le pnj et l'axe des x
+        theta = Math.atan2(target.getPosY() - this.getPosY(), target.getPosX() - this.getPosX());                       //calcul l'angle entre la droite qui relie le projectile et le pnj et l'axe des x
         this.setPosX( (int) (this.posX + velocity * Math.cos(theta) ));                                                 //déplacement du projectile vers le pnj
         this.setPosY( (int) (this.posY + velocity * Math.sin(theta) ));
     }
@@ -48,6 +49,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
         if(imageView != null){
             imageView.setY(posY);
             imageView.setX(posX);
+            imageView.setRotate(Math.toDegrees(theta) + 180);
         }
     }
 
