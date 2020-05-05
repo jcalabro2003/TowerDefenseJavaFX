@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import org.jetbrains.annotations.NotNull;
+
 
 public class Tower extends Building implements  Upgradable, StoppedObserver {
 
@@ -19,10 +19,12 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     private static ArrayList<PNJ> pnjs = new ArrayList<>();
     private int level;
     private static final Object mykey = new Object();
+    private String type;
 
-    public Tower(int damage, int range, int reloading, @NotNull ImageView imageView, double x, double y) {
+    public Tower(int damage, int range, int reloading,ImageView imageView, double x, double y, String type) {
         super();
         this.damage = damage;
+        this.type = type;
         this.range = range;
         this.reloading = reloading;
         this.level = 1;
@@ -81,10 +83,15 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         synchronized (mykey){
             PNJ target = getNearest();
             if (target != null && isInRange(target)){
-                ProjectileFactory.getInstance("basic", target, this);
+                if (type.equals("classic tower")) {
+                    ProjectileFactory.getInstance("basic", target, this);
+                }else if(type.equals("slow tower")){
+                    //ProjectileFactory.getInstance("basic");
+                }
             }
         }
     }
+
 
     @Override
     public void upgrade() {

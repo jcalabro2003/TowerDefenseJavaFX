@@ -64,6 +64,19 @@ public class Map extends Pane implements StoppedObserver {
 
         return isPath;
     }
+    public void feuRouge(){
+        ImageView im = LoadingImage.loadImage("feuFouge.gif", 100, 100);
+        getChildren().add(im);
+        Timeline chrono = new Timeline(new KeyFrame(Duration.millis(2300), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                im.setVisible(false);
+            }
+        }));
+        chrono.setCycleCount(1);
+        chrono.play();
+    }
 
     private void createField(ArrayList<Point> points) {
         int nbCol = 19;

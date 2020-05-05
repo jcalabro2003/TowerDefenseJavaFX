@@ -13,6 +13,9 @@ public class ProjectileFactory {
                 imageView = LoadingImage.loadImage("billBalle.png", 25, 25);
                 res = new Projectile(target, imageView, tower);
                 break;
+            case "slow":
+                imageView = LoadingImage.loadImage("", 25, 25);
+                res = new Projectile(target, imageView, tower);
             default: break;
         }
         return res;
