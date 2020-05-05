@@ -35,6 +35,7 @@ public class Map extends Pane implements StoppedObserver {
         ImageView imageView = LoadingImage.loadImage("BackgroundRainobw.png",950,500);
         this.getChildren().add(imageView);
 
+
         createField(points);
 
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
@@ -87,6 +88,7 @@ public class Map extends Pane implements StoppedObserver {
             }
             y = y + 50;
         }
+
     }
 
     public static Map getInstance(){

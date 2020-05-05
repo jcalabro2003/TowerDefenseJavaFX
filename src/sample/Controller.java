@@ -86,6 +86,10 @@ public class Controller extends Application {
             imageView.setY(rec.getY());
             bodyPane.getChildren().add(imageView);
         }
+        ImageView imageviewArrivé = LoadingImage.loadImage("Arrivé.png",25,50);
+        imageviewArrivé.setX(915);
+        imageviewArrivé.setY(50);
+        bodyPane.getChildren().add(imageviewArrivé);
     }
 
     private void initFooterPane() {
