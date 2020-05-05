@@ -33,20 +33,26 @@ public class InfoPane extends TilePane implements StoppedObserver {
         textWaveNumber = new Text();
         textWaveNumber.setText(Integer.toString(waveNumber));
 
+
+
         textMoneyAmount = new Text();
         textMoneyAmount.setText(Integer.toString(moneyAmount));
 
         HBox hBoxHealthPoints = new HBox(Settings.SPACE_HBOX);
         hBoxHealthPoints.getChildren().addAll(imageViewHearth, textHealthPoints);
         hBoxHealthPoints.setPadding(new Insets(5,5,5,5));
+        hBoxHealthPoints.setStyle("-fx-border-color: red");
 
         HBox hBoxWave = new HBox(Settings.SPACE_HBOX);
         hBoxWave.getChildren().addAll(imageViewWave, textWaveNumber);
         hBoxWave.setPadding(new Insets(5,5,5,5));
+        hBoxWave.setStyle("-fx-border-color: red");
 
         HBox hBoxMoney = new HBox(Settings.SPACE_HBOX);
         hBoxMoney.getChildren().addAll(imageViewMoney, textMoneyAmount);
         hBoxMoney.setPadding(new Insets(5,5,5,5));
+        hBoxMoney.setStyle("-fx-border-color: red");
+
 
         getChildren().addAll(hBoxHealthPoints, hBoxWave, hBoxMoney);
     }

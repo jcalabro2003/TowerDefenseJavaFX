@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.image.ImageView;
 
 public class Controller extends Application {
     private Scene mainScene;
@@ -28,6 +27,8 @@ public class Controller extends Application {
     private Button speedButton;
     private Button pauseButton;
     private Button startButton;
+    private Button classicButton;
+    private Button slowButton;
 
 
 
@@ -38,15 +39,14 @@ public class Controller extends Application {
         bodyPane = Map.getInstance();
         footerPane = new TilePane();
 
-        footerPane.setStyle("-fx-background-color: black;");
-        footerPane.setPrefSize(950,50);
-
         mainPane.setTop(headerPane);
         mainPane.setCenter(bodyPane);
         mainPane.setBottom(footerPane);
     }
 
     private void initHeaderPane() {
+        ImageView imageview =  LoadingImage.loadImage("BackgroundRainobw.png",950,50);
+        headerPane.getChildren().add(imageview);
         infoPane = new TilePane();
         buttonsPane = new AnchorPane();
         infoPane = InfoPane.getInstance();
@@ -70,10 +70,6 @@ public class Controller extends Application {
         HBox hBoxButton= new HBox(Settings.SPACE_HBOX);
         hBoxButton.getChildren().addAll(startButton, speedButton, pauseButton);
         hBoxButton.setPadding(new Insets(5,5,5,5));
-        ImageView imageview =  LoadingImage.loadImage("BackgroundRainobw.png",950,120);
-        hBoxButton.getChildren().add(imageview);
-        hBoxButton.setStyle("-fx-color: yellow");
-
 
         buttonsPane.getChildren().add(hBoxButton);
         buttonsPane.setRightAnchor(hBoxButton, 10.0);
@@ -100,6 +96,20 @@ public class Controller extends Application {
 
     private void initFooterPane() {
 
+        footerPane.setStyle("-fx-background-color: black;");
+        footerPane.setPrefSize(950,50);
+
+        classicButton = new Button("Classic");
+        slowButton = new Button("slow");
+
+        HBox hBoxTowersButton = new HBox(Settings.SPACE_HBOX);
+        hBoxTowersButton.getChildren().addAll(classicButton, slowButton);
+        hBoxTowersButton.setPadding(new Insets(12.5,5,5,10));
+
+        footerPane.getChildren().add(hBoxTowersButton);
+
+        classicButton.setOnMouseClicked(new ClassicListener(bodyPane));
+        slowButton.setOnMouseClicked(new SlowListener(bodyPane));
     }
 
     @Override
