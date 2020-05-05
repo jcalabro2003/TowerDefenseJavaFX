@@ -37,29 +37,29 @@ public class Wave implements Runnable{
 
     private void initWave(){
         switch (waveNumber % 6){
-                case 1:
-                    spawnPNJs("basic", 3*waveNumber +2);
-                    break;
-                case 2:
-                    spawnPNJs("tank", waveNumber);
-                    break;
-                case 3:
-                    spawnPNJs("fast", waveNumber + 1);
-                    break;
-                case 4:
-                    spawnPNJs("basic", waveNumber*2 +2);
-                    spawnPNJs("fast", waveNumber + 2);
-                    break;
-                case 5:
-                    spawnPNJs("basic", waveNumber*2 + 2);
-                    spawnPNJs("tank", waveNumber);
-                    break;
-                case 0:
-                    spawnPNJs("basic", waveNumber*2 +2);
-                    spawnPNJs("fast", waveNumber);
-                    spawnPNJs("tank", waveNumber/2);
-                    break;
-                default: break;
+            case 1:
+                spawnPNJs("basic", 3*waveNumber +2);
+                break;
+            case 2:
+                spawnPNJs("tank", waveNumber);
+                break;
+            case 3:
+                spawnPNJs("fast", waveNumber + 1);
+                break;
+            case 4:
+                spawnPNJs("basic", waveNumber*2 +2);
+                spawnPNJs("fast", waveNumber + 2);
+                break;
+            case 5:
+                spawnPNJs("basic", waveNumber*2 + 2);
+                spawnPNJs("tank", waveNumber);
+                break;
+            case 0:
+                spawnPNJs("basic", waveNumber*2 +2);
+                spawnPNJs("fast", waveNumber);
+                spawnPNJs("tank", waveNumber/2);
+                break;
+            default: break;
         }
     }
 

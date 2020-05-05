@@ -10,15 +10,15 @@ public class PNJFactory {
         PNJ res = null;
         switch (type){
             case ("basic"):
-                imageView = LoadingImage.loadImage("pnj.png");
+                imageView = LoadingImage.loadImage("Mario.png");
                 res = new PNJ(30, 3, imageView);
                 break;
             case ("tank"):
-                imageView = LoadingImage.loadImage("tank.png");
+                imageView = LoadingImage.loadImage("Yoshi.png");
                 res = new PNJ(100, 1, imageView);
                 break;
             case ("fast"):
-                imageView = LoadingImage.loadImage("fastpnj.png");
+                imageView = LoadingImage.loadImage("Toad.png");
                 res = new PNJ(10, 10, imageView);
                 break;
             default: break;

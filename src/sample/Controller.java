@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.scene.image.ImageView;
+import sample.model.LoadingImage;
 import sample.model.Map;
 import sample.model.Settings;
 import sample.view.*;
@@ -35,7 +37,7 @@ public class Controller extends Application {
         bodyPane = Map.getInstance();
         footerPane = new TilePane();
 
-        footerPane.setStyle("-fx-background-color: red;");
+        footerPane.setStyle("-fx-background-color: black;");
         footerPane.setPrefSize(950,50);
 
         mainPane.setTop(headerPane);
@@ -76,6 +78,13 @@ public class Controller extends Application {
         for (int i=0; i < bodyPane.getRectTowers().size(); i++) {
             Rectangle rec = bodyPane.getRectTowers().get(i);
             rec.setOnMouseClicked(new RectTowersListener(rec,bodyPane));
+        }
+        for (int i=0; i < bodyPane.getRectPaths().size(); i++) {
+            Rectangle rec = bodyPane.getRectPaths().get(i);
+            ImageView imageView = LoadingImage.loadImage("Rainbow.png",50,50);
+            imageView.setX(rec.getX());
+            imageView.setY(rec.getY());
+            bodyPane.getChildren().add(imageView);
         }
     }
 

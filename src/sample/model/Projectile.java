@@ -21,8 +21,8 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
 
     public Projectile(PNJ target, int damage, ImageView imageView, Tower tower){
         super();
-        System.out.println("nouveau projectile");
         addObserver(map);
+        System.out.println("Ctrl Z");
         this.target = target;
         this.damage = damage;
         posX = tower.getPosX();

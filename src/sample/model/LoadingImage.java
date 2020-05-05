@@ -14,4 +14,12 @@ public class LoadingImage {
 
         return imageView;
     }
+    public static ImageView loadImage(String path,int width, int height) {
+        Image image = new Image(Main.class.getResourceAsStream(path));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(height);
+        imageView.setFitWidth(width);
+
+        return imageView;
+    }
 }

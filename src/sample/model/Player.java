@@ -21,10 +21,10 @@ public class Player implements StoppedObserver{
     }
 
     //public void BuyBuilding(String type){
-      //  Building newBuilding = BuildingsFactory.getInstance(type);
-        //if(this.gold >= newBuilding.price){
-          //  this.buildings.add(newBuilding);
-        //}
+    //  Building newBuilding = BuildingsFactory.getInstance(type);
+    //if(this.gold >= newBuilding.price){
+    //  this.buildings.add(newBuilding);
+    //}
     //}
 
     public static int getHealthPoints() {

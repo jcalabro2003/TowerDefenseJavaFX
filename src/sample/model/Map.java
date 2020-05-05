@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -30,6 +31,9 @@ public class Map extends Pane implements StoppedObserver {
         points.add(new Point(950, 50));
         Path path1 = new Path(points);
         paths.add(path1);
+
+        ImageView imageView = LoadingImage.loadImage("BackgroundRainobw.png",950,500);
+        this.getChildren().add(imageView);
 
         createField(points);
 
@@ -70,15 +74,13 @@ public class Map extends Pane implements StoppedObserver {
             x = 0;
             for (int j=0; j < nbCol; j++) {
                 Rectangle rectangle = new Rectangle(x, y, 50, 50);
-                rectangle.setFill(Color.GRAY);
                 this.getChildren().add(rectangle);
                 if (isPath(x, y , points)) {
-                    rectangle.setFill(Color.LIGHTGRAY);
                     rectPaths.add(rectangle);
                 }
                 else {
-                    rectangle.setFill(Color.TRANSPARENT);
                     rectTowers.add(rectangle);
+                    rectangle.setFill(Color.TRANSPARENT);
                 }
 
                 x = x + 50;

@@ -68,4 +68,9 @@ public class InfoPane extends TilePane implements StoppedObserver {
         waveNumber = Wave.getWaveNumber();
         textWaveNumber.setText(Integer.toString(waveNumber));
     }
+
+    public  void  updateGold(){
+        moneyAmount = Player.getGold();
+        textMoneyAmount.setText(Integer.toString(moneyAmount));
+    }
 }
