@@ -30,8 +30,6 @@ public class Controller extends Application {
     private Button classicButton;
     private Button slowButton;
 
-
-
     private Game g = new Game();
 
     private void initMainPane() {
@@ -57,7 +55,6 @@ public class Controller extends Application {
         headerPane.setRight(buttonsPane);
     }
 
-
     private void initButtonsPane() {
         speedButton = new Button("Speed");
         pauseButton = new Button("Pause");
@@ -69,7 +66,7 @@ public class Controller extends Application {
 
         HBox hBoxButton= new HBox(Settings.SPACE_HBOX);
         hBoxButton.getChildren().addAll(startButton, speedButton, pauseButton);
-        hBoxButton.setPadding(new Insets(5,5,5,5));
+        hBoxButton.setPadding(new Insets(10,5,5,5));
 
         buttonsPane.getChildren().add(hBoxButton);
         buttonsPane.setRightAnchor(hBoxButton, 10.0);

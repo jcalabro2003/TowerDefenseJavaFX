@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import sample.model.*;
 
@@ -29,32 +30,38 @@ public class InfoPane extends TilePane implements StoppedObserver {
 
         textHealthPoints = new Text();
         textHealthPoints.setText(Integer.toString(healthPoints));
+        textHealthPoints.setFill(Color.BEIGE);
 
         textWaveNumber = new Text();
         textWaveNumber.setText(Integer.toString(waveNumber));
-
-
+        textWaveNumber.setFill(Color.BEIGE);
 
         textMoneyAmount = new Text();
         textMoneyAmount.setText(Integer.toString(moneyAmount));
+        textMoneyAmount.setFill(Color.BEIGE);
 
         HBox hBoxHealthPoints = new HBox(Settings.SPACE_HBOX);
         hBoxHealthPoints.getChildren().addAll(imageViewHearth, textHealthPoints);
         hBoxHealthPoints.setPadding(new Insets(5,5,5,5));
-        hBoxHealthPoints.setStyle("-fx-border-color: red");
+        hBoxHealthPoints.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;");
+        hBoxHealthPoints.setOpacity(0.7);
 
         HBox hBoxWave = new HBox(Settings.SPACE_HBOX);
         hBoxWave.getChildren().addAll(imageViewWave, textWaveNumber);
         hBoxWave.setPadding(new Insets(5,5,5,5));
-        hBoxWave.setStyle("-fx-border-color: red");
+        hBoxWave.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;");
+        hBoxWave.setOpacity(0.7);
 
         HBox hBoxMoney = new HBox(Settings.SPACE_HBOX);
         hBoxMoney.getChildren().addAll(imageViewMoney, textMoneyAmount);
         hBoxMoney.setPadding(new Insets(5,5,5,5));
-        hBoxMoney.setStyle("-fx-border-color: red");
+        hBoxMoney.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;");
+        hBoxMoney.setOpacity(0.7);
 
 
         getChildren().addAll(hBoxHealthPoints, hBoxWave, hBoxMoney);
+        setPadding(new Insets(10,5,5,10));
+        setHgap(10);
     }
 
     public static InfoPane getInstance(){
