@@ -17,6 +17,8 @@ public class InfoPane extends TilePane implements StoppedObserver {
     private static int waveNumber;
     private static int moneyAmount;
 
+    private Map bodyPane;
+
     private static InfoPane instance = null;
 
     private InfoPane() {
@@ -77,12 +79,18 @@ public class InfoPane extends TilePane implements StoppedObserver {
     }
 
     public static void update(){
-        waveNumber = Wave.getWaveNumber();
-        textWaveNumber.setText(Integer.toString(waveNumber));
-        healthPoints = Player.getHealthPoints();
-        textHealthPoints.setText(Integer.toString(healthPoints));
-        moneyAmount = Player.getGold();
-        textMoneyAmount.setText(Integer.toString(moneyAmount));
+        if (healthPoints > 0) {
+            waveNumber = Wave.getWaveNumber();
+            textWaveNumber.setText(Integer.toString(waveNumber));
+            healthPoints = Player.getHealthPoints();
+            textHealthPoints.setText(Integer.toString(healthPoints));
+            moneyAmount = Player.getGold();
+            textMoneyAmount.setText(Integer.toString(moneyAmount));
+        }
+        else if (healthPoints == 0) {
+            ImageView gameover = LoadingImage.loadImage("gameover.png",950,500);
+            Map.getInstance().getChildren().add(gameover);
+        }
     }
 
 }

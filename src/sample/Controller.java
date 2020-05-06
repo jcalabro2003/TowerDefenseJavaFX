@@ -122,19 +122,24 @@ public class Controller extends Application {
         cancelButton = new Button ("Cancel",cancel);
 
 
-        classicButton.setStyle("-fx-background-color: yellow;");
-        slowButton.setStyle("-fx-background-color: yellow;");
+        classicButton.setStyle("-fx-background-color: purple");
+        slowButton.setStyle("-fx-background-color: indigo;");
+        upgradeButton.setStyle("-fx-background-color: cyan;");
+        cancelButton.setStyle("-fx-background-color: green;");
+
 
         HBox hBoxTowersButton = new HBox(Settings.SPACE_HBOX);
         hBoxTowersButton.getChildren().addAll(classicButton, slowButton,upgradeButton,cancelButton);
         hBoxTowersButton.setPadding(new Insets(12.5,5,5,10));
 
-        footerPane.getChildren().add(hBoxTowersButton);
+        HBox hBoxMessage  = new HBox(Settings.SPACE_HBOX);
 
-        classicButton.setOnMouseClicked(new ClassicListener(bodyPane));
-        slowButton.setOnMouseClicked(new SlowListener(bodyPane));
-        upgradeButton.setOnMouseClicked(new UpgradeListener(bodyPane));
-        cancelButton.setOnMouseClicked(new UpgradeListener(bodyPane));
+        footerPane.getChildren().addAll(hBoxTowersButton, hBoxMessage);
+
+        classicButton.setOnMouseClicked(new ClassicListener(bodyPane, hBoxMessage));
+        slowButton.setOnMouseClicked(new SlowListener(bodyPane, hBoxMessage));
+        upgradeButton.setOnMouseClicked(new UpgradeListener(bodyPane, hBoxMessage));
+        cancelButton.setOnMouseClicked(new UpgradeListener(bodyPane, hBoxMessage));
     }
 
     @Override
