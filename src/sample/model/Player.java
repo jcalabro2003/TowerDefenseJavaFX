@@ -6,7 +6,6 @@ public class Player implements StoppedObserver{
     private static Player instance = null;
     private static int healthPoints;
     private static int gold;
-    private Map map = Map.getInstance();
 
     private Player(){
         healthPoints = Settings.HEALTH_POINTS;

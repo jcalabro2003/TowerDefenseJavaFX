@@ -24,6 +24,7 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     private InfoPane infoPane = InfoPane.getInstance();
     private static final Object myKey = new Object();
     private static final Object myKey2 = new Object();
+    private static final Object myKey3 = new Object();
     private ImageView rotateImage;
 
 
@@ -52,8 +53,6 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             t = new Thread(this);
             t.start();
         }
-
-
     }
 
 
@@ -111,9 +110,11 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     @Override
     public void move(Point point) {
-        double theta = Math.atan2(point.getY() - this.getPosY(), point.getX() - this.getPosX());
-        this.setPosX( (this.posX + speed * Math.cos(theta)));
-        this.setPosY( (this.posY + speed * Math.sin(theta)));
+        synchronized (myKey3){
+            double theta = Math.atan2(point.getY() - this.getPosY(), point.getX() - this.getPosX());
+            this.setPosX( (this.posX + speed * Math.cos(theta)));
+            this.setPosY( (this.posY + speed * Math.sin(theta)));
+        }
     }
 
     @Override
@@ -146,11 +147,9 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     public void receiveDamage(@NotNull Projectile p){
         health -= p.getEffect();
-        System.out.println("health: " + health);
         if (health <= 0){
             alive = false;
         }
-        System.out.println(alive);
     }
 
 
@@ -170,9 +169,11 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     }
 
     public void rotate() {
-        rotateImage.setX(posX);
-        rotateImage.setY(posY);
-        rotateImage.setVisible(true);
+        if (rotateImage != null){
+            rotateImage.setX(posX);
+            rotateImage.setY(posY);
+            rotateImage.setVisible(true);
+        }
     }
 
     public int getMaxHealth() {

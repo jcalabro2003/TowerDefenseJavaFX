@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class Projectile extends GameObject implements Movable, Stop, Runnable{
 
-    private Tower tower;
     private PNJ target;
     private int velocity;
     private int effect;
@@ -16,6 +15,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
     private Thread t;
     private int sleeptime = 50;
     private static final Object myKey = new Object();
+    private static final Object myKey2 = new Object();
     private double theta;
     private String type;
 
@@ -79,8 +79,8 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
 
 
     @Override
-    public void run(){
-        while (getDistance(target) > 10 && target.isAlive()){
+    public void run() {
+        while (getDistance(target) > 10 && target.isAlive()) {
             move(null);
             try {
                 Thread.sleep(sleeptime);
@@ -88,17 +88,17 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
                 e.printStackTrace();
             }
         }
-        notifyObserver();
-        if(target.isAlive()){
-            if(type.equals("basic")){
-                target.receiveDamage(this);
-            }else if (type.equals("slow")){
-                try {
-                    target.setSpeed(effect);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            notifyObserver();
+            if (target != null && target.isAlive()) {
+                if (type.equals("basic")) {
+                    target.receiveDamage(this);
+                } else if (type.equals("slow")) {
+                    try {
+                        target.setSpeed(effect);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
     }
 }
