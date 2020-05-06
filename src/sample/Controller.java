@@ -32,6 +32,8 @@ public class Controller extends Application {
     private Button startButton;
     private Button classicButton;
     private Button slowButton;
+    private Button upgradeButton;
+    private Button cancelButton;
 
     private Game g = new Game();
 
@@ -111,22 +113,28 @@ public class Controller extends Application {
 
         ImageView classico = LoadingImage.loadImage("towers.png");
         ImageView slow = LoadingImage.loadImage("Kamek.png");
+        ImageView upgrade = LoadingImage.loadImage("upgrade.png");
+        ImageView cancel = LoadingImage.loadImage("cancel.png");
 
         classicButton = new Button("100", classico);
-        slowButton = new Button("150",slow);
+        slowButton = new Button("   150  ",slow);
+        upgradeButton = new Button("Upgrade",upgrade);
+        cancelButton = new Button ("Cancel",cancel);
+
 
         classicButton.setStyle("-fx-background-color: yellow;");
         slowButton.setStyle("-fx-background-color: yellow;");
 
         HBox hBoxTowersButton = new HBox(Settings.SPACE_HBOX);
-        hBoxTowersButton.getChildren().addAll(classicButton, slowButton);
+        hBoxTowersButton.getChildren().addAll(classicButton, slowButton,upgradeButton,cancelButton);
         hBoxTowersButton.setPadding(new Insets(12.5,5,5,10));
 
         footerPane.getChildren().add(hBoxTowersButton);
 
         classicButton.setOnMouseClicked(new ClassicListener(bodyPane));
         slowButton.setOnMouseClicked(new SlowListener(bodyPane));
-
+        upgradeButton.setOnMouseClicked(new UpgradeListener(bodyPane));
+        cancelButton.setOnMouseClicked(new UpgradeListener(bodyPane));
     }
 
     @Override
