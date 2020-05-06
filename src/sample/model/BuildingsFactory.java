@@ -13,7 +13,7 @@ public class BuildingsFactory {
                 res = new Tower(10, 300, 2000, imageView, x, y, "basic");
                 break;
             case "slow":
-                imageView = LoadingImage.loadImage("pnj.png", 40, 40);
+                imageView = LoadingImage.loadImage("slowtower2.png", 50, 50);
                 res = new Tower(0, 300, 3000, imageView, x , y, "slow");
                 break;
             default: break;

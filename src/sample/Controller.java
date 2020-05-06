@@ -110,10 +110,13 @@ public class Controller extends Application {
         footerPane.setPrefSize(950,50);
 
         ImageView classico = LoadingImage.loadImage("towers.png");
-        ImageView slow = LoadingImage.loadImage("pnj.png");
+        ImageView slow = LoadingImage.loadImage("Kamek.png");
 
         classicButton = new Button("100", classico);
         slowButton = new Button("150",slow);
+
+        classicButton.setStyle("-fx-background-color: yellow;");
+        slowButton.setStyle("-fx-background-color: yellow;");
 
         HBox hBoxTowersButton = new HBox(Settings.SPACE_HBOX);
         hBoxTowersButton.getChildren().addAll(classicButton, slowButton);
@@ -123,6 +126,7 @@ public class Controller extends Application {
 
         classicButton.setOnMouseClicked(new ClassicListener(bodyPane));
         slowButton.setOnMouseClicked(new SlowListener(bodyPane));
+
     }
 
     @Override
