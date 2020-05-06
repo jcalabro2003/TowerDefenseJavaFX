@@ -37,7 +37,7 @@ public class Player implements StoppedObserver{
         if (((PNJ) o).isAlive()){
             healthPoints--;
         }else{
-            gold += 10;
+            gold += ((PNJ) o).getMaxHealth()/2;
         }
     }
 }

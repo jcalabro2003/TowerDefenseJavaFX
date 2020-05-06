@@ -10,6 +10,7 @@ import java.util.Random;
 public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     private int health;
+    private int maxHealth;
     private double speed;
     private double maxSpeed;
     private boolean alive = true;
@@ -34,6 +35,7 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             addObserver(infoPane);
             addTowers();
             this.health = health;
+            maxHealth = health;
             this.speed = speed;
             maxSpeed = speed;
             this.imageView = imageView;
@@ -58,7 +60,7 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     public void setSpeed(double speed) throws InterruptedException {
         synchronized (myKey2){
             this.speed = speed;
-            imageView.setVisible(false);
+            if (imageView != null) imageView.setVisible(false);
             rotate();
         }
         Thread.sleep(3000);
@@ -171,5 +173,9 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
         rotateImage.setX(posX);
         rotateImage.setY(posY);
         rotateImage.setVisible(true);
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 }

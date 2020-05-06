@@ -152,15 +152,15 @@ public class Map extends Pane implements StoppedObserver {
 
     @Override
     public void react(GameObject o) {
-        gameObjects.remove(o);
-        o.getImageView().setVisible(false);
-        o.setImageView(null);
-        if(o instanceof PNJ){
-            ((PNJ) o).getRotateImage().setVisible(false);
-            ((PNJ) o).setRotateImage(null);
+        synchronized (Stop.getKey()){
+            gameObjects.remove(o);
+            o.getImageView().setVisible(false);
+            o.setImageView(null);
+            if(o instanceof PNJ){
+                ((PNJ) o).getRotateImage().setVisible(false);
+                ((PNJ) o).setRotateImage(null);
+            }
+            o = null;
         }
-        o = null;
     }
-
-
 }
