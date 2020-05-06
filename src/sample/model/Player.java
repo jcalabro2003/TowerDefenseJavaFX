@@ -1,12 +1,11 @@
 package sample.model;
 
-import java.util.ArrayList;
+import sample.InfoPane;
 
 public class Player implements StoppedObserver{
     private static Player instance = null;
     private static int healthPoints;
     private static int gold;
-    private ArrayList<Building> buildings = new ArrayList<>();
     private Map map = Map.getInstance();
 
     private Player(){
@@ -20,12 +19,10 @@ public class Player implements StoppedObserver{
         return Player.instance;
     }
 
-    //public void BuyBuilding(String type){
-    //  Building newBuilding = BuildingsFactory.getInstance(type);
-    //if(this.gold >= newBuilding.price){
-    //  this.buildings.add(newBuilding);
-    //}
-    //}
+    public static void BuyBuilding(int price){
+        gold -= price;
+        InfoPane.update();
+    }
 
     public static int getHealthPoints() {
         return healthPoints;

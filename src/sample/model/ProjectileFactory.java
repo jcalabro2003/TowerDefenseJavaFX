@@ -10,12 +10,12 @@ public class ProjectileFactory {
         Projectile res = null;
         switch (type){
             case "basic":
-                imageView = LoadingImage.loadImage("billBalle.png", 25, 25);
-                res = new Projectile(target, imageView, tower);
+                imageView = LoadingImage.loadImage("redBalle.png", 25, 25);
+                res = new Projectile(6, target, imageView, tower);
                 break;
             case "slow":
                 imageView = LoadingImage.loadImage("redshell.gif", 15, 15);
-                res = new Projectile(target, imageView, tower);
+                res = new Projectile(10, target, imageView, tower);
                 break;
             default: break;
         }

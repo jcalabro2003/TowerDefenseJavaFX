@@ -12,7 +12,7 @@ public class Wave implements Runnable{
 
     public Wave(int waveNumber){
         Wave.waveNumber = waveNumber;
-        InfoPane.updateWaveNumber();
+        InfoPane.update();
         initWave();
         t = new Thread(this);
         t.start();
@@ -38,7 +38,7 @@ public class Wave implements Runnable{
     private void initWave(){
         switch (waveNumber % 6){
             case 1:
-                spawnPNJs("basic", 3*waveNumber +2);
+                spawnPNJs("basic", 2*waveNumber +2);
                 break;
             case 2:
                 spawnPNJs("tank", waveNumber);
@@ -47,16 +47,16 @@ public class Wave implements Runnable{
                 spawnPNJs("fast", waveNumber + 1);
                 break;
             case 4:
-                spawnPNJs("basic", waveNumber*2 +2);
+                spawnPNJs("basic", waveNumber +2);
                 spawnPNJs("fast", waveNumber + 2);
                 break;
             case 5:
-                spawnPNJs("basic", waveNumber*2 + 2);
+                spawnPNJs("basic", waveNumber + 2);
                 spawnPNJs("tank", waveNumber);
                 break;
             case 0:
-                spawnPNJs("basic", waveNumber*2 +2);
-                spawnPNJs("fast", waveNumber);
+                spawnPNJs("basic", waveNumber*3/2 +2);
+                spawnPNJs("fast", waveNumber/2);
                 spawnPNJs("tank", waveNumber/2);
                 break;
             default: break;

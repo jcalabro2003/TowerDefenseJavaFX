@@ -13,7 +13,7 @@ import javafx.util.Duration;
 
 public class Tower extends Building implements  Upgradable, StoppedObserver {
 
-    private int damage;
+    private int effect;
     private int range;
     private int reloading;
     private static ArrayList<PNJ> pnjs = new ArrayList<>();
@@ -21,9 +21,9 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     private static final Object mykey = new Object();
     private String type;
 
-    public Tower(int damage, int range, int reloading,ImageView imageView, double x, double y, String type) {
+    public Tower(int effect, int range, int reloading,ImageView imageView, double x, double y, String type) {
         super();
-        this.damage = damage;
+        this.effect = effect;
         this.type = type;
         this.range = range;
         this.reloading = reloading;
@@ -51,6 +51,10 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
 
     public static void addPnj(PNJ pnj){
         pnjs.add(pnj);
+    }
+
+    public String getType() {
+        return type;
     }
 
     public boolean isInRange(PNJ pnj){
@@ -83,9 +87,9 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         synchronized (mykey){
             PNJ target = getNearest();
             if (target != null && isInRange(target)){
-                if (type.equals("classic tower")) {
+                if (type.equals("basic")) {
                     ProjectileFactory.getInstance("basic", target, this);
-                }else if(type.equals("slow tower")){
+                }else if(type.equals("slow")){
                     ProjectileFactory.getInstance("slow", target, this);
                 }
             }
@@ -97,7 +101,7 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     public void upgrade() {
         if (level == 1){
             level++;
-            damage += damage/3;
+            effect += effect /3;
         }
         else if(level == 2){
             level++;
@@ -113,7 +117,7 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         pnjs.remove(o);
     }
 
-    public int getDamage() {
-        return damage;
+    public int getEffect() {
+        return effect;
     }
 }

@@ -9,13 +9,13 @@ import javafx.scene.text.Text;
 import sample.model.*;
 
 public class InfoPane extends TilePane implements StoppedObserver {
-    private Text textHealthPoints;
+    private static Text textHealthPoints;
     private static Text textWaveNumber;
-    private Text textMoneyAmount;
+    private static Text textMoneyAmount;
 
-    private int healthPoints;
+    private static int healthPoints;
     private static int waveNumber;
-    private int moneyAmount;
+    private static int moneyAmount;
 
     private static InfoPane instance = null;
 
@@ -73,15 +73,16 @@ public class InfoPane extends TilePane implements StoppedObserver {
 
     @Override
     public void react(GameObject o) {
+        update();
+    }
+
+    public static void update(){
+        waveNumber = Wave.getWaveNumber();
+        textWaveNumber.setText(Integer.toString(waveNumber));
         healthPoints = Player.getHealthPoints();
         textHealthPoints.setText(Integer.toString(healthPoints));
         moneyAmount = Player.getGold();
         textMoneyAmount.setText(Integer.toString(moneyAmount));
-    }
-
-    public static void updateWaveNumber(){
-        waveNumber = Wave.getWaveNumber();
-        textWaveNumber.setText(Integer.toString(waveNumber));
     }
 
 }

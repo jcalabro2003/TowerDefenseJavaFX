@@ -10,24 +10,26 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
 
     private Tower tower;
     private PNJ target;
-    private int velocity = 6;
-    private int damage;
+    private int velocity;
+    private int effect;
     private ArrayList<StoppedObserver> observers = new ArrayList<>();
     private Thread t;
     private int sleeptime = 50;
     private static final Object myKey = new Object();
     private double theta;
+    private String type;
 
 
-    public Projectile(PNJ target, ImageView imageView, Tower tower){
+    public Projectile(int velocity, PNJ target, ImageView imageView, Tower tower){
         super();
         synchronized (myKey){
             addObserver(map);
-            System.out.println("Ctrl Z");
             this.target = target;
-            this.damage = tower.getDamage();
+            this.effect = tower.getEffect();
+            this.velocity = velocity;
             posX = tower.getPosX();
             posY = tower.getPosY();
+            type = tower.getType();
             this.imageView = imageView;
             map.addObjectToMap(this);
             t = new Thread(this);
@@ -49,7 +51,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
         if(imageView != null){
             imageView.setY(posY);
             imageView.setX(posX);
-            imageView.setRotate(Math.toDegrees(theta) + 180);
+            imageView.setRotate(Math.toDegrees(theta) + 152);
         }
     }
 
@@ -70,9 +72,11 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
         return Math.sqrt(Math.pow(object.getPosX() - this.posX, 2) + Math.pow(object.getPosY() - this.posY, 2));
     }
 
-    public int getDamage() {
-        return damage;
+    public int getEffect() {
+        return effect;
     }
+
+
 
     @Override
     public void run(){
@@ -86,7 +90,15 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
         }
         notifyObserver();
         if(target.isAlive()){
-            target.receiveDamage(this);
+            if(type.equals("basic")){
+                target.receiveDamage(this);
+            }else if (type.equals("slow")){
+                try {
+                    target.setSpeed(effect);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

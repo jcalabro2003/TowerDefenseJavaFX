@@ -10,7 +10,8 @@ import java.util.Random;
 public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     private int health;
-    private int speed;
+    private double speed;
+    private double maxSpeed;
     private boolean alive = true;
     private Path path;
     private int pathNumber;
@@ -21,9 +22,11 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     private Player player = Player.getInstance();
     private InfoPane infoPane = InfoPane.getInstance();
     private static final Object myKey = new Object();
+    private static final Object myKey2 = new Object();
+    private ImageView rotateImage;
 
 
-    public PNJ(int health, int speed, ImageView imageView){
+    public PNJ(int health, int speed, ImageView imageView, ImageView rotateImage){
         super();
         synchronized (myKey){
             addObserver(map);
@@ -32,7 +35,11 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             addTowers();
             this.health = health;
             this.speed = speed;
+            maxSpeed = speed;
             this.imageView = imageView;
+            this.rotateImage = rotateImage;
+            rotateImage.setVisible(false);
+            map.getChildren().add(rotateImage);
             map.addObjectToMap(this);
             //pathNumber = new Random().nextInt(map.getPaths().size()-1);
             //path = map.getPaths().get(pathNumber);
@@ -45,6 +52,23 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
         }
 
 
+    }
+
+
+    public void setSpeed(double speed) throws InterruptedException {
+        synchronized (myKey2){
+            this.speed = speed;
+            imageView.setVisible(false);
+            rotate();
+        }
+        Thread.sleep(3000);
+        synchronized (myKey2){
+            if (imageView != null){
+                rotateImage.setVisible(false);
+                this.speed = maxSpeed;
+                imageView.setVisible(true);
+            }
+        }
     }
 
     public boolean isAlive() {
@@ -63,6 +87,13 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
         return maxSleepTime;
     }
 
+    public ImageView getRotateImage() {
+        return rotateImage;
+    }
+
+    public void setRotateImage(ImageView rotateImage) {
+        this.rotateImage = rotateImage;
+    }
 
     public  ArrayList<StoppedObserver> getObservers() {
         return observers;
@@ -112,7 +143,7 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     }
 
     public void receiveDamage(@NotNull Projectile p){
-        health -= p.getDamage();
+        health -= p.getEffect();
         System.out.println("health: " + health);
         if (health <= 0){
             alive = false;
@@ -134,5 +165,11 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             }
         }
         notifyObserver();
+    }
+
+    public void rotate() {
+        rotateImage.setX(posX);
+        rotateImage.setY(posY);
+        rotateImage.setVisible(true);
     }
 }

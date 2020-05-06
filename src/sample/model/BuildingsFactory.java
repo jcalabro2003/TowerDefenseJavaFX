@@ -8,17 +8,15 @@ public class BuildingsFactory {
         ImageView imageView;
         Building res = null;
         switch (type){
-            case "classic tower":
+            case "basic":
                 imageView = LoadingImage.loadImage("towers.png", 40 , 40);
-                res = new Tower(10, 300, 2000, imageView, x, y, "classic tower");
-
+                res = new Tower(10, 300, 2000, imageView, x, y, "basic");
                 break;
-            case "slow tower":
+            case "slow":
                 imageView = LoadingImage.loadImage("pnj.png", 40, 40);
-                res = new Tower(0, 300, 1500, imageView, x , y, "slow tower");
-
-            default:
+                res = new Tower(0, 300, 3000, imageView, x , y, "slow");
                 break;
+            default: break;
         }
         return res;
     }
