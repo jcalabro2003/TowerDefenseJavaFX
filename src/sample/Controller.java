@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sample.model.LoadingImage;
 import sample.model.Map;
@@ -13,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
+
+import java.awt.*;
 
 public class Controller extends Application {
     private Scene mainScene;
@@ -56,9 +59,19 @@ public class Controller extends Application {
     }
 
     private void initButtonsPane() {
-        speedButton = new Button("Speed");
-        pauseButton = new Button("Pause");
-        startButton = new Button("Start");
+        speedButton = new Button();
+        pauseButton = new Button();
+        startButton = new Button();
+
+        ImageView imageStart = LoadingImage.loadImage("Play.png",25,25);
+        startButton.setGraphic(imageStart);
+
+        ImageView imageSpeed = LoadingImage.loadImage("boutonspeed.png",25,25);
+        speedButton.setGraphic(imageSpeed);
+
+        ImageView imagePause = LoadingImage.loadImage("boutpause.png",25,25);
+        pauseButton.setGraphic(imagePause);
+
 
         //listeners pour les boutons
         speedButton.setOnMouseClicked(new SpeedButtonListener());
@@ -96,8 +109,11 @@ public class Controller extends Application {
         footerPane.setStyle("-fx-background-color: black;");
         footerPane.setPrefSize(950,50);
 
-        classicButton = new Button("Classic");
-        slowButton = new Button("slow");
+        ImageView classico = LoadingImage.loadImage("towers.png");
+        ImageView slow = LoadingImage.loadImage("pnj.png");
+
+        classicButton = new Button("100", classico);
+        slowButton = new Button("150",slow);
 
         HBox hBoxTowersButton = new HBox(Settings.SPACE_HBOX);
         hBoxTowersButton.getChildren().addAll(classicButton, slowButton);
