@@ -20,8 +20,9 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     private int level;
     private static final Object mykey = new Object();
     private String type;
+    private ImageView gif;
 
-    public Tower(int effect, int range, int reloading,ImageView imageView, double x, double y, String type) {
+    public Tower(int effect, int range, int reloading,ImageView imageView, double x, double y, String type, ImageView gif) {
         super();
         this.effect = effect;
         this.type = type;
@@ -29,16 +30,23 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         this.reloading = reloading;
         this.level = 1;
         this.imageView = imageView;
+        this.gif = gif;
+        gif.setVisible(false);
+        map.getChildren().add(gif);
         posX = x;
         posY = y;
         imageView.setX(posX);
         imageView.setY(posY);
+        gif.setX(posX);
+        gif.setY(posY);
 
 
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(reloading), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
+                gif.setVisible(false);
+                imageView.setVisible(true);
                 if (pnjs.size() > 0){
                     shoot();
                 }
@@ -90,6 +98,8 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
                 if (type.equals("basic")) {
                     ProjectileFactory.getInstance("basic", target, this);
                 }else if(type.equals("slow")){
+                    imageView.setVisible(false);
+                    gif.setVisible(true);
                     ProjectileFactory.getInstance("slow", target, this);
                 }
             }
@@ -101,7 +111,7 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     public void upgrade() {
         if (level == 1){
             level++;
-            effect += effect /3;
+            effect += effect /2;
         }
         else if(level == 2){
             level++;
