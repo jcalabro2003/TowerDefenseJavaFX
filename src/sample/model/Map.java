@@ -157,10 +157,17 @@ public class Map extends Pane implements StoppedObserver {
 
     }
 
-    public static Map getInstance(){
-        if (Map.instance == null){
+    public static Map getInstance() {
+        if (Map.instance == null) {
             Map.instance = new Map(Controller.getTypeMapGlobal());
         }
+        return Map.instance;
+    }
+
+    public static Map setInstance() {
+        Map.instance = null;
+        Map.instance = Map.getInstance();
+
         return Map.instance;
     }
 

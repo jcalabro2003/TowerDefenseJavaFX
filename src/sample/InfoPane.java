@@ -93,4 +93,10 @@ public class InfoPane extends TilePane implements StoppedObserver {
         }
     }
 
+    public static void init() {
+        textWaveNumber.setText(Integer.toString(Settings.WAVE_NUMBER));
+        textHealthPoints.setText(Integer.toString(Settings.HEALTH_POINTS));
+        textMoneyAmount.setText(Integer.toString(Settings.MONEY_AMOUNT));
+    }
+
 }
