@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import sample.model.LoadingImage;
 import sample.model.Map;
 import sample.model.Settings;
@@ -13,11 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.shape.Rectangle;
-
-import java.awt.*;
+import javafx.scene.image.ImageView;
 
 public class Controller extends Application {
+    private static  String typeMapGlobal;
+    private Game g;
+
     private Scene mainScene;
 
     private BorderPane mainPane;
@@ -34,8 +33,7 @@ public class Controller extends Application {
     private Button slowButton;
     private Button upgradeButton;
     private Button cancelButton;
-
-    private Game g = new Game();
+    private Button changeMapButton;
 
     private void initMainPane() {
         headerPane = new BorderPane();
@@ -64,6 +62,7 @@ public class Controller extends Application {
         speedButton = new Button();
         pauseButton = new Button();
         startButton = new Button();
+        changeMapButton = new Button("Change Map");
 
         ImageView imageStart = LoadingImage.loadImage("Play.png",25,25);
         startButton.setGraphic(imageStart);
@@ -74,36 +73,17 @@ public class Controller extends Application {
         ImageView imagePause = LoadingImage.loadImage("pause.png",25,25);
         pauseButton.setGraphic(imagePause);
 
-
-        //listeners pour les boutons
-        speedButton.setOnMouseClicked(new SpeedButtonListener());
-        startButton.setOnMouseClicked(new StartButtonListener(bodyPane));
-
         HBox hBoxButton= new HBox(Settings.SPACE_HBOX);
-        hBoxButton.getChildren().addAll(startButton, speedButton, pauseButton);
+        hBoxButton.getChildren().addAll(changeMapButton, startButton, speedButton, pauseButton);
         hBoxButton.setPadding(new Insets(10,5,5,5));
 
         buttonsPane.getChildren().add(hBoxButton);
         buttonsPane.setRightAnchor(hBoxButton, 10.0);
-    }
 
-    private void initBodyPane() {
-        for (int i=0; i < bodyPane.getRectTowers().size(); i++) {
-            Rectangle rec = bodyPane.getRectTowers().get(i);
-            rec.setOnMouseClicked(new RectTowersListener(rec,bodyPane));
-        }
-        for (int i=0; i < bodyPane.getRectPaths().size(); i++) {
-            Rectangle rec = bodyPane.getRectPaths().get(i);
-            ImageView imageView = LoadingImage.loadImage("Rainbow.png",50,50);
-            imageView.setOpacity(0.8);
-            imageView.setX(rec.getX());
-            imageView.setY(rec.getY());
-            bodyPane.getChildren().add(imageView);
-        }
-        ImageView imageviewArrivé = LoadingImage.loadImage("Arrivé.png",25,50);
-        imageviewArrivé.setX(915);
-        imageviewArrivé.setY(50);
-        bodyPane.getChildren().add(imageviewArrivé);
+        //listeners pour les boutons
+        speedButton.setOnMouseClicked(new SpeedButtonListener());
+        startButton.setOnMouseClicked(new StartButtonListener(bodyPane));
+        changeMapButton.setOnAction(new ChangeMapButtonListener(bodyPane));
     }
 
     private void initFooterPane() {
@@ -142,9 +122,18 @@ public class Controller extends Application {
         cancelButton.setOnMouseClicked(new UpgradeListener(bodyPane, hBoxMessage));
     }
 
+    public static String getTypeMapGlobal() {
+        return typeMapGlobal;
+    }
+
+    public static void setTypeMapGlobal(String typeMapGlobal) {
+        Controller.typeMapGlobal = typeMapGlobal;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        typeMapGlobal = "map1";
+        g = new Game();
 
         mainPane = new BorderPane();
         mainScene = new Scene(mainPane, 950, 550);
@@ -153,12 +142,10 @@ public class Controller extends Application {
 
         initMainPane();
         initHeaderPane();
-        initBodyPane();
         initFooterPane();
 
         primaryStage.show();
     }
-
 
     public static void launchTowerDefense(String[] args) {
         launch(args);

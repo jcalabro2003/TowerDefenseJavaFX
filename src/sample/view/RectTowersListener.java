@@ -34,8 +34,6 @@ public class RectTowersListener implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
-        notEnoughMoney = new Text();
-        hBoxMessage.getChildren().add(notEnoughMoney);
 
         if (!map.isOccupied(rec.getX() + 12.5 , rec.getY() + 12.5)){
             Building building;
@@ -48,9 +46,11 @@ public class RectTowersListener implements EventHandler<MouseEvent> {
                 map.addObjectToMap(building);
                 Player.BuyBuilding(Settings.SLOW_TOWER_PRICE);
             } else if (classicReady || slowReady) {
+
+                notEnoughMoney = new Text();
+                hBoxMessage.getChildren().add(notEnoughMoney);
                 notEnoughMoney.setText("Not enough money");
                 notEnoughMoney.setFill(Color.RED);
-
 
             }
             classicReady = false;

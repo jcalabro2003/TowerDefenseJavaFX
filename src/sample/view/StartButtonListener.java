@@ -1,19 +1,14 @@
 package sample.view;
+import sample.model.*;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import sample.Main;
-import sample.model.*;
-
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 import java.io.File;
-import java.net.URL;
 
 public class StartButtonListener implements EventHandler<MouseEvent> {
     private Map map;
