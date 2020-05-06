@@ -4,7 +4,9 @@ import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import sample.model.*;
 
 public class RectTowersListener implements EventHandler<MouseEvent> {
@@ -13,6 +15,7 @@ public class RectTowersListener implements EventHandler<MouseEvent> {
     private static HBox hBoxMessage;
     private static boolean classicReady = false;
     public static boolean slowReady = false;
+    private static Text notEnoughMoney;
 
     public RectTowersListener(Rectangle rec, Map map){
         this.rec = rec;
@@ -31,6 +34,8 @@ public class RectTowersListener implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
+        notEnoughMoney = new Text();
+        hBoxMessage.getChildren().add(notEnoughMoney);
 
         if (!map.isOccupied(rec.getX() + 12.5 , rec.getY() + 12.5)){
             Building building;
@@ -43,8 +48,10 @@ public class RectTowersListener implements EventHandler<MouseEvent> {
                 map.addObjectToMap(building);
                 Player.BuyBuilding(Settings.SLOW_TOWER_PRICE);
             } else if (classicReady || slowReady) {
-                ImageView im = LoadingImage.loadImage("feuFouge.gif", 25, 25);
-               // hBoxMessage.setT;
+                notEnoughMoney.setText("Not enough money");
+                notEnoughMoney.setFill(Color.RED);
+
+
             }
             classicReady = false;
             slowReady = false;

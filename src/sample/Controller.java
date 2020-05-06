@@ -71,7 +71,7 @@ public class Controller extends Application {
         ImageView imageSpeed = LoadingImage.loadImage("boutonspeed.png",25,25);
         speedButton.setGraphic(imageSpeed);
 
-        ImageView imagePause = LoadingImage.loadImage("boutpause.png",25,25);
+        ImageView imagePause = LoadingImage.loadImage("pause.png",25,25);
         pauseButton.setGraphic(imagePause);
 
 
@@ -112,7 +112,7 @@ public class Controller extends Application {
         footerPane.setPrefSize(950,50);
 
         ImageView classico = LoadingImage.loadImage("towers.png");
-        ImageView slow = LoadingImage.loadImage("Kamek.png");
+        ImageView slow = LoadingImage.loadImage("kamek.png");
         ImageView upgrade = LoadingImage.loadImage("upgrade.png");
         ImageView cancel = LoadingImage.loadImage("cancel.png");
 
