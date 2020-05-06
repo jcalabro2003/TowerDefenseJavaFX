@@ -2,6 +2,8 @@ package sample.model;
 
 import sample.InfoPane;
 
+import java.util.ArrayList;
+
 
 public class Wave implements Runnable{
     private static int waveNumber;
@@ -9,6 +11,8 @@ public class Wave implements Runnable{
     private static int maxDuration = Settings.WAVE_MAX_DURATION;
     private Thread t;
     private static boolean ready = true;
+    private Map map = Map.getInstance();
+    private static ArrayList<Building> buildings = new ArrayList<>();
 
     public Wave(int waveNumber){
         Wave.waveNumber = waveNumber;
@@ -26,6 +30,10 @@ public class Wave implements Runnable{
 
     public static int getMaxDuration() {
         return maxDuration;
+    }
+
+    public static ArrayList<Building> getBuildings() {
+        return buildings;
     }
 
 
@@ -77,13 +85,9 @@ public class Wave implements Runnable{
 
     @Override
     public void run() {
-        ready = false;
-        try {
-            Thread.sleep(duration);
+            ready = false;
+            while (map.getGameObjects().size() > buildings.size())
             ready = true;
-            Preparation preparation = new Preparation();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            Preparation.prepare();
     }
 }

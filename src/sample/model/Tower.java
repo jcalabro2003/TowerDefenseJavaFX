@@ -87,7 +87,6 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
                 }
             }
         }
-        System.out.println(res);
         return res;
     }
 

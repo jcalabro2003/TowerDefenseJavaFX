@@ -13,24 +13,6 @@ public class  Preparation {
     private static int preparationNumber = 0;
     public int cycle = maxDuration/50;
 
-    public Preparation() throws InterruptedException {
-
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(duration), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (Wave.isReady()){
-                    Wave wave =  new Wave(preparationNumber);
-                    preparationNumber++;
-                    StartButtonListener.setIteration(preparationNumber);
-                }
-            }
-        }));
-        timer.setCycleCount(1);
-        timer.play();
-    }
-    public static int getPreparationNumber() {
-        return preparationNumber;
-    }
 
     public static void setPreparationNumber(int preparationNumber) {
         Preparation.preparationNumber = preparationNumber;
@@ -46,5 +28,18 @@ public class  Preparation {
 
     public static void setDuration(int duration) {
         Preparation.duration = duration;
+    }
+    public static void prepare(){
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(duration), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (Wave.isReady()){
+                    new Wave(preparationNumber);
+                    preparationNumber++;
+                    StartButtonListener.setIteration(preparationNumber);
+                }
+            }
+        }));;
+        timer.play();
     }
 }
