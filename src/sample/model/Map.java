@@ -1,5 +1,6 @@
 package sample.model;
 
+import javafx.scene.input.MouseEvent;
 import sample.Controller;
 import sample.view.NewMapListener;
 import sample.view.RectTowersListener;
@@ -59,7 +60,6 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
 
     private boolean isPath(int x, int y, ArrayList<Point> points) {
         boolean isPath = false;
-        System.out.println("gros");
 
         switch (typeMap) {
             case ("map1") :
@@ -148,6 +148,13 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                     imgRectPath.setX(rectangle.getX());
                     imgRectPath.setY(rectangle.getY());
                     getChildren().add(imgRectPath);
+                    imgRectPath.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+                        @Override
+                        public void handle(MouseEvent event) {
+                            System.out.println("ok");
+                        }
+                    });
                 }
 
 
