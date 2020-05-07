@@ -41,9 +41,9 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             maxSpeed = speed;
             this.imageView = imageView;
             this.rotateImage = rotateImage;
+            map.addObjectToMap(this);
             rotateImage.setVisible(false);
             map.getChildren().add(rotateImage);
-            map.addObjectToMap(this);
             //pathNumber = new Random().nextInt(map.getPaths().size()-1);
             //path = map.getPaths().get(pathNumber);
             path = map.getPaths().get(0);

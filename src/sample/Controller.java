@@ -21,7 +21,7 @@ public class Controller extends Application {
 
     private BorderPane mainPane;
     private BorderPane headerPane;
-    private Map bodyPane;
+    public static Map bodyPane;
     private TilePane footerPane;
     private TilePane infoPane;
     private AnchorPane buttonsPane;

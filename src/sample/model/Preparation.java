@@ -8,8 +8,8 @@ import javafx.util.Duration;
 import sample.view.StartButtonListener;
 
 public class  Preparation {
-    private static int duration = 60000;
-    private static int maxDuration = 60000;
+    private static int duration = 10000;
+    private static int maxDuration = 10000;
     private static int preparationNumber = 0;
     public int cycle = maxDuration/50;
 
@@ -29,8 +29,8 @@ public class  Preparation {
     public static void setDuration(int duration) {
         Preparation.duration = duration;
     }
-    public static void prepare(){
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(duration), new EventHandler<ActionEvent>() {
+    public static void prepare(int time){
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(time), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (Wave.isReady()){
@@ -39,7 +39,7 @@ public class  Preparation {
                     StartButtonListener.setIteration(preparationNumber);
                 }
             }
-        }));;
+        }));
         timer.play();
     }
 }

@@ -86,8 +86,16 @@ public class Wave implements Runnable{
     @Override
     public void run() {
             ready = false;
-            while (map.getGameObjects().size() > buildings.size())
+            System.out.println(ready);
+            while (map.getGameObjects().size() > buildings.size()){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             ready = true;
-            Preparation.prepare();
+            System.out.println(ready);
+            Preparation.prepare(10000);
     }
 }

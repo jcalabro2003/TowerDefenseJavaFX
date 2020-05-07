@@ -8,10 +8,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import sample.view.RectTowersListener;
 
 
 public class Tower extends Building implements  Upgradable, StoppedObserver {
@@ -20,7 +17,7 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     private int range;
     private int reloading;
     private static ArrayList<PNJ> pnjs = new ArrayList<>();
-    private int level;
+    private int level = 0;
     private static final Object mykey = new Object();
     private String type;
     private ImageView gif;
@@ -31,7 +28,6 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         this.type = type;
         this.range = range;
         this.reloading = reloading;
-        this.level = 1;
         this.imageView = imageView;
         this.gif = gif;
         gif.setVisible(false);
@@ -64,6 +60,8 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
     public static void addPnj(PNJ pnj){
         pnjs.add(pnj);
     }
+
+
 
     public String getType() {
         return type;
@@ -109,26 +107,29 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         }
     }
 
+    @Override
+    public int getLevel() {
+        return level;
+    }
 
     @Override
     public void upgrade() {
         ImageView up = LoadingImage.loadImage("upgrade.png", 10, 10);
-        if (level == 1){
+        if (level == 0){
             level++;
             effect += effect /2;
             up.setX(posX + 5);
         }
-        else if(level == 2){
+        else if(level == 1){
             level++;
             reloading -= reloading/2;
             up.setX(posX + 17);
         }
-        else if(level == 3){
+        else {
             level++;
             range += range/3;
             up.setX(posX + 29);
         }
-        System.out.println("upgrade");
         up.setY(posY-5);
         map.getChildren().add(up);
     }

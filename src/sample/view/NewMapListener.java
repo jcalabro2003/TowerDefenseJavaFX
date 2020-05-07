@@ -21,6 +21,6 @@ public class NewMapListener implements EventHandler<MouseEvent> {
         Controller.setTypeMapGlobal(typeMap);
         Map.setInstance();
         InfoPane.init();
-        //Controller.bodyPane.setStyle("-fx-background-color: black;");
+        Controller.bodyPane.setStyle("-fx-background-color: black;");
     }
 }

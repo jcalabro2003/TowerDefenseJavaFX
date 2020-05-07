@@ -167,7 +167,6 @@ public class Map extends Pane implements StoppedObserver {
     public static Map setInstance() {
         Map.instance = null;
         Map.instance = Map.getInstance();
-
         return Map.instance;
     }
 
