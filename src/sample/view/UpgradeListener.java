@@ -8,15 +8,15 @@ import sample.model.Map;
 public class UpgradeListener  implements EventHandler<MouseEvent> {
 
     private Map map;
-    private HBox hBoxMessage;
 
-    public UpgradeListener(Map map, HBox hBoxMessage) {
+    public UpgradeListener(Map map) {
         this.map = map;
-        this.hBoxMessage = hBoxMessage;
     }
 
     @Override
     public void handle(MouseEvent event) {
-
+        RectTowersListener.setUpgradeReady(true);
+        RectTowersListener.setClassicReady(false);
+        RectTowersListener.setSlowReady(false);
     }
 }

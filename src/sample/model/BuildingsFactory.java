@@ -17,7 +17,7 @@ public class BuildingsFactory {
             case "slow":
                 imageView = LoadingImage.loadImage("slowTower.png", 50, 50);
                 gif = LoadingImage.loadImage("slowtower2.gif", 50, 50);
-                res = new Tower(0, 300, 3000, imageView, x , y, "slow", gif);
+                res = new Tower(0, 300, 2000, imageView, x , y, "slow", gif);
                 break;
             default: break;
         }

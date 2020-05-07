@@ -115,11 +115,11 @@ public class Controller extends Application {
         HBox hBoxMessage  = new HBox(Settings.SPACE_HBOX);
 
         footerPane.getChildren().addAll(hBoxTowersButton, hBoxMessage);
-
-        classicButton.setOnMouseClicked(new ClassicListener(bodyPane, hBoxMessage));
-        slowButton.setOnMouseClicked(new SlowListener(bodyPane, hBoxMessage));
-        upgradeButton.setOnMouseClicked(new UpgradeListener(bodyPane, hBoxMessage));
-        cancelButton.setOnMouseClicked(new UpgradeListener(bodyPane, hBoxMessage));
+        RectTowersListener.sethBoxMessage(hBoxMessage);
+        classicButton.setOnMouseClicked(new ClassicListener(bodyPane));
+        slowButton.setOnMouseClicked(new SlowListener(bodyPane));
+        upgradeButton.setOnMouseClicked(new UpgradeListener(bodyPane));
+        cancelButton.setOnMouseClicked(new CancelListener(bodyPane));
     }
 
     public static String getTypeMapGlobal() {

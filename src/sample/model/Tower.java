@@ -8,7 +8,10 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import sample.view.RectTowersListener;
 
 
 public class Tower extends Building implements  Upgradable, StoppedObserver {
@@ -39,6 +42,7 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         imageView.setY(posY);
         gif.setX(posX);
         gif.setY(posY);
+
 
 
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(reloading), new EventHandler<ActionEvent>() {
@@ -108,17 +112,25 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
 
     @Override
     public void upgrade() {
+        ImageView up = LoadingImage.loadImage("upgrade.png", 10, 10);
         if (level == 1){
             level++;
             effect += effect /2;
+            up.setX(posX + 5);
         }
         else if(level == 2){
             level++;
-            reloading -= reloading/3;
+            reloading -= reloading/2;
+            up.setX(posX + 17);
         }
-        else {
+        else if(level == 3){
+            level++;
             range += range/3;
+            up.setX(posX + 29);
         }
+        System.out.println("upgrade");
+        up.setY(posY-5);
+        map.getChildren().add(up);
     }
 
     @Override

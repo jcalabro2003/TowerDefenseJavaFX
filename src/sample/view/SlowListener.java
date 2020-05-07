@@ -10,16 +10,15 @@ import java.util.HashMap;
 public class SlowListener implements EventHandler<MouseEvent> {
 
     private Map map;
-    private HBox hBoxMessage;
 
-    public SlowListener(Map map, HBox hBoxMessage) {
+    public SlowListener(Map map) {
         this.map = map;
-        this.hBoxMessage = hBoxMessage;
     }
 
     @Override
     public void handle(MouseEvent event) {
-        RectTowersListener.setSlowReady(true, hBoxMessage);
-        RectTowersListener.setClassicReady(false, hBoxMessage);
+        RectTowersListener.setSlowReady(true);
+        RectTowersListener.setClassicReady(false);
+        RectTowersListener.setUpgradeReady(false);
     }
 }

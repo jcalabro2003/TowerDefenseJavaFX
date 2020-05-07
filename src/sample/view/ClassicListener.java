@@ -7,16 +7,16 @@ import sample.model.Map;
 
 public class ClassicListener implements EventHandler <MouseEvent> {
     private Map map;
-    private HBox hBoxMessage;
 
-    public ClassicListener(Map map, HBox hBoxMessage) {
+    public ClassicListener(Map map) {
         this.map = map;
-        this.hBoxMessage = hBoxMessage;
+
     }
 
     @Override
     public void handle(MouseEvent event) {
-        RectTowersListener.setClassicReady(true, hBoxMessage);
-        RectTowersListener.setSlowReady(false, hBoxMessage);
+        RectTowersListener.setClassicReady(true);
+        RectTowersListener.setSlowReady(false);
+        RectTowersListener.setUpgradeReady(false);
     }
 }
