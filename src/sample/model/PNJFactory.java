@@ -2,7 +2,7 @@ package sample.model;
 
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
-
+//
 public class PNJFactory {
 
     public static PNJ getInstance(@NotNull String type){

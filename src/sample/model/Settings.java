@@ -1,5 +1,5 @@
 package sample.model;
-
+//
 public class Settings {
     public static int HEALTH_POINTS = 30;
     public static int WAVE_NUMBER = 0;

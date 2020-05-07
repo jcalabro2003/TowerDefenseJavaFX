@@ -1,7 +1,6 @@
 package sample.model;
-
+//
 public abstract class Building extends GameObject {
-
 
 
     public Building(){

@@ -1,5 +1,5 @@
 package sample.model;
-
+//
 import sample.InfoPane;
 
 import java.util.ArrayList;

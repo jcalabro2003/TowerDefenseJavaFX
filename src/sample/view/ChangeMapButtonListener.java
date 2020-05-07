@@ -1,5 +1,5 @@
 package sample.view;
-
+//
 import sample.model.ChangeMapObserver;
 import sample.model.Map;
 

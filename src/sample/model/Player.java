@@ -1,5 +1,5 @@
 package sample.model;
-
+//
 import sample.InfoPane;
 
 public class Player implements StoppedObserver{

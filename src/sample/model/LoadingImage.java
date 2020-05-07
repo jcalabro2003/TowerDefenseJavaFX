@@ -1,5 +1,5 @@
 package sample.model;
-
+//
 import sample.Main;
 
 import javafx.scene.image.Image;

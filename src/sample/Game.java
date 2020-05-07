@@ -1,5 +1,5 @@
 package sample;
-
+//
 import sample.model.Player;
 
 public class Game {

@@ -1,5 +1,5 @@
 package sample.model;
-
+//
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;

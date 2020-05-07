@@ -1,5 +1,5 @@
 package sample.model;
-
+//
 import javafx.scene.input.MouseEvent;
 import sample.Controller;
 import sample.view.NewMapListener;

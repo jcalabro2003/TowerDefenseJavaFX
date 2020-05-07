@@ -1,8 +1,5 @@
 package sample.model;
-
-
-
-
+//
 public interface Stop {
     Object key = new Object();
 

@@ -1,6 +1,5 @@
 package sample.model;
-
-
+//
 public class Spell extends GameObject implements Movable {
     private String type;
     private int velocity;

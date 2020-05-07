@@ -1,5 +1,5 @@
 package sample.model;
-
+//
 import javafx.scene.image.ImageView;
 
 public class BuildingsFactory {

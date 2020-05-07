@@ -1,5 +1,5 @@
 package sample;
-
+//
 import sample.model.ChangeMapObserver;
 import sample.model.LoadingImage;
 import sample.model.Map;

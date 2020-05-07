@@ -1,5 +1,5 @@
 package sample.model;
-
+//
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
 import sample.InfoPane;
