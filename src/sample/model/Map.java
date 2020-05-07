@@ -1,6 +1,7 @@
 package sample.model;
 
 import sample.Controller;
+import sample.view.NewMapListener;
 import sample.view.RectTowersListener;
 
 import javafx.animation.KeyFrame;
@@ -15,7 +16,7 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
-public class Map extends Pane implements StoppedObserver {
+public class Map extends Pane implements StoppedObserver, ChangeMap {
 
     private static Map instance = null;
     private String typeMap;
@@ -23,16 +24,19 @@ public class Map extends Pane implements StoppedObserver {
     private ArrayList<Path> paths = new ArrayList<>();
     private ArrayList<Rectangle> rectPaths = new ArrayList<>();
     private ArrayList<Rectangle> rectTowers = new ArrayList<>();
+    private ArrayList<ChangeMapObserver> observers = new ArrayList<>();
+    private static ImageView imgMap;
 
     private Map(String typeMap) {
         super();
-
+        notifyObserver();
         this.typeMap = typeMap;
+        System.out.println(typeMap);
         ArrayList<Point> points = getPoints();
         Path path = new Path(points);
         paths.add(path);
 
-        ImageView imgMap = getImgMap();
+        imgMap = getImgMap();
         this.getChildren().add(imgMap);
 
         createField(points);
@@ -87,14 +91,17 @@ public class Map extends Pane implements StoppedObserver {
     }
 
     private ImageView getImgMap() {
-        ImageView img;
+        ImageView img = null;
 
         switch (typeMap) {
             case ("map1") :
                 img = LoadingImage.loadImage("BackgroundRainobw.png",950,500);
                 break;
-            default:
-                img = LoadingImage.loadImage("BackgroundRainobw.png",950,500);
+            case ("map2"):
+                img = LoadingImage.loadImage("gazon.png",950,500);
+                System.out.println("image ok");
+                break;
+            default: break;
         }
 
         return  img;
@@ -129,6 +136,9 @@ public class Map extends Pane implements StoppedObserver {
                 Rectangle rectangle = new Rectangle(x, y, 50, 50);
                 this.getChildren().add(rectangle);
 
+                rectTowers.add(rectangle);
+                rectangle.setFill(Color.TRANSPARENT);
+                rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
                 if (isPath(x, y , points)) {
                     rectPaths.add(rectangle);
 
@@ -138,12 +148,7 @@ public class Map extends Pane implements StoppedObserver {
                     imgRectPath.setY(rectangle.getY());
                     getChildren().add(imgRectPath);
                 }
-                else {
-                    rectTowers.add(rectangle);
 
-                    rectangle.setFill(Color.TRANSPARENT);
-                    rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
-                }
 
                 x = x + 50;
             }
@@ -159,12 +164,13 @@ public class Map extends Pane implements StoppedObserver {
 
     public static Map getInstance() {
         if (Map.instance == null) {
-            Map.instance = new Map(Controller.getTypeMapGlobal());
+            Map.instance = new Map(NewMapListener.getTypeMap());
         }
         return Map.instance;
     }
 
-    public static Map setInstance() {
+    public Map setInstance() {
+        this.getChildren().removeAll(imgMap);
         Map.instance = null;
         Map.instance = Map.getInstance();
         return Map.instance;
@@ -207,7 +213,7 @@ public class Map extends Pane implements StoppedObserver {
     }
 
     public void addObjectToMap(GameObject gameObject) {
-        this.getChildren().add(gameObject.getImageView());
+        getChildren().add(gameObject.getImageView());
     }
 
     @Override
@@ -222,5 +228,17 @@ public class Map extends Pane implements StoppedObserver {
             }
             o = null;
         }
+    }
+
+    @Override
+    public void notifyObserver() {
+        for(ChangeMapObserver o : observers){
+            o.changeMap();
+        }
+    }
+
+    @Override
+    public void addObserver(ChangeMapObserver o) {
+        observers.add(o);
     }
 }

@@ -5,7 +5,7 @@ import sample.InfoPane;
 import java.util.ArrayList;
 
 
-public class Wave implements Runnable{
+public class Wave implements Runnable , ChangeMapObserver{
     private static int waveNumber;
     private static int duration = Settings.WAVE_MAX_DURATION;
     private static int maxDuration = Settings.WAVE_MAX_DURATION;
@@ -15,6 +15,7 @@ public class Wave implements Runnable{
     private static ArrayList<Building> buildings = new ArrayList<>();
 
     public Wave(int waveNumber){
+        map.addObserver(this);
         Wave.waveNumber = waveNumber;
         InfoPane.update();
         initWave();
@@ -86,7 +87,6 @@ public class Wave implements Runnable{
     @Override
     public void run() {
             ready = false;
-            System.out.println(ready);
             while (map.getGameObjects().size() > buildings.size()){
                 try {
                     Thread.sleep(1000);
@@ -95,7 +95,11 @@ public class Wave implements Runnable{
                 }
             }
             ready = true;
-            System.out.println(ready);
             Preparation.prepare(10000);
+    }
+
+    @Override
+    public void changeMap() {
+        Map.getInstance();
     }
 }

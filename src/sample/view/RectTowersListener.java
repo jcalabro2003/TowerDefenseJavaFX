@@ -15,7 +15,7 @@ import sample.model.*;
 
 import java.util.Collection;
 
-public class RectTowersListener implements EventHandler<MouseEvent> {
+public class RectTowersListener implements EventHandler<MouseEvent>, ChangeMapObserver {
     private Rectangle rec;
     private Map map;
     private static HBox hBoxMessage;
@@ -28,6 +28,7 @@ public class RectTowersListener implements EventHandler<MouseEvent> {
     public RectTowersListener(Rectangle rec, Map map){
         this.rec = rec;
         this.map = map;
+        map.addObserver(this);
     }
 
     private void addHandler(){
@@ -94,5 +95,10 @@ public class RectTowersListener implements EventHandler<MouseEvent> {
         } else {
             upgrade();
         }
+    }
+
+    @Override
+    public void changeMap() {
+        Map.getInstance();
     }
 }

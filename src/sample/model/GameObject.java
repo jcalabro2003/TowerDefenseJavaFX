@@ -3,7 +3,7 @@ package sample.model;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
-public abstract class GameObject {
+public abstract class GameObject implements ChangeMapObserver{
 
 
     protected Map map = Map.getInstance();
@@ -14,9 +14,15 @@ public abstract class GameObject {
 
     public GameObject(){
         nb++;
+        map.addObserver(this);
         map.addGameObject(this);
         System.out.println("objets créé " + nb);
 
+    }
+
+    @Override
+    public void changeMap() {
+        Map.getInstance();
     }
 
     public double getPosX() {

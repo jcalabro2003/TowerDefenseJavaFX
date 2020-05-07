@@ -1,5 +1,6 @@
 package sample;
 
+import sample.model.ChangeMapObserver;
 import sample.model.LoadingImage;
 import sample.model.Map;
 import sample.model.Settings;
@@ -13,7 +14,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 
-public class Controller extends Application {
+public class Controller extends Application implements ChangeMapObserver {
     private static  String typeMapGlobal;
     private Game g;
 
@@ -82,7 +83,7 @@ public class Controller extends Application {
 
         //listeners pour les boutons
         speedButton.setOnMouseClicked(new SpeedButtonListener());
-        startButton.setOnMouseClicked(new StartButtonListener(bodyPane));
+        startButton.setOnMouseClicked(new StartButtonListener());
         changeMapButton.setOnAction(new ChangeMapButtonListener(bodyPane));
     }
 
@@ -116,24 +117,19 @@ public class Controller extends Application {
 
         footerPane.getChildren().addAll(hBoxTowersButton, hBoxMessage);
         RectTowersListener.sethBoxMessage(hBoxMessage);
-        classicButton.setOnMouseClicked(new ClassicListener(bodyPane));
-        slowButton.setOnMouseClicked(new SlowListener(bodyPane));
-        upgradeButton.setOnMouseClicked(new UpgradeListener(bodyPane));
-        cancelButton.setOnMouseClicked(new CancelListener(bodyPane));
+        classicButton.setOnMouseClicked(new ClassicListener());
+        slowButton.setOnMouseClicked(new SlowListener());
+        upgradeButton.setOnMouseClicked(new UpgradeListener());
+        cancelButton.setOnMouseClicked(new CancelListener());
     }
 
-    public static String getTypeMapGlobal() {
-        return typeMapGlobal;
-    }
-
-    public static void setTypeMapGlobal(String typeMapGlobal) {
-        Controller.typeMapGlobal = typeMapGlobal;
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        typeMapGlobal = "map1";
         g = new Game();
+        NewMapListener.setTypeMap("map1");
+
+
 
         mainPane = new BorderPane();
         mainScene = new Scene(mainPane, 950, 550);
@@ -143,11 +139,17 @@ public class Controller extends Application {
         initMainPane();
         initHeaderPane();
         initFooterPane();
+        bodyPane.addObserver(this);
 
         primaryStage.show();
     }
 
     public static void launchTowerDefense(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void changeMap() {
+        bodyPane = Map.getInstance();
     }
 }
