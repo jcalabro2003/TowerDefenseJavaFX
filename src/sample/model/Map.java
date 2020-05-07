@@ -137,9 +137,6 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                 Rectangle rectangle = new Rectangle(x, y, 50, 50);
                 this.getChildren().add(rectangle);
 
-                rectTowers.add(rectangle);
-                rectangle.setFill(Color.TRANSPARENT);
-                rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
                 if (isPath(x, y , points)) {
                     rectPaths.add(rectangle);
 
@@ -152,10 +149,16 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
 
                         @Override
                         public void handle(MouseEvent event) {
-                            System.out.println("ok");
+
                         }
                     });
+                }else {
+                    rectTowers.add(rectangle);
+                    rectangle.setFill(Color.TRANSPARENT);
+                    rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
                 }
+
+
 
 
                 x = x + 50;
