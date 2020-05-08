@@ -12,7 +12,8 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
     private int effect;
     private ArrayList<StoppedObserver> observers = new ArrayList<>();
     private Thread t;
-    private int sleeptime = 50;
+    private static int sleepTime = 50;
+    private static int maxSleepTime = 50;
     private static final Object myKey = new Object();
     private static final Object myKey2 = new Object();
     private double theta;
@@ -73,8 +74,16 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
         return Math.sqrt(Math.pow(object.getPosX() - this.posX, 2) + Math.pow(object.getPosY() - this.posY, 2));
     }
 
-    public int getEffect() {
-        return effect;
+    public static void setSleepTime(int sleepTime) {
+        Projectile.sleepTime = sleepTime;
+    }
+
+    public static int getSleepTime() {
+        return sleepTime;
+    }
+
+    public static int getMaxSleepTime() {
+        return maxSleepTime;
     }
 
 
@@ -84,7 +93,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
         while (getDistance(target) > 10 && target.isAlive()) {
             move(null);
             try {
-                Thread.sleep(sleeptime);
+                Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -41,15 +39,11 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
 
 
 
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(reloading), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                gif.setVisible(false);
-                imageView.setVisible(true);
-                if (pnjs.size() > 0){
-                    shoot();
-                }
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(reloading), event -> {
+            gif.setVisible(false);
+            imageView.setVisible(true);
+            if (pnjs.size() > 0) {
+                shoot();
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
