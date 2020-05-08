@@ -1,5 +1,8 @@
 package sample;
 //
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import sample.model.ChangeMapObserver;
 import sample.model.LoadingImage;
 import sample.model.Map;
@@ -34,7 +37,11 @@ public class Controller extends Application implements ChangeMapObserver {
     private Button slowButton;
     private Button upgradeButton;
     private Button cancelButton;
-    public static Button changeMapButton;
+
+    public static MenuBar menuBar;
+    private MenuItem menuItem1;
+    private MenuItem menuItem2;
+    private Menu menu;
 
     private void initMainPane() {
         headerPane = new BorderPane();
@@ -60,10 +67,16 @@ public class Controller extends Application implements ChangeMapObserver {
     }
 
     private void initButtonsPane() {
+        menuBar = new MenuBar();
+        menuItem1 = new MenuItem("Map 1");
+        menuItem2 = new MenuItem("Map 2");
+        menu = new Menu("Change Map");
+        menu.getItems().addAll(menuItem1,menuItem2);
+        menuBar.getMenus().add(menu);
+
         speedButton = new Button();
         pauseButton = new Button();
         startButton = new Button();
-        changeMapButton = new Button("Change Map");
 
         ImageView imageStart = LoadingImage.loadImage("Play.png",25,25);
         startButton.setGraphic(imageStart);
@@ -75,7 +88,7 @@ public class Controller extends Application implements ChangeMapObserver {
         pauseButton.setGraphic(imagePause);
 
         HBox hBoxButton= new HBox(Settings.SPACE_HBOX);
-        hBoxButton.getChildren().addAll(changeMapButton, startButton, speedButton, pauseButton);
+        hBoxButton.getChildren().addAll(menuBar, startButton, speedButton, pauseButton);
         hBoxButton.setPadding(new Insets(10,5,5,5));
 
         buttonsPane.getChildren().add(hBoxButton);
@@ -84,7 +97,10 @@ public class Controller extends Application implements ChangeMapObserver {
         //listeners pour les boutons
         speedButton.setOnMouseClicked(new SpeedButtonListener());
         startButton.setOnMouseClicked(new StartButtonListener());
-        changeMapButton.setOnAction(new ChangeMapButtonListener(bodyPane));
+
+        //listeners pour les items
+        menuItem1.setOnAction(new NewMapListenerBtMap1("map1"));
+        menuItem2.setOnAction(new NewMapListenerBtMap2("map2"));
     }
 
     private void initFooterPane() {

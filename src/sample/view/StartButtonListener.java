@@ -39,7 +39,7 @@ public class StartButtonListener implements EventHandler<MouseEvent>, ChangeMapO
                     iteration++;
                     Preparation.setPreparationNumber(iteration);
 
-                    Controller.changeMapButton.setDisable(true);
+                    Controller.menuBar.setDisable(true);
                 }
             }));
             timer.setCycleCount(1);

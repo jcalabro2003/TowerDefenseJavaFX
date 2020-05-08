@@ -19,7 +19,7 @@ public class CancelListener  implements EventHandler<MouseEvent> {
         RectTowersListener.setClassicReady(false);
         RectTowersListener.setUpgradeReady(false);
 
-        Controller.changeMapButton.setDisable(true);
+        Controller.menuBar.setDisable(true);
     }
 
 }

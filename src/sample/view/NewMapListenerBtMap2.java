@@ -5,9 +5,9 @@ import sample.model.ChangeMapObserver;
 import sample.model.Map;
 
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 
-public class NewMapListenerBtMap2 implements EventHandler<MouseEvent>, ChangeMapObserver {
+public class NewMapListenerBtMap2 implements EventHandler<ActionEvent>, ChangeMapObserver {
     private static String typeMap;
     private Map map = Map.getInstance();
 
@@ -22,7 +22,7 @@ public class NewMapListenerBtMap2 implements EventHandler<MouseEvent>, ChangeMap
     }
 
     @Override
-    public void handle(MouseEvent event) {
+    public void handle(ActionEvent event) {
         map.setInstance(typeMap);
         InfoPane.init();
     }

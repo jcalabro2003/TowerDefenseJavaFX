@@ -14,6 +14,6 @@ public class UpgradeListener  implements EventHandler<MouseEvent> {
         RectTowersListener.setSlowReady(false);
         RectTowersListener.setBombReady(false);
 
-        Controller.changeMapButton.setDisable(true);
+        Controller.menuBar.setDisable(true);
     }
 }
