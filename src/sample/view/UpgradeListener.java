@@ -1,9 +1,9 @@
 package sample.view;
-//
+
+import sample.Controller;
+
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import sample.model.Map;
 
 public class UpgradeListener  implements EventHandler<MouseEvent> {
 
@@ -12,5 +12,7 @@ public class UpgradeListener  implements EventHandler<MouseEvent> {
         RectTowersListener.setUpgradeReady(true);
         RectTowersListener.setClassicReady(false);
         RectTowersListener.setSlowReady(false);
+
+        Controller.changeMapButton.setDisable(true);
     }
 }

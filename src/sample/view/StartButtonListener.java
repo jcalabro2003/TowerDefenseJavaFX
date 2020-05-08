@@ -1,6 +1,8 @@
 package sample.view;
+
+import sample.Controller;
 import sample.model.*;
-//
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -37,10 +39,7 @@ public class StartButtonListener implements EventHandler<MouseEvent>, ChangeMapO
                     iteration++;
                     Preparation.setPreparationNumber(iteration);
 
-
-
-
-
+                    Controller.changeMapButton.setDisable(true);
                 }
             }));
             timer.setCycleCount(1);

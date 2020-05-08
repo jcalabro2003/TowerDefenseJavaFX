@@ -34,7 +34,7 @@ public class Controller extends Application implements ChangeMapObserver {
     private Button slowButton;
     private Button upgradeButton;
     private Button cancelButton;
-    private Button changeMapButton;
+    public static Button changeMapButton;
 
     private void initMainPane() {
         headerPane = new BorderPane();
