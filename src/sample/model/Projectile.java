@@ -90,7 +90,7 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
             notifyObserver();
             if (target != null && target.isAlive()) {
                 if (type.equals("basic")) {
-                    target.receiveDamage(this);
+                    target.receiveDamage(this.effect);
                 } else if (type.equals("slow")) {
                     try {
                         target.setSpeed(effect);

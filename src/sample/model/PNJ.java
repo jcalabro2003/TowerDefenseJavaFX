@@ -145,8 +145,8 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
         }
     }
 
-    public void receiveDamage(@NotNull Projectile p){
-        health -= p.getEffect();
+    public void receiveDamage(int damage){
+        health -= damage;
         if (health <= 0){
             alive = false;
         }

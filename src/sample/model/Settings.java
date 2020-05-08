@@ -11,4 +11,5 @@ public class Settings {
 
     public static int CLASSIC_TOWER_PRICE = 100;
     public static int SLOW_TOWER_PRICE = 150;
+    public static int BOMB_CREATOR = 200;
 }

@@ -61,7 +61,9 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         pnjs.add(pnj);
     }
 
-
+    public static ArrayList<PNJ> getPnjs() {
+        return pnjs;
+    }
 
     public String getType() {
         return type;
