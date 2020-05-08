@@ -90,6 +90,18 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
             case ("map2") :
                 points.add(new Point(225, 75));
                 points.add(new Point(950, 75));
+                /*
+                points.add(new Point(175, 75));
+                points.add(new Point(175, 325));
+                points.add(new Point(775, 325));
+                points.add(new Point(775, 75));
+                points.add(new Point(950, 50));
+                points.add(new Point(325, 75));
+                points.add(new Point(325, 175));
+                points.add(new Point(325, 525));
+                points.add(new Point(725, 525));
+                points.add(new Point(725, 50));
+                 */
                 break;
             default:
                 break;
