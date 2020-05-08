@@ -27,6 +27,7 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
     private ArrayList<Point> points;
     private Path path;
     private static ImageView imgMap;
+    private int nbOfSpell = 0;
 
     private Map(String typeMap) {
         super();
@@ -55,6 +56,14 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
+    }
+
+    public  int getNbOfSpell() {
+        return nbOfSpell;
+    }
+
+    public void setNbOfSpell(int nbOfSpell) {
+        this.nbOfSpell = nbOfSpell;
     }
 
     private boolean isPath(int x, int y, ArrayList<Point> points) {

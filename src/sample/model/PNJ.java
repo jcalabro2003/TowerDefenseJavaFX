@@ -166,6 +166,8 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             }
         }
         notifyObserver();
+        map.getChildren().removeAll(imageView);
+        map.getChildren().removeAll(rotateImage);
     }
 
     public void rotate() {

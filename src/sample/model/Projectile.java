@@ -87,17 +87,18 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
                 e.printStackTrace();
             }
         }
-            notifyObserver();
-            if (target != null && target.isAlive()) {
-                if (type.equals("basic")) {
-                    target.receiveDamage(this.effect);
-                } else if (type.equals("slow")) {
-                    try {
-                        target.setSpeed(effect);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        notifyObserver();
+        if (target != null && target.isAlive()) {
+            if (type.equals("basic")) {
+                target.receiveDamage(this.effect);
+            } else if (type.equals("slow")) {
+                try {
+                    target.setSpeed(effect);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+        }
+        map.getChildren().removeAll(imageView);
     }
 }

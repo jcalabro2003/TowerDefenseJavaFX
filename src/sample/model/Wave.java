@@ -87,7 +87,7 @@ public class Wave implements Runnable , ChangeMapObserver{
     @Override
     public void run() {
             ready = false;
-            while (map.getGameObjects().size() > buildings.size()){
+            while (map.getGameObjects().size() > buildings.size() + map.getNbOfSpell()){
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {

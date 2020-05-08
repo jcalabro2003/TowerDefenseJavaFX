@@ -10,8 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 
-
-
 public class Spell extends GameObject implements Movable {
     private String type;
     private int velocity;
@@ -32,6 +30,7 @@ public class Spell extends GameObject implements Movable {
         imageView = LoadingImage.loadImage("images/" + type + ".png", 25, 25);
         imageView.setVisible(false);
         map.getChildren().add(imageView);
+        map.setNbOfSpell(map.getNbOfSpell() + 1);
     }
 
     @Override
@@ -54,42 +53,55 @@ public class Spell extends GameObject implements Movable {
             }
         }
     }
+    private void waiting() {
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(30000), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                ready = true;
+            }
+        }));
+        timer.play();
+    }
+
 
     public void fire(Point point) {
-        imageView.setVisible(true);
-        ImageView boum = LoadingImage.loadImage("images/explosion.gif", range, range);
-        Timeline chrono = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
+        if (ready){
+            imageView.setVisible(true);
+            ImageView boum = LoadingImage.loadImage("images/explosion.gif", range, range);
+            Timeline chrono = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
 
-            @Override
-            public void handle(ActionEvent event) {
-                boum.setVisible(false);
-                map.getChildren().removeAll(boum);
-            }
-        }));
-
-        Timeline timer = new Timeline();
-        timer.getKeyFrames().add(new KeyFrame(Duration.millis(sleeptime), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                if (Math.abs(posX - point.getX()) > 10 || Math.abs(posY - point.getY()) > 10){
-                    move(point);
-                    System.out.println("wow");
-                } else{
-                    timer.stop();
-                    applyDamage(point);
-                    imageView.setVisible(false);
-                    boum.setX(posX - range/2);
-                    boum.setY(posY - range + 30);
-                    map.getChildren().add(boum);
-                    posX = spellCreator.getPosX();
-                    posY = spellCreator.getPosY();
-                    chrono.play();
+                @Override
+                public void handle(ActionEvent event) {
+                    boum.setVisible(false);
+                    map.getChildren().removeAll(boum);
                 }
-            }
-        }));
-        timer.setCycleCount(Timeline.INDEFINITE);
-        timer.play();
+            }));
 
+            Timeline timer = new Timeline();
+            timer.getKeyFrames().add(new KeyFrame(Duration.millis(sleeptime), new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent event) {
+                    if (Math.abs(posX - point.getX()) > 10 || Math.abs(posY - point.getY()) > 10){
+                        move(point);
+                    } else{
+                        timer.stop();
+                        applyDamage(point);
+                        imageView.setVisible(false);
+                        boum.setX(posX - range/2);
+                        boum.setY(posY - range + 30);
+                        map.getChildren().add(boum);
+                        posX = spellCreator.getPosX();
+                        posY = spellCreator.getPosY();
+                        ready = false;
+                        chrono.play();
+                        waiting();
+                    }
+                }
+            }));
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();
+        }
     }
 }
