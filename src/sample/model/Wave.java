@@ -50,10 +50,10 @@ public class Wave implements Runnable , ChangeMapObserver{
                 spawnPNJs("basic", 2*waveNumber +2);
                 break;
             case 2:
-                spawnPNJs("tank", waveNumber);
+                spawnPNJs("fast", waveNumber +1);
                 break;
             case 3:
-                spawnPNJs("fast", waveNumber + 1);
+                spawnPNJs("tank", waveNumber +1);
                 break;
             case 4:
                 spawnPNJs("basic", waveNumber +2);

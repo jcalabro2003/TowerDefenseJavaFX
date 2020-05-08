@@ -30,6 +30,8 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
             posY = tower.getPosY();
             type = tower.getType();
             this.imageView = imageView;
+            imageView.setY(posY);
+            imageView.setX(posX);
             map.addObjectToMap(this);
             t = new Thread(this);
             t.start();

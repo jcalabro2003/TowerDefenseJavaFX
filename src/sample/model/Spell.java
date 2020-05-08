@@ -67,6 +67,7 @@ public class Spell extends GameObject implements Movable {
 
     public void fire(Point point) {
         if (ready){
+            ready = false;
             imageView.setVisible(true);
             ImageView boum = LoadingImage.loadImage("images/explosion.gif", range, range);
             Timeline chrono = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
@@ -94,7 +95,6 @@ public class Spell extends GameObject implements Movable {
                         map.getChildren().add(boum);
                         posX = spellCreator.getPosX();
                         posY = spellCreator.getPosY();
-                        ready = false;
                         chrono.play();
                         waiting();
                     }

@@ -159,9 +159,9 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
             @Override
             public void handle(ActionEvent event) {
                 im.setVisible(false);
+                getChildren().removeAll(im);
             }
         }));
-        chrono.setCycleCount(1);
         chrono.play();
     }
 

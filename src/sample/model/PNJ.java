@@ -25,6 +25,7 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     private static final Object myKey = new Object();
     private static final Object myKey2 = new Object();
     private static final Object myKey3 = new Object();
+    private static final Object myKey4 = new Object();
     private ImageView rotateImage;
 
 
@@ -41,13 +42,15 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             maxSpeed = speed;
             this.imageView = imageView;
             this.rotateImage = rotateImage;
-            map.addObjectToMap(this);
+            imageView.setY(posY);
+            imageView.setX(posX);
             rotateImage.setVisible(false);
+            map.addObjectToMap(this);
             map.getChildren().add(rotateImage);
             //pathNumber = new Random().nextInt(map.getPaths().size()-1);
             //path = map.getPaths().get(pathNumber);
             path = map.getPaths().get(0);
-            posX = new Random().nextInt(400) -400;
+            posX = new Random().nextInt(1000) -1000;
             posY = new Random().nextInt(50) +45;
             Tower.addPnj(this);
             t = new Thread(this);
@@ -146,9 +149,11 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     }
 
     public void receiveDamage(int damage){
-        health -= damage;
-        if (health <= 0){
-            alive = false;
+        synchronized (myKey4){
+            health -= damage;
+            if (health <= 0) {
+                alive = false;
+            }
         }
     }
 
