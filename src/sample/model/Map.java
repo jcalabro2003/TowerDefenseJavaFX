@@ -67,6 +67,10 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                     isPath = true;
                 }
                 break;
+            case ("map2") :
+                if (y == 50)
+                    isPath = true;
+                break;
         }
 
         return isPath;
@@ -183,9 +187,9 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         setTypeMap(typeMap);
         points = getPoints();
         path.setPath(points);
-        //instance.createField
         this.getChildren().removeAll(imgMap);
         this.getChildren().add(getImgMap());
+        Map.getInstance().createField(points);
         return Map.instance;
     }
 
