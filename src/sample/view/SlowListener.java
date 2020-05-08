@@ -12,6 +12,7 @@ public class SlowListener implements EventHandler<MouseEvent> {
         RectTowersListener.setSlowReady(true);
         RectTowersListener.setClassicReady(false);
         RectTowersListener.setUpgradeReady(false);
+        RectTowersListener.setBombReady(false);
 
         Controller.changeMapButton.setDisable(true);
     }

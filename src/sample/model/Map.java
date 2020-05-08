@@ -155,7 +155,13 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
 
                         @Override
                         public void handle(MouseEvent event) {
-
+                            System.out.println(event.getX() + "    " + event.getY());
+                            for (GameObject g: gameObjects){
+                                if (g instanceof Spell){
+                                    ((Spell) g).fire(new Point(event.getX(), event.getY()));
+                                    break;
+                                }
+                            }
                         }
                     });
                 }else {

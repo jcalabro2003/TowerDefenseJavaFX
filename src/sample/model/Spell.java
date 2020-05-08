@@ -1,6 +1,17 @@
 package sample.model;
 
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.image.ImageView;
+
+import javafx.util.Duration;
+
+
+
+
 public class Spell extends GameObject implements Movable {
     private String type;
     private int velocity;
@@ -8,7 +19,7 @@ public class Spell extends GameObject implements Movable {
     private boolean ready = true;
     private SpellCreator spellCreator;
     private int sleeptime = 50;
-    private int range = 300;
+    private int range = 150;
 
     public Spell(int velocity, SpellCreator spellCreator, int damage) {
         super();
@@ -16,8 +27,11 @@ public class Spell extends GameObject implements Movable {
         this.spellCreator = spellCreator;
         this.type = spellCreator.getType();
         this.damage = damage;
-        imageView = LoadingImage.loadImage("images/" + type + ".png");
+        posX = spellCreator.getPosX();
+        posY = spellCreator.getPosY();
+        imageView = LoadingImage.loadImage("images/" + type + ".png", 25, 25);
         imageView.setVisible(false);
+        map.getChildren().add(imageView);
     }
 
     @Override
@@ -31,6 +45,7 @@ public class Spell extends GameObject implements Movable {
     public void update() {
         imageView.setY(posY);
         imageView.setX(posX);
+        imageView.setRotate(imageView.getRotate() - 10);
     }
     public void applyDamage(Point point){
         for (PNJ pnj : Tower.getPnjs()){
@@ -42,16 +57,39 @@ public class Spell extends GameObject implements Movable {
 
     public void fire(Point point) {
         imageView.setVisible(true);
+        ImageView boum = LoadingImage.loadImage("images/explosion.gif", range, range);
+        Timeline chrono = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
 
-        while (posX != point.getX() && posY != point.getY()) {
-            move(point);
-            try {
-                Thread.sleep(sleeptime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            @Override
+            public void handle(ActionEvent event) {
+                boum.setVisible(false);
+                map.getChildren().removeAll(boum);
             }
-        }
-        applyDamage(point);
-        imageView.setVisible(false);
+        }));
+
+        Timeline timer = new Timeline();
+        timer.getKeyFrames().add(new KeyFrame(Duration.millis(sleeptime), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                if (Math.abs(posX - point.getX()) > 10 || Math.abs(posY - point.getY()) > 10){
+                    move(point);
+                    System.out.println("wow");
+                } else{
+                    timer.stop();
+                    applyDamage(point);
+                    imageView.setVisible(false);
+                    boum.setX(posX - range/2);
+                    boum.setY(posY - range + 30);
+                    map.getChildren().add(boum);
+                    posX = spellCreator.getPosX();
+                    posY = spellCreator.getPosY();
+                    chrono.play();
+                }
+            }
+        }));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
+
     }
 }

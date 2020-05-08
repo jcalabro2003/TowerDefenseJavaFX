@@ -22,7 +22,7 @@ public class RectTowersListener implements EventHandler<MouseEvent>, ChangeMapOb
     private static boolean classicReady = false;
     private static boolean slowReady = false;
     private static boolean upgradeReady = false;
-    private static boolean bombReady = true;
+    private static boolean bombReady = false;
     private static Text notEnoughMoney = new Text("not enough money");
     private Building building;
 
@@ -71,6 +71,10 @@ public class RectTowersListener implements EventHandler<MouseEvent>, ChangeMapOb
 
     public static void setUpgradeReady(boolean upgradeReady) {
         RectTowersListener.upgradeReady = upgradeReady;
+    }
+
+    public static void setBombReady(boolean bombReady) {
+        RectTowersListener.bombReady = bombReady;
     }
 
     public static void sethBoxMessage(HBox hBoxMessage) {

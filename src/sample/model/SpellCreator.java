@@ -15,7 +15,7 @@ public class SpellCreator extends  Building{
         this.type = type;
         imageView.setX(posX);
         imageView.setY(posY);
-        spell = new Spell(3, this, 30);
+        spell = new Spell(5, this, 30);
     }
 
     public String getType() {
