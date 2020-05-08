@@ -114,6 +114,22 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         return  img;
     }
 
+    private ImageView getImgPath() {
+        ImageView img = null;
+
+        switch (typeMap) {
+            case ("map1") :
+                img = LoadingImage.loadImage("Rainbow.png",50,50);
+                break;
+            case ("map2"):
+                img = LoadingImage.loadImage("path2.png",50,50);
+                break;
+            default: break;
+        }
+
+        return  img;
+    }
+
     public void feuRouge(){
         ImageView im = LoadingImage.loadImage("feuFouge.gif", 100, 100);
         getChildren().add(im);
@@ -146,7 +162,7 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                 if (isPath(x, y , points)) {
                     rectPaths.add(rectangle);
 
-                    ImageView imgRectPath = LoadingImage.loadImage("Rainbow.png",50,50);
+                    ImageView imgRectPath = getImgPath();
                     imgRectPath.setOpacity(0.8);
                     imgRectPath.setX(rectangle.getX());
                     imgRectPath.setY(rectangle.getY());
@@ -164,7 +180,8 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                             }
                         }
                     });
-                }else {
+                }
+                else {
                     rectTowers.add(rectangle);
                     rectangle.setFill(Color.TRANSPARENT);
                     rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
