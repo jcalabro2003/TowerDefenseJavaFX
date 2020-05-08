@@ -1,8 +1,6 @@
 package sample.model;
 //
 import javafx.scene.input.MouseEvent;
-import sample.Controller;
-import sample.view.NewMapListener;
 import sample.view.RectTowersListener;
 
 import javafx.animation.KeyFrame;
@@ -20,21 +18,22 @@ import java.util.ArrayList;
 public class Map extends Pane implements StoppedObserver, ChangeMap {
 
     private static Map instance = null;
-    private String typeMap;
+    private static String typeMap;
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
     private ArrayList<Path> paths = new ArrayList<>();
     private ArrayList<Rectangle> rectPaths = new ArrayList<>();
     private ArrayList<Rectangle> rectTowers = new ArrayList<>();
     private ArrayList<ChangeMapObserver> observers = new ArrayList<>();
+    private ArrayList<Point> points;
+    private Path path;
     private static ImageView imgMap;
 
     private Map(String typeMap) {
         super();
         notifyObserver();
         this.typeMap = typeMap;
-        System.out.println(typeMap);
-        ArrayList<Point> points = getPoints();
-        Path path = new Path(points);
+        points = getPoints();
+        path = new Path(points);
         paths.add(path);
 
         imgMap = getImgMap();
@@ -84,6 +83,10 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                 points.add(new Point(475, 50));
                 points.add(new Point(950, 50));
                 break;
+            case ("map2") :
+                points.add(new Point(225, 75));
+                points.add(new Point(950, 75));
+                break;
             default:
                 break;
         }
@@ -100,7 +103,6 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                 break;
             case ("map2"):
                 img = LoadingImage.loadImage("gazon.png",950,500);
-                System.out.println("image ok");
                 break;
             default: break;
         }
@@ -158,9 +160,6 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                     rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
                 }
 
-
-
-
                 x = x + 50;
             }
             y = y + 50;
@@ -175,24 +174,31 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
 
     public static Map getInstance() {
         if (Map.instance == null) {
-            Map.instance = new Map(NewMapListener.getTypeMap());
+            Map.instance = new Map(Map.getTypeMap());
         }
         return Map.instance;
     }
 
-    public Map setInstance() {
+    public Map setInstance(String typeMap) {
+        setTypeMap(typeMap);
+        points = getPoints();
+        path.setPath(points);
+        //instance.createField
         this.getChildren().removeAll(imgMap);
-        Map.instance = null;
-        Map.instance = Map.getInstance();
+        this.getChildren().add(getImgMap());
         return Map.instance;
+    }
+
+    public static String getTypeMap() {
+        return typeMap;
+    }
+
+    public static void setTypeMap(String typeMap) {
+        instance.typeMap = typeMap;
     }
 
     public void addGameObject(GameObject g) {
         gameObjects.add(g);
-    }
-
-    public void setPaths(ArrayList<Path> paths) {
-        this.paths = paths;
     }
 
     public ArrayList<Path> getPaths() {

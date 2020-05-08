@@ -127,7 +127,7 @@ public class Controller extends Application implements ChangeMapObserver {
     @Override
     public void start(Stage primaryStage) throws Exception{
         g = new Game();
-        NewMapListener.setTypeMap("map1");
+        Map.setTypeMap("map1");
 
 
 

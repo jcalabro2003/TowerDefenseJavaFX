@@ -23,8 +23,8 @@ public class ChangeMapButtonListener implements EventHandler<ActionEvent> , Chan
         Button map1Button = new Button("MAP 1");
         Button map2Button = new Button("MAP 2");
 
-        map1Button.setOnMouseClicked(new NewMapListener("map1"));
-        map2Button.setOnMouseClicked(new NewMapListener( "map2"));
+        map1Button.setOnMouseClicked(new NewMapListenerBtMap1("map1"));
+        map2Button.setOnMouseClicked(new NewMapListenerBtMap2( "map2"));
 
         TilePane secondaryLayout = new TilePane();
         secondaryLayout.getChildren().addAll(map1Button, map2Button);
