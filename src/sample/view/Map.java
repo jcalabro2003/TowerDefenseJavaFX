@@ -1,7 +1,7 @@
 package sample.view;
-//
-import javafx.scene.input.MouseEvent;
+
 import sample.controller.RectTowersListener;
+import sample.model.*;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import sample.model.*;
+import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,6 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
     private ArrayList<Rectangle> rectPaths = new ArrayList<>();
     private ArrayList<Rectangle> rectTowers = new ArrayList<>();
     private ArrayList<ChangeMapObserver> observers = new ArrayList<>();
-    private ArrayList<Point> points;
     private Path path;
     private static ImageView imgMap;
     private int nbOfSpell = 0;
@@ -32,14 +31,13 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         super();
         notifyObserver();
         Map.typeMap = typeMap;
-        points = getPoints();
-        path = new Path(points);
+        path = new Path(typeMap);
         paths.add(path);
 
         imgMap = getImgMap();
         this.getChildren().add(imgMap);
 
-        createField(points);
+        createField(path);
 
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(50), event -> {
             for (GameObject o : gameObjects) {
@@ -59,59 +57,6 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
 
     public void setNbOfSpell(int nbOfSpell) {
         this.nbOfSpell = nbOfSpell;
-    }
-
-    private boolean isPath(int x, int y, ArrayList<Point> points) {
-        boolean isPath = false;
-
-        switch (typeMap) {
-            case ("map1") :
-                if ((y == 50 && x >= 0 && x <= 225) || (x==200 && y>=50 && y<=150) || (y == 150 && x >= 200 && x <= 450)
-                        || (x==450 && y>=50 && y<=150) || (y == 50 && x >= 450 && x <= 950) ) {
-                    isPath = true;
-                }
-                break;
-            case ("map2") :
-                if (y == 50)
-                    isPath = true;
-                break;
-        }
-
-        return isPath;
-    }
-
-    private ArrayList<Point> getPoints() {
-        ArrayList<Point> points = new ArrayList<>();
-
-        switch (typeMap) {
-            case ("map1") :
-                points.add(new Point(225, 75));
-                points.add(new Point(225, 175));
-                points.add(new Point(475, 175));
-                points.add(new Point(475, 50));
-                points.add(new Point(950, 50));
-                break;
-            case ("map2") :
-                points.add(new Point(225, 75));
-                points.add(new Point(950, 75));
-                /*
-                points.add(new Point(175, 75));
-                points.add(new Point(175, 325));
-                points.add(new Point(775, 325));
-                points.add(new Point(775, 75));
-                points.add(new Point(950, 50));
-                points.add(new Point(325, 75));
-                points.add(new Point(325, 175));
-                points.add(new Point(325, 525));
-                points.add(new Point(725, 525));
-                points.add(new Point(725, 50));
-                 */
-                break;
-            default:
-                break;
-        }
-
-        return points;
     }
 
     private ImageView getImgMap() {
@@ -156,7 +101,7 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         chrono.play();
     }
 
-    private void createField(ArrayList<Point> points) {
+    private void createField(Path path) {
         int nbCol = 19;
         int nbLine = 10;
 
@@ -171,7 +116,7 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                 Rectangle rectangle = new Rectangle(x, y, 50, 50);
                 this.getChildren().add(rectangle);
 
-                if (isPath(x, y , points)) {
+                if (path.isPath(x, y)) {
                     rectPaths.add(rectangle);
 
                     ImageView imgRectPath = getImgPath();
@@ -215,11 +160,10 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
 
     public void setInstance(String typeMap) {
         setTypeMap(typeMap);
-        points = getPoints();
-        path.setPath(points);
+        path.setPath(typeMap);
         this.getChildren().removeAll(imgMap);
         this.getChildren().add(getImgMap());
-        Map.getInstance().createField(points);
+        Map.getInstance().createField(path);
     }
 
     public static String getTypeMap() {

@@ -1,8 +1,9 @@
 package sample.model;
-//
+
+import sample.view.InfoPane;
+
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
-import sample.view.InfoPane;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -47,11 +48,11 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             rotateImage.setVisible(false);
             map.addObjectToMap(this);
             map.getChildren().add(rotateImage);
-            //pathNumber = new Random().nextInt(map.getPaths().size()-1);
-            //path = map.getPaths().get(pathNumber);
-            path = map.getPaths().get(0);
+            pathNumber = new Random().nextInt(map.getPaths().size());
+            path = map.getPaths().get(pathNumber);
+            //path = map.getPaths().get(0);
             posX = new Random().nextInt(1000) -1000;
-            posY = new Random().nextInt(50) +45;
+            posY = new Random().nextInt(50) + 45;
             Tower.addPnj(this);
             t = new Thread(this);
             t.start();

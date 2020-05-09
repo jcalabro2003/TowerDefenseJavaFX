@@ -1,13 +1,14 @@
 package sample.view;
-//
+
+import sample.model.Settings;
+import sample.model.*;
+
 import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import sample.model.Settings;
-import sample.model.*;
 
 public class InfoPane extends TilePane implements StoppedObserver {
     private static Text textHealthPoints;

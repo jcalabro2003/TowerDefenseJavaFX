@@ -1,5 +1,5 @@
 package sample.view;
-//
+
 import sample.Main;
 
 import javafx.scene.image.Image;
