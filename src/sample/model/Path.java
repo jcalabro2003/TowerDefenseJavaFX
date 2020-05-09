@@ -6,9 +6,11 @@ public class Path {
 
     private ArrayList<Point> path;
     private String typeMap;
+    private String typePath;
 
-    public Path(String typeMap) {
+    public Path(String typeMap, String typePath) {
         this.typeMap = typeMap;
+        this.typePath = typePath;
         path =  getPoints();
     }
 
@@ -24,8 +26,20 @@ public class Path {
                 points.add(new Point(950, 50));
                 break;
             case ("map2") :
-                points.add(new Point(225, 75));
-                points.add(new Point(950, 75));
+                switch (typePath) {
+                    case ("path1") :
+                        points.add(new Point(225, 75));
+                        points.add(new Point(950, 75));
+                        break;
+                    case ("path2") :
+                        points.add(new Point(225, 75));
+                        points.add(new Point(225, 175));
+                        points.add(new Point(475, 175));
+                        points.add(new Point(475, 50));
+                        points.add(new Point(950, 50));
+                        break;
+                }
+
                 /*
                 points.add(new Point(175, 75));
                 points.add(new Point(175, 325));
@@ -57,17 +71,32 @@ public class Path {
                 }
                 break;
             case ("map2") :
-                if (y == 50)
-                    isPath = true;
+                switch (typePath) {
+                    case ("path1"):
+                        if (y == 50)
+                            isPath = true;
+                        break;
+                    case ("path2") :
+                        if ((y == 50 && x >= 0 && x <= 225) || (x==200 && y>=50 && y<=150) || (y == 150 && x >= 200 && x <= 450)
+                                || (x==450 && y>=50 && y<=150) || (y == 50 && x >= 450 && x <= 950) ) {
+                            isPath = true;
+                        }
+                        break;
+                }
                 break;
         }
 
         return isPath;
     }
 
-    public ArrayList<Point> setPath(String typeMap) {
+    public ArrayList<Point> setPath(String typeMap, String typePath) {
         this.typeMap = typeMap;
+        this.typePath = typePath;
 
         return  this.getPoints();
+    }
+
+    public String getTypePath() {
+        return this.typePath;
     }
 }

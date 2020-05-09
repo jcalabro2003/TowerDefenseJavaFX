@@ -23,7 +23,6 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
     private ArrayList<Rectangle> rectPaths = new ArrayList<>();
     private ArrayList<Rectangle> rectTowers = new ArrayList<>();
     private ArrayList<ChangeMapObserver> observers = new ArrayList<>();
-    private Path path;
     private static ImageView imgMap;
     private int nbOfSpell = 0;
 
@@ -31,13 +30,20 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         super();
         notifyObserver();
         Map.typeMap = typeMap;
-        path = new Path(typeMap);
-        paths.add(path);
+        switch (typeMap) {
+            case "map1" :
+                paths.add(new Path(typeMap, "path1"));
+                break;
+            case "map2" :
+                paths.add(new Path(typeMap, "path1"));
+                paths.add(new Path(typeMap, "path2"));
+                break;
+        }
 
         imgMap = getImgMap();
         this.getChildren().add(imgMap);
 
-        createField(path);
+        createField(paths);
 
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(50), event -> {
             for (GameObject o : gameObjects) {
@@ -101,47 +107,49 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         chrono.play();
     }
 
-    private void createField(Path path) {
+    private void createField(ArrayList<Path> paths) {
         int nbCol = 19;
         int nbLine = 10;
 
         rectPaths.clear();
         rectTowers.clear();
 
-        int x;
-        int y = 0;
-        for (int i=0; i < nbLine; i++) {
-            x = 0;
-            for (int j = 0; j < nbCol; j++) {
-                Rectangle rectangle = new Rectangle(x, y, 50, 50);
-                this.getChildren().add(rectangle);
+        for (int k = 0; k < paths.size(); k++) {
+            int x;
+            int y = 0;
+            for (int i=0; i < nbLine; i++) {
+                x = 0;
+                for (int j = 0; j < nbCol; j++) {
+                    Rectangle rectangle = new Rectangle(x, y, 50, 50);
+                    this.getChildren().add(rectangle);
 
-                if (path.isPath(x, y)) {
-                    rectPaths.add(rectangle);
+                    if (paths.get(k).isPath(x, y)) {
+                        rectPaths.add(rectangle);
 
-                    ImageView imgRectPath = getImgPath();
-                    imgRectPath.setOpacity(0.8);
-                    imgRectPath.setX(rectangle.getX());
-                    imgRectPath.setY(rectangle.getY());
-                    getChildren().add(imgRectPath);
-                    imgRectPath.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                        for (GameObject g: gameObjects){
-                            if (g instanceof Spell){
-                                ((Spell) g).fire(new Point(event.getX(), event.getY()));
-                                break;
+                        ImageView imgRectPath = getImgPath();
+                        imgRectPath.setOpacity(0.8);
+                        imgRectPath.setX(rectangle.getX());
+                        imgRectPath.setY(rectangle.getY());
+                        getChildren().add(imgRectPath);
+                        imgRectPath.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                            for (GameObject g: gameObjects){
+                                if (g instanceof Spell){
+                                    ((Spell) g).fire(new Point(event.getX(), event.getY()));
+                                    break;
+                                }
                             }
-                        }
-                    });
-                }
-                else {
-                    rectTowers.add(rectangle);
-                    rectangle.setFill(Color.TRANSPARENT);
-                    rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
-                }
+                        });
+                    }
+                    else {
+                        rectTowers.add(rectangle);
+                        rectangle.setFill(Color.TRANSPARENT);
+                        rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
+                    }
 
-                x = x + 50;
+                    x = x + 50;
+                }
+                y = y + 50;
             }
-            y = y + 50;
         }
 
         ImageView imgArrive = LoadingImage.loadImage("Arrivé.png",25,50);
@@ -160,10 +168,19 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
 
     public void setInstance(String typeMap) {
         setTypeMap(typeMap);
-        path.setPath(typeMap);
+        paths.clear();
+        switch (typeMap) {
+            case "map1" :
+                paths.add(new Path(typeMap, "path1"));
+                break;
+            case "map2" :
+                paths.add(new Path(typeMap, "path1"));
+                paths.add(new Path(typeMap, "path2"));
+                break;
+        }
         this.getChildren().removeAll(imgMap);
         this.getChildren().add(getImgMap());
-        Map.getInstance().createField(path);
+        Map.getInstance().createField(paths);
     }
 
     public static String getTypeMap() {
