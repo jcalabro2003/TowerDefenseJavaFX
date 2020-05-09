@@ -2,6 +2,7 @@ package sample.model;
 //
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import sample.view.Map;
 
 public abstract class GameObject implements ChangeMapObserver{
 
@@ -16,7 +17,7 @@ public abstract class GameObject implements ChangeMapObserver{
         nb++;
         map.addObserver(this);
         map.addGameObject(this);
-        System.out.println("objets créé " + nb);
+
 
     }
 

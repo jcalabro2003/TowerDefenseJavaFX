@@ -1,16 +1,14 @@
-package sample.view;
+package sample.controller;
 
-import sample.Controller;
+import sample.Game;
 import sample.model.*;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.util.Duration;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-
-import java.io.File;
+import sample.view.Map;
 
 public class StartButtonListener implements EventHandler<MouseEvent>, ChangeMapObserver {
     private Map map = Map.getInstance();
@@ -31,24 +29,17 @@ public class StartButtonListener implements EventHandler<MouseEvent>, ChangeMapO
             final MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.play();*/
 
-            Timeline timer = new Timeline(new KeyFrame(Duration.millis(2300), new EventHandler<ActionEvent>() {
+            Timeline timer = new Timeline(new KeyFrame(Duration.millis(2300), event1 -> {
+                new Wave(iteration);
+                iteration++;
+                Preparation.setPreparationNumber(iteration);
 
-                @Override
-                public void handle(ActionEvent event) {
-                    Wave wave = new Wave(iteration);
-                    iteration++;
-                    Preparation.setPreparationNumber(iteration);
-
-                    Controller.menuBar.setDisable(true);
-                }
+                Game.menuBar.setDisable(true);
             }));
             timer.setCycleCount(1);
             timer.play();
 
         }
-    }
-    public int getIteration(){
-        return iteration;
     }
 
     public static void setIteration(int iteration) {

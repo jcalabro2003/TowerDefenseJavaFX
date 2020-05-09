@@ -1,6 +1,7 @@
 package sample.model;
 //
 import javafx.scene.image.ImageView;
+import sample.view.LoadingImage;
 
 public class BuildingsFactory {
 
@@ -20,7 +21,7 @@ public class BuildingsFactory {
                 res = new Tower(0, 300, 2000, imageView, x , y, type, gif);
                 break;
             case "bomb":
-                imageView = LoadingImage.loadImage("images/bombCanon.png", 40, 40);
+                imageView = LoadingImage.loadImage("bombCanon.png", 40, 40);
                 res = new SpellCreator(imageView, x, y, type);
                 break;
             default: break;

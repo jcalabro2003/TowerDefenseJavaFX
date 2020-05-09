@@ -1,17 +1,16 @@
-package sample.model;
+package sample.view;
 //
 import javafx.scene.input.MouseEvent;
-import sample.view.RectTowersListener;
+import sample.controller.RectTowersListener;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import sample.model.*;
 
 import java.util.ArrayList;
 
@@ -32,7 +31,7 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
     private Map(String typeMap) {
         super();
         notifyObserver();
-        this.typeMap = typeMap;
+        Map.typeMap = typeMap;
         points = getPoints();
         path = new Path(points);
         paths.add(path);
@@ -42,17 +41,13 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
 
         createField(points);
 
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                for (GameObject o : gameObjects) {
-                    if (o instanceof Movable){
-                        ((Movable) o).update();
-                    }
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(50), event -> {
+            for (GameObject o : gameObjects) {
+                if (o instanceof Movable){
+                    ((Movable) o).update();
                 }
-
             }
+
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
@@ -154,13 +149,9 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
     public void feuRouge(){
         ImageView im = LoadingImage.loadImage("feuFouge.gif", 100, 100);
         getChildren().add(im);
-        Timeline chrono = new Timeline(new KeyFrame(Duration.millis(2300), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                im.setVisible(false);
-                getChildren().removeAll(im);
-            }
+        Timeline chrono = new Timeline(new KeyFrame(Duration.millis(2300), event -> {
+            im.setVisible(false);
+            getChildren().removeAll(im);
         }));
         chrono.play();
     }
@@ -188,16 +179,11 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
                     imgRectPath.setX(rectangle.getX());
                     imgRectPath.setY(rectangle.getY());
                     getChildren().add(imgRectPath);
-                    imgRectPath.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-                        @Override
-                        public void handle(MouseEvent event) {
-                            System.out.println(event.getX() + "    " + event.getY());
-                            for (GameObject g: gameObjects){
-                                if (g instanceof Spell){
-                                    ((Spell) g).fire(new Point(event.getX(), event.getY()));
-                                    break;
-                                }
+                    imgRectPath.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                        for (GameObject g: gameObjects){
+                            if (g instanceof Spell){
+                                ((Spell) g).fire(new Point(event.getX(), event.getY()));
+                                break;
                             }
                         }
                     });
@@ -227,14 +213,13 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         return Map.instance;
     }
 
-    public Map setInstance(String typeMap) {
+    public void setInstance(String typeMap) {
         setTypeMap(typeMap);
         points = getPoints();
         path.setPath(points);
         this.getChildren().removeAll(imgMap);
         this.getChildren().add(getImgMap());
         Map.getInstance().createField(points);
-        return Map.instance;
     }
 
     public static String getTypeMap() {
@@ -242,7 +227,7 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
     }
 
     public static void setTypeMap(String typeMap) {
-        instance.typeMap = typeMap;
+        Map.typeMap = typeMap;
     }
 
     public void addGameObject(GameObject g) {
@@ -253,14 +238,6 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         return paths;
     }
 
-    public ArrayList<Rectangle> getRectPaths() {
-        return rectPaths;
-    }
-
-    public ArrayList<Rectangle> getRectTowers() {
-        return rectTowers;
-    }
-
     public ArrayList<GameObject> getGameObjects() {
         return gameObjects;
     }
@@ -268,10 +245,9 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
     public boolean isOccupied(double x, double y){
         boolean res = false;
         for (GameObject o: gameObjects) {
-            if(o instanceof Building && x == o.getPosX() && y == o.getPosY()) {
+            if (o instanceof Building && x == o.getPosX() && y == o.getPosY()) {
                 res = true;
-                System.out.println("occupé");
-                System.out.println(gameObjects.size());
+                break;
             }
         }
         return res;

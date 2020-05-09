@@ -1,6 +1,6 @@
-package sample.view;
+package sample.controller;
 
-import sample.Controller;
+import sample.Game;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -14,6 +14,6 @@ public class UpgradeListener  implements EventHandler<MouseEvent> {
         RectTowersListener.setSlowReady(false);
         RectTowersListener.setBombReady(false);
 
-        Controller.menuBar.setDisable(true);
+        Game.menuBar.setDisable(true);
     }
 }

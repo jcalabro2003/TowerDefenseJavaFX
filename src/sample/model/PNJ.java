@@ -2,7 +2,7 @@ package sample.model;
 //
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
-import sample.InfoPane;
+import sample.view.InfoPane;
 
 import java.util.ArrayList;
 import java.util.Random;

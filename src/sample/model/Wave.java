@@ -1,6 +1,7 @@
 package sample.model;
 //
-import sample.InfoPane;
+import sample.view.InfoPane;
+import sample.view.Map;
 
 import java.util.ArrayList;
 

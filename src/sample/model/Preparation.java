@@ -3,7 +3,7 @@ package sample.model;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import sample.view.StartButtonListener;
+import sample.controller.StartButtonListener;
 
 public class  Preparation {
     private static int duration = 10000;

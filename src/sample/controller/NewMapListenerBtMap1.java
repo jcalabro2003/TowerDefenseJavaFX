@@ -1,8 +1,8 @@
-package sample.view;
+package sample.controller;
 
-import sample.InfoPane;
+import sample.view.InfoPane;
 import sample.model.ChangeMapObserver;
-import sample.model.Map;
+import sample.view.Map;
 
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;

@@ -1,6 +1,7 @@
 package sample.model;
 //
 import javafx.scene.image.ImageView;
+import sample.view.LoadingImage;
 
 public class ProjectileFactory {
 

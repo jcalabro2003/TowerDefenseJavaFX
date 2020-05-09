@@ -2,6 +2,6 @@ package sample;
 //
 public class Main {
     public static void main(String[] args) {
-        Controller.launchTowerDefense(args);
+        Game.launchTowerDefense(args);
     }
 }

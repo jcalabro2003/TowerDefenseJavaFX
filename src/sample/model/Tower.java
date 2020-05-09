@@ -7,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import sample.view.LoadingImage;
 
 
 public class Tower extends Building implements  Upgradable, StoppedObserver {

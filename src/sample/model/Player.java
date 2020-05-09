@@ -1,6 +1,6 @@
 package sample.model;
 //
-import sample.InfoPane;
+import sample.view.InfoPane;
 
 public class Player implements StoppedObserver{
     private static Player instance = null;

@@ -3,11 +3,10 @@ package sample.model;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 
 import javafx.util.Duration;
+import sample.view.LoadingImage;
 
 
 public class Spell extends GameObject implements Movable {
@@ -27,7 +26,7 @@ public class Spell extends GameObject implements Movable {
         this.damage = damage;
         posX = spellCreator.getPosX();
         posY = spellCreator.getPosY();
-        imageView = LoadingImage.loadImage("images/" + type + ".png", 25, 25);
+        imageView = LoadingImage.loadImage( type + ".png", 25, 25);
         imageView.setVisible(false);
         map.getChildren().add(imageView);
         map.setNbOfSpell(map.getNbOfSpell() + 1);
@@ -54,13 +53,7 @@ public class Spell extends GameObject implements Movable {
         }
     }
     private void waiting() {
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(30000), new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                ready = true;
-            }
-        }));
+        Timeline timer = new Timeline(new KeyFrame(Duration.millis(30000), event -> ready = true));
         timer.play();
     }
 
@@ -69,35 +62,27 @@ public class Spell extends GameObject implements Movable {
         if (ready){
             ready = false;
             imageView.setVisible(true);
-            ImageView boum = LoadingImage.loadImage("images/explosion.gif", range, range);
-            Timeline chrono = new Timeline(new KeyFrame(Duration.millis(1000), new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    boum.setVisible(false);
-                    map.getChildren().removeAll(boum);
-                }
+            ImageView boum = LoadingImage.loadImage("explosion.gif", range, range);
+            Timeline chrono = new Timeline(new KeyFrame(Duration.millis(1000), event -> {
+                boum.setVisible(false);
+                map.getChildren().removeAll(boum);
             }));
 
             Timeline timer = new Timeline();
-            timer.getKeyFrames().add(new KeyFrame(Duration.millis(sleeptime), new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    if (Math.abs(posX - point.getX()) > 10 || Math.abs(posY - point.getY()) > 10){
-                        move(point);
-                    } else{
-                        timer.stop();
-                        applyDamage(point);
-                        imageView.setVisible(false);
-                        boum.setX(posX - range/2);
-                        boum.setY(posY - range + 30);
-                        map.getChildren().add(boum);
-                        posX = spellCreator.getPosX();
-                        posY = spellCreator.getPosY();
-                        chrono.play();
-                        waiting();
-                    }
+            timer.getKeyFrames().add(new KeyFrame(Duration.millis(sleeptime), event -> {
+                if (Math.abs(posX - point.getX()) > 10 || Math.abs(posY - point.getY()) > 10){
+                    move(point);
+                } else{
+                    timer.stop();
+                    applyDamage(point);
+                    imageView.setVisible(false);
+                    boum.setX(posX - range/2);
+                    boum.setY(posY - range + 30);
+                    map.getChildren().add(boum);
+                    posX = spellCreator.getPosX();
+                    posY = spellCreator.getPosY();
+                    chrono.play();
+                    waiting();
                 }
             }));
             timer.setCycleCount(Timeline.INDEFINITE);

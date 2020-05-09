@@ -1,4 +1,4 @@
-package sample.view;
+package sample.controller;
 
 public class PathListener {
 }

@@ -1,19 +1,18 @@
-package sample.view;
+package sample.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import sample.model.Settings;
 import sample.model.*;
-
-import java.util.Collection;
+import sample.view.Map;
 
 public class RectTowersListener implements EventHandler<MouseEvent>, ChangeMapObserver {
     private Rectangle rec;
@@ -55,7 +54,6 @@ public class RectTowersListener implements EventHandler<MouseEvent>, ChangeMapOb
 
     private void upgrade(){
         if (upgradeReady && Player.getGold() >= 100 && building instanceof Upgradable && ((Upgradable) building).getLevel() < 3) {
-            System.out.println("hé ho");
             ((Upgradable) building).upgrade();
             Player.BuyBuilding(100);
             upgradeReady = false;
