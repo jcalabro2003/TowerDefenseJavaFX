@@ -18,7 +18,6 @@ public abstract class GameObject implements ChangeMapObserver{
         map.addObserver(this);
         map.addGameObject(this);
 
-
     }
 
     @Override

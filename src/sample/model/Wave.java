@@ -97,6 +97,7 @@ public class Wave implements Runnable , ChangeMapObserver{
             }
             ready = true;
             Preparation.prepare(10000);
+            Preparation.countdown();
     }
 
     @Override

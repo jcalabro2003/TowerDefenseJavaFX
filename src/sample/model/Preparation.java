@@ -9,6 +9,7 @@ public class  Preparation {
     private static int duration = 10000;
     private static int maxDuration = 10000;
     private static int preparationNumber = 0;
+    private static int time = 10;
 
 
     public static void setPreparationNumber(int preparationNumber) {
@@ -35,5 +36,14 @@ public class  Preparation {
             }
         }));
         timer.play();
+    }
+    public static void countdown(){
+        Timeline timer = new Timeline(new KeyFrame(Duration.seconds(1), event ->{
+            time -= 10;
+
+        }));
+        timer.setCycleCount(10);
+        timer.play();
+        time = 10;
     }
 }

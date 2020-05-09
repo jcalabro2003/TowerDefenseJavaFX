@@ -117,36 +117,37 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         for (int k = 0; k < paths.size(); k++) {
             int x;
             int y = 0;
+            Object key = new Object();
             for (int i=0; i < nbLine; i++) {
                 x = 0;
                 for (int j = 0; j < nbCol; j++) {
-                    Rectangle rectangle = new Rectangle(x, y, 50, 50);
-                    this.getChildren().add(rectangle);
+                    synchronized (key){
+                        Rectangle rectangle = new Rectangle(x, y, 50, 50);
+                        this.getChildren().add(rectangle);
 
-                    if (paths.get(k).isPath(x, y)) {
-                        rectPaths.add(rectangle);
-
-                        ImageView imgRectPath = getImgPath();
-                        imgRectPath.setOpacity(0.8);
-                        imgRectPath.setX(rectangle.getX());
-                        imgRectPath.setY(rectangle.getY());
-                        getChildren().add(imgRectPath);
-                        imgRectPath.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                            for (GameObject g: gameObjects){
-                                if (g instanceof Spell){
-                                    ((Spell) g).fire(new Point(event.getX(), event.getY()));
-                                    break;
-                                }
-                            }
-                        });
-                    }
-                    else {
                         rectTowers.add(rectangle);
                         rectangle.setFill(Color.TRANSPARENT);
                         rectangle.setOnMouseClicked(new RectTowersListener(rectangle,this));
-                    }
 
-                    x = x + 50;
+                        if (paths.get(k).isPath(x, y)) {
+                            rectPaths.add(rectangle);
+                            System.out.println(1);
+                            ImageView imgRectPath = getImgPath();
+                            imgRectPath.setOpacity(0.8);
+                            imgRectPath.setX(rectangle.getX());
+                            imgRectPath.setY(rectangle.getY());
+                            getChildren().add(imgRectPath);
+                            imgRectPath.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                                for (GameObject g: gameObjects){
+                                    if (g instanceof Spell){
+                                        ((Spell) g).fire(new Point(event.getX(), event.getY()));
+                                        break;
+                                    }
+                                }
+                            });
+                        }
+                        x = x + 50;
+                    }
                 }
                 y = y + 50;
             }
