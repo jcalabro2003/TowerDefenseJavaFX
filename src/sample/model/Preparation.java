@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import sample.controller.StartButtonListener;
+import sample.view.InfoPane;
 
 public class  Preparation {
     private static int duration = 10000;
@@ -39,8 +40,8 @@ public class  Preparation {
     }
     public static void countdown(){
         Timeline timer = new Timeline(new KeyFrame(Duration.seconds(1), event ->{
-            time -= 10;
-
+            time -= 1;
+            InfoPane.countdown(time);
         }));
         timer.setCycleCount(10);
         timer.play();

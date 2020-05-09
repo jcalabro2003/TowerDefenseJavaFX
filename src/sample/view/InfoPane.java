@@ -14,10 +14,12 @@ public class InfoPane extends TilePane implements StoppedObserver {
     private static Text textHealthPoints;
     private static Text textWaveNumber;
     private static Text textMoneyAmount;
+    private static Text textCountdown;
 
     private static int healthPoints;
     private static int waveNumber;
     private static int moneyAmount;
+    private static int countdown;
 
     private static InfoPane instance = null;
 
@@ -26,6 +28,7 @@ public class InfoPane extends TilePane implements StoppedObserver {
         ImageView imageViewHearth = LoadingImage.loadImage("hearth.png");
         ImageView imageViewWave = LoadingImage.loadImage("wave.png");
         ImageView imageViewMoney = LoadingImage.loadImage("money.png");
+        ImageView imageViewCountdown = LoadingImage.loadImage("clock.gif");
         healthPoints = Settings.HEALTH_POINTS;
         moneyAmount = Settings.MONEY_AMOUNT;
         waveNumber = Settings.WAVE_NUMBER;
@@ -41,6 +44,10 @@ public class InfoPane extends TilePane implements StoppedObserver {
         textMoneyAmount = new Text();
         textMoneyAmount.setText(Integer.toString(moneyAmount));
         textMoneyAmount.setFill(Color.BEIGE);
+
+        textCountdown = new Text();
+        textCountdown.setText(Integer.toString(countdown));
+        textCountdown.setFill(Color.BEIGE);
 
         HBox hBoxHealthPoints = new HBox(Settings.SPACE_HBOX);
         hBoxHealthPoints.getChildren().addAll(imageViewHearth, textHealthPoints);
@@ -60,8 +67,13 @@ public class InfoPane extends TilePane implements StoppedObserver {
         hBoxMoney.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;-fx-border-radius: 50px;");
         hBoxMoney.setOpacity(0.7);
 
+        HBox hBoxCountdown = new HBox(Settings.SPACE_HBOX);
+        hBoxCountdown.getChildren().addAll(imageViewCountdown, textCountdown);
+        hBoxCountdown.setPadding(new Insets(5,5,5,5));
+        hBoxCountdown.setStyle("-fx-background-color: black;-fx-border-color: red;-fx-border-width: 2px;-fx-border-radius: 50px;");
+        hBoxCountdown.setOpacity(0.7);
 
-        getChildren().addAll(hBoxHealthPoints, hBoxWave, hBoxMoney);
+        getChildren().addAll(hBoxHealthPoints, hBoxWave, hBoxMoney, hBoxCountdown);
         setPadding(new Insets(10,5,5,10));
         setHgap(10);
     }
@@ -97,6 +109,11 @@ public class InfoPane extends TilePane implements StoppedObserver {
         textWaveNumber.setText(Integer.toString(Settings.WAVE_NUMBER));
         textHealthPoints.setText(Integer.toString(Settings.HEALTH_POINTS));
         textMoneyAmount.setText(Integer.toString(Settings.MONEY_AMOUNT));
+    }
+
+    public static void countdown(int time){
+        countdown = time;
+        textCountdown.setText(Integer.toString(time));
     }
 
 }
