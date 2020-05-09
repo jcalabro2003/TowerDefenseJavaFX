@@ -16,17 +16,17 @@ public class PNJFactory {
             case ("basic"):
                 imageView = LoadingImage.loadImage("yoshi.png",30,30);
                 rotateImage = LoadingImage.loadImage("yoshi.gif", 30, 30);
-                res = new PNJ(30, 3, imageView, rotateImage);
+                res = new PNJ(40, 4, imageView, rotateImage);
                 break;
             case ("tank"):
                 imageView = LoadingImage.loadImage("Bowser.png",30,30);
                 rotateImage = LoadingImage.loadImage("Bowser.gif", 30, 30);
-                res = new PNJ(100, 1, imageView, rotateImage);
+                res = new PNJ(100, 2, imageView, rotateImage);
                 break;
             case ("fast"):
                 imageView = LoadingImage.loadImage("Toad.png",30,30);
                 rotateImage = LoadingImage.loadImage("Toad.gif", 30, 30);
-                res = new PNJ(10, 7, imageView, rotateImage);
+                res = new PNJ(10, 8, imageView, rotateImage);
                 break;
             default: break;
         }

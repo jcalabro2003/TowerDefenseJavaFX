@@ -1,6 +1,8 @@
 package sample.model;
 //
+import javafx.scene.image.ImageView;
 import sample.view.InfoPane;
+import sample.view.LoadingImage;
 import sample.view.Map;
 
 import java.util.ArrayList;
@@ -58,14 +60,14 @@ public class Wave implements Runnable , ChangeMapObserver{
                 break;
             case 4:
                 spawnPNJs("basic", waveNumber +2);
-                spawnPNJs("fast", waveNumber + 2);
+                spawnPNJs("fast", waveNumber );
                 break;
             case 5:
-                spawnPNJs("basic", waveNumber + 2);
+                spawnPNJs("basic", waveNumber);
                 spawnPNJs("tank", waveNumber);
                 break;
             case 0:
-                spawnPNJs("basic", waveNumber*3/2 +2);
+                spawnPNJs("basic", waveNumber*3/2);
                 spawnPNJs("fast", waveNumber/2);
                 spawnPNJs("tank", waveNumber/2);
                 break;
@@ -96,8 +98,7 @@ public class Wave implements Runnable , ChangeMapObserver{
                 }
             }
             ready = true;
-            Preparation.prepare(10000);
-            Preparation.countdown();
+            Preparation.prepare();
     }
 
     @Override

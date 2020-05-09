@@ -66,7 +66,7 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             if (imageView != null) imageView.setVisible(false);
             rotate();
         }
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         synchronized (myKey2){
             if (imageView != null){
                 rotateImage.setVisible(false);

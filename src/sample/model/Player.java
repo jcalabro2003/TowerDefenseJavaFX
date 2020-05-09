@@ -1,6 +1,9 @@
 package sample.model;
 //
+import javafx.scene.image.ImageView;
 import sample.view.InfoPane;
+import sample.view.LoadingImage;
+import sample.view.Map;
 
 public class Player implements StoppedObserver{
     private static Player instance = null;
@@ -36,7 +39,7 @@ public class Player implements StoppedObserver{
         if (((PNJ) o).isAlive()){
             healthPoints--;
         }else{
-            gold += ((PNJ) o).getMaxHealth()/2;
+            gold += ((PNJ) o).getMaxHealth()/3;
         }
     }
 }

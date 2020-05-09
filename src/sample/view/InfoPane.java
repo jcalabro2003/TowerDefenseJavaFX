@@ -99,10 +99,6 @@ public class InfoPane extends TilePane implements StoppedObserver {
             moneyAmount = Player.getGold();
             textMoneyAmount.setText(Integer.toString(moneyAmount));
         }
-        else {
-            ImageView gameover = LoadingImage.loadImage("gameover.png",950,500);
-            Map.getInstance().getChildren().add(gameover);
-        }
     }
 
     public static void init() {
