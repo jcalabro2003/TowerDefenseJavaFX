@@ -9,6 +9,7 @@ public class PauseButtonListener implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
+        System.out.println("Game paused. Press enter to resume");
         Scanner sc = new Scanner(System.in);
         String str = "default";
 

@@ -4,6 +4,7 @@ import sample.view.InfoPane;
 
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
+import sample.view.LoadingImage;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -41,18 +42,17 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             maxHealth = health;
             this.speed = speed;
             maxSpeed = speed;
-            this.imageView = imageView;
-            this.rotateImage = rotateImage;
-            imageView.setY(posY);
-            imageView.setX(posX);
-            rotateImage.setVisible(false);
-            map.addObjectToMap(this);
-            map.getChildren().add(rotateImage);
             pathNumber = new Random().nextInt(map.getPaths().size());
             path = map.getPaths().get(pathNumber);
-            //path = map.getPaths().get(0);
             posX = new Random().nextInt(1000) -1000;
-            posY = new Random().nextInt(50) + 45;
+            posY = 75;
+            this.imageView = imageView;
+            imageView.setY(posY);
+            imageView.setX(posX);
+            map.addObjectToMap(this);
+            this.rotateImage = rotateImage;
+            rotateImage.setVisible(false);
+            map.getChildren().add(rotateImage);
             Tower.addPnj(this);
             t = new Thread(this);
             t.start();
@@ -162,6 +162,9 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     @Override
     public void run() {
         for(Point p : path.getPoints()) {
+            if(posY  > p.getY()) imageView.setRotate(-90);
+            else if(posY  < p.getY()) imageView.setRotate(90);
+            else if (posX  < p.getX()) imageView.setRotate(0);
             while (getDistance(p) > 5 && alive){
                 move(p);
                 try {
@@ -170,10 +173,11 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
                     e.printStackTrace();
                 }
             }
+            posX = p.getX();
+            posY = p.getY();
         }
         notifyObserver();
-        map.getChildren().removeAll(imageView);
-        map.getChildren().removeAll(rotateImage);
+        map.getChildren().removeAll(imageView, rotateImage);
     }
 
     public void rotate() {

@@ -38,11 +38,13 @@ public class  Preparation {
     }
     public static void prepare(){
         Timeline timer = new Timeline(new KeyFrame(Duration.seconds(maxTime), event -> {
-            if (Wave.isReady() && Player.getHealthPoints() >= 0) {
-                new Wave(preparationNumber);
-                preparationNumber++;
-                StartButtonListener.setIteration(preparationNumber);
-            }else{
+            if (Player.getHealthPoints() >= 0){
+                if (Wave.isReady() ) {
+                    new Wave(preparationNumber);
+                    preparationNumber++;
+                    StartButtonListener.setIteration(preparationNumber);
+                }
+            } else{
                 ImageView gameover = LoadingImage.loadImage("gameover.png",950,500);
                 Map.getInstance().getChildren().add(gameover);
             }

@@ -52,7 +52,7 @@ public class Spell extends GameObject implements Movable {
             }
         }
     }
-    private void waiting() {
+    private void reload() {
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(30000), event -> ready = true));
         timer.play();
     }
@@ -82,7 +82,7 @@ public class Spell extends GameObject implements Movable {
                     posX = spellCreator.getPosX();
                     posY = spellCreator.getPosY();
                     chrono.play();
-                    waiting();
+                    reload();
                 }
             }));
             timer.setCycleCount(Timeline.INDEFINITE);

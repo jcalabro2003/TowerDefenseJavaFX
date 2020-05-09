@@ -76,13 +76,15 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         PNJ res = null;
         double distance = 0;
         for(int i=0; i<pnjs.size(); i++){
-            if (i == 0){
-                distance = pnjs.get(i).getDistance(this);
-                res = pnjs.get(i);
-            } else {
-                if (distance > pnjs.get(i).getDistance(this)){
+            if(pnjs.get(i) != null){
+                if (i == 0){
                     distance = pnjs.get(i).getDistance(this);
                     res = pnjs.get(i);
+                } else {
+                    if (distance > pnjs.get(i).getDistance(this)){
+                        distance = pnjs.get(i).getDistance(this);
+                        res = pnjs.get(i);
+                    }
                 }
             }
         }

@@ -119,10 +119,10 @@ public class Game extends Application implements ChangeMapObserver {
         bombButton = new Button ("200",bomb);
 
 
-        classicButton.setTextFill(Color.WHITE);
+        classicButton.setTextFill(Color.YELLOWGREEN);
         classicButton.setStyle("-fx-background-color: purple");
         slowButton.setStyle("-fx-background-color: indigo;");
-        slowButton.setTextFill(Color.WHITE);
+        slowButton.setTextFill(Color.GREENYELLOW);
         upgradeButton.setStyle("-fx-background-color: cyan;");
         bombButton.setStyle("-fx-background-color: green;");
 
@@ -143,7 +143,7 @@ public class Game extends Application implements ChangeMapObserver {
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         mainPane = new BorderPane();
         mainScene = new Scene(mainPane, 950, 550);
