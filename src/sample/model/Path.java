@@ -71,17 +71,9 @@ public class Path {
                 }
                 break;
             case ("map2") :
-                switch (typePath) {
-                    case ("path1"):
-                        if (y == 50)
-                            isPath = true;
-                        break;
-                    case ("path2") :
-                        if ((y == 50 && x >= 0 && x <= 225) || (x==200 && y>=50 && y<=150) || (y == 150 && x >= 200 && x <= 450)
-                                || (x==450 && y>=50 && y<=150) || (y == 50 && x >= 450 && x <= 950) ) {
-                            isPath = true;
-                        }
-                        break;
+                if ((y == 50 && x >= 0 && x <= 950) || (x==200 && y>=50 && y<=150) || (y == 150 && x >= 200 && x <= 450)
+                        || (x==450 && y>=50 && y<=150)  ) {
+                    isPath = true;
                 }
                 break;
         }

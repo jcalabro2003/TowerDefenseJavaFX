@@ -147,7 +147,6 @@ public class Game extends Application implements ChangeMapObserver {
     public void start(Stage primaryStage) throws Exception{
         Map.setTypeMap("map1");
 
-
         mainPane = new BorderPane();
         mainScene = new Scene(mainPane, 950, 550);
         primaryStage.setTitle("Tower Defense");
