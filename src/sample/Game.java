@@ -1,12 +1,15 @@
 package sample;
-//
+
+import sample.controller.*;
+import sample.model.*;
+import sample.view.InfoPane;
+import sample.view.LoadingImage;
+import sample.view.Map;
+
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
-import sample.controller.*;
-import sample.model.*;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -14,9 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
-import sample.view.InfoPane;
-import sample.view.LoadingImage;
-import sample.view.Map;
 
 public class Game extends Application implements ChangeMapObserver {
 
@@ -56,7 +56,6 @@ public class Game extends Application implements ChangeMapObserver {
     private void initHeaderPane() {
         ImageView imageview =  LoadingImage.loadImage("BackgroundRainobw.png",950,50);
         headerPane.getChildren().add(imageview);
-        infoPane = new TilePane();
         buttonsPane = new AnchorPane();
         infoPane = InfoPane.getInstance();
 
@@ -144,8 +143,7 @@ public class Game extends Application implements ChangeMapObserver {
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Map.setTypeMap("map1");
+    public void start(Stage primaryStage) throws Exception {
 
         mainPane = new BorderPane();
         mainScene = new Scene(mainPane, 950, 550);

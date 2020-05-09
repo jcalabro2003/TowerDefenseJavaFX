@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Map extends Pane implements StoppedObserver, ChangeMap {
 
     private static Map instance = null;
-    private static String typeMap;
+    private static String typeMap = "map1";
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
     private ArrayList<Path> paths = new ArrayList<>();
     private ArrayList<Rectangle> rectPaths = new ArrayList<>();
