@@ -30,15 +30,7 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         super();
         notifyObserver();
         Map.typeMap = typeMap;
-        switch (typeMap) {
-            case "map1" :
-                paths.add(new Path(typeMap, "path1"));
-                break;
-            case "map2" :
-                paths.add(new Path(typeMap, "path1"));
-                paths.add(new Path(typeMap, "path2"));
-                break;
-        }
+        createPaths();
 
         imgMap = getImgMap();
         this.getChildren().add(imgMap);
@@ -107,6 +99,18 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
         chrono.play();
     }
 
+    private void createPaths() {
+        switch (typeMap) {
+            case "map1" :
+                paths.add(new Path(typeMap, "path1"));
+                break;
+            case "map2" :
+                paths.add(new Path(typeMap, "path1"));
+                paths.add(new Path(typeMap, "path2"));
+                break;
+        }
+    }
+
     private void createField(ArrayList<Path> paths) {
         int nbCol = 19;
         int nbLine = 10;
@@ -170,15 +174,7 @@ public class Map extends Pane implements StoppedObserver, ChangeMap {
     public void setInstance(String typeMap) {
         setTypeMap(typeMap);
         paths.clear();
-        switch (typeMap) {
-            case "map1" :
-                paths.add(new Path(typeMap, "path1"));
-                break;
-            case "map2" :
-                paths.add(new Path(typeMap, "path1"));
-                paths.add(new Path(typeMap, "path2"));
-                break;
-        }
+        createPaths();
         this.getChildren().removeAll(imgMap);
         this.getChildren().add(getImgMap());
         Map.getInstance().createField(paths);
