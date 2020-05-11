@@ -10,8 +10,6 @@ import sample.view.LoadingImage;
 import sample.view.Map;
 
 public class  Preparation {
-    private static int duration = 10;
-    private static int maxDuration = 10;
     private static int preparationNumber = 0;
     private static int time = 10;
     private static int maxTime = 10;
@@ -21,20 +19,17 @@ public class  Preparation {
         Preparation.preparationNumber = preparationNumber;
     }
 
-    public static int getDuration() {
-        return duration;
-    }
-
-    public static int getMaxDuration() {
-        return maxDuration;
+    public static int getTime() {
+        return time;
     }
 
     public static int getMaxTime() {
         return maxTime;
     }
 
-    public static void setDuration(int duration) {
-        Preparation.duration = duration;
+
+    public static void setTime(int time) {
+        Preparation.time = time;
     }
     public static void prepare(){
         Timeline timer = new Timeline(new KeyFrame(Duration.seconds(maxTime), event -> {

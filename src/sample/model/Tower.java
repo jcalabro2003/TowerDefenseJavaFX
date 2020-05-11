@@ -117,6 +117,7 @@ public class Tower extends Building implements  Upgradable, StoppedObserver {
         if (level == 0){
             level++;
             effect += effect /2;
+            reloading -= reloading/2;
             up.setX(posX + 5);
         }
         else if(level == 1){

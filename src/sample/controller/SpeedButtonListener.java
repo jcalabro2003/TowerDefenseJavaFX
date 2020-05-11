@@ -16,12 +16,12 @@ public class SpeedButtonListener implements EventHandler<MouseEvent> {
         if(iteration % 4 != 0){
             PNJ.setSleepTime(PNJ.getSleepTime()/2);
             Wave.setDuration(Wave.getDuration()/2);
-            Preparation.setDuration(Preparation.getDuration()/2);
+            Preparation.setTime(Preparation.getTime()/2);
             Projectile.setSleepTime(Projectile.getSleepTime()/2);
         } else{
             PNJ.setSleepTime(PNJ.getMaxSleepTime());
             Wave.setDuration(Wave.getMaxDuration());
-            Preparation.setDuration(Preparation.getMaxDuration());
+            Preparation.setTime(Preparation.getMaxTime());
             Projectile.setSleepTime(Projectile.getMaxSleepTime());
         }
         iteration++;

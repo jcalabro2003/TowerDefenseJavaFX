@@ -15,7 +15,6 @@ public class Projectile extends GameObject implements Movable, Stop, Runnable{
     private static int sleepTime = 50;
     private static int maxSleepTime = 50;
     private static final Object myKey = new Object();
-    private static final Object myKey2 = new Object();
     private double theta;
     private String type;
 

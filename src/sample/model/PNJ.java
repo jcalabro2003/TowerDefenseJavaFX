@@ -4,7 +4,6 @@ import sample.view.InfoPane;
 
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
-import sample.view.LoadingImage;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -98,10 +97,6 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
         this.rotateImage = rotateImage;
     }
 
-    public  ArrayList<StoppedObserver> getObservers() {
-        return observers;
-    }
-
     public double getDistance(@NotNull GameObject object) {
         return Math.sqrt(Math.pow(object.getPosX() - this.posX, 2) + Math.pow(object.getPosY() - this.posY, 2));
     }
@@ -160,9 +155,18 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
     @Override
     public void run() {
         for(Point p : path.getPoints()) {
-            if(posY  > p.getY()) imageView.setRotate(-90);
-            else if(posY  < p.getY()) imageView.setRotate(90);
-            else if (posX  < p.getX()) imageView.setRotate(0);
+            if(posY  > p.getY()) {
+                imageView.setRotate(-90);
+                rotateImage.setRotate(-90);
+            }
+            else if(posY  < p.getY()){
+                imageView.setRotate(90);
+                rotateImage.setRotate(90);
+            }
+            else if (posX  < p.getX()){
+                imageView.setRotate(0);
+                rotateImage.setRotate(0);
+            }
             while (getDistance(p) > 5 && alive){
                 move(p);
                 try {
