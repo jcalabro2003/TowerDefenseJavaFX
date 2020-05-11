@@ -9,6 +9,7 @@ import sample.view.LoadingImage;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class PNJ extends GameObject implements Movable, Runnable, Stop{
 
     private int health;
@@ -58,8 +59,6 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             t.start();
         }
     }
-
-
     public void setSpeed(double speed) throws InterruptedException {
         synchronized (myKey2){
             this.speed = speed;
@@ -75,7 +74,6 @@ public class PNJ extends GameObject implements Movable, Runnable, Stop{
             }
         }
     }
-
     public boolean isAlive() {
         return alive;
     }
